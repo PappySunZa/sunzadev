@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SunZaDev">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1d2e">
+<title>SunZaDev</title>
+
+<style>
+:root {
+  --bg:      #1a1d2e;
+  --bg2:     #242840;
+  --bg3:     #1e2135;
+  --border:  #2e3456;
+  --border2: #3a4170;
+  --text:    #e8edf7;
+  --text2:   #8892b0;
+  --text3:   #4a5470;
+  --accent:  #4f8ef7;
+  --accent2: #7c5af7;
+  --accentbg:rgba(79,142,247,.13);
+  --green:   #10d48e;
+  --greenbg: rgba(16,212,142,.12);
+  --red:     #ff6b6b;
+  --redbg:   rgba(255,107,107,.12);
+  --amber:   #ffb038;
+  --amberbg: rgba(255,176,56,.12);
+  --shadow:  0 2px 8px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.25);
+  --shadow2: 0 6px 20px rgba(0,0,0,.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+/* HEADER */
+.hdr {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 18px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+}
+.hdr::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.hdr-logo { display: flex; align-items: center; gap: 10px; }
+.hdr-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 2px 12px rgba(79,142,247,.4);
+}
+.hdr-texts { display: flex; flex-direction: column; gap: 1px; }
+.hdr-title { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
+.hdr-sub { font-size: 11px; color: var(--text2); font-weight: 400; }
+.hdr-clock { text-align: right; }
+.hdr-time { font-size: 17px; font-weight: 600; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--text); }
+.hdr-date { font-size: 10px; color: var(--text3); margin-top: 1px; text-transform: capitalize; }
+
+/* CONTENT */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px 90px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* TAB CONTENT */
+.tp { display: none; }
+.tp.on { display: block; }
+
+/* BOTTOM NAV */
+.bnav {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 500px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 50;
+  box-shadow: 0 -2px 12px rgba(0,0,0,.07);
+}
+.bnav-btn {
+  flex: 1; padding: 10px 2px 12px;
+  background: none; border: none;
+  color: var(--text3);
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.3px; text-transform: uppercase;
+  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  transition: color 0.15s;
+}
+.bnav-btn.on { color: var(--accent); }
+.bnav-ic { font-size: 20px; line-height: 1; }
+
+/* SECTION TITLE */
+.stitle {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--text2);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* CARD WRAPPER */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text2);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.card-title-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); display: inline-block;
+}
+
+/* FIELDS */
+.fg { margin-bottom: 10px; }
+.fg:last-child { margin-bottom: 0; }
+.fl {
+  font-size: 11px; font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 5px; display: block;
+}
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select {
+  width: 100%;
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  padding: 10px 13px;
+  font-size: 16px;
+  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+input:focus, select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79,142,247,.18);
+  background: #242840;
+}
+input::placeholder { color: var(--text3); }
+
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* POCHE SELECTOR */
+.psel { display: flex; gap: 8px; }
+.pbtn {
+  flex: 1; padding: 12px 8px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  color: var(--text2);
+  font-size: 14px; font-weight: 700;
+  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  border-radius: 8px; cursor: pointer;
+  transition: all 0.15s;
+}
+.pbtn.on {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accentbg);
+  box-shadow: 0 0 0 3px rgba(79,142,247,.18);
+}
+
+/* CALCULATED BOXES */
+.cbox {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.cbox::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--accent);
+  border-radius: 10px 0 0 10px;
+}
+.cbox.green::before { background: var(--green); }
+.cbox.blue::before  { background: var(--accent2); }
+.cbox.amber::before { background: var(--amber); }
+.cbox-lbl { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text2); margin-bottom: 4px; }
+.cbox-val { font-size: 26px; font-weight: 700; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--accent); }
+.cbox.green .cbox-val { color: var(--green); }
+.cbox.blue .cbox-val  { color: var(--accent2); }
+.cbox.amber .cbox-val { color: var(--amber); }
+.cbox-unit { font-size: 12px; color: var(--text2); margin-left: 4px; font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; }
+.cbox-formula { font-size: 10px; color: var(--text3); margin-top: 2px; }
+
+.rend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.rend-grid .cbox { margin-bottom: 0; }
+.rend-grid .cbox-val { font-size: 20px; }
+
+/* BUTTONS */
+.btn {
+  display: block; width: 100%;
+  padding: 13px 12px;
+  border: none; border-radius: 9px;
+  font-size: 13px; font-weight: 600;
+  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.3px;
+  cursor: pointer; transition: all 0.15s; margin-top: 8px;
+}
+.btn-p {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(79,142,247,.35);
+}
+.btn-p:active { opacity: .85; transform: scale(0.99); }
+.btn-s {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text2);
+}
+.btn-s:active { background: var(--bg3); }
+.btn-r { background: transparent; border: 1.5px solid var(--red); color: var(--red); }
+
+/* HR */
+hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+/* ALU RESULT */
+.alu-res {
+  background: rgba(79,142,247,.08);
+  border: 1.5px solid rgba(79,142,247,.25);
+  border-radius: 14px;
+  padding: 20px 16px 16px;
+  margin-top: 14px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(79,142,247,.1);
+}
+.alu-res-title {
+  font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--accent); margin-bottom: 10px;
+}
+.alu-res-big {
+  font-size: 56px; font-weight: 700;
+  font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
+  color: var(--accent);
+  line-height: 1;
+}
+.alu-res-unit { font-size: 22px; color: var(--text2); font-weight: 400; font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; }
+.alu-res-detail { font-size: 12px; color: var(--text2); margin-top: 10px; line-height: 1.7; }
+.alu-res-prev {
+  font-size: 11px; color: var(--text2);
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid rgba(79,142,247,.15);
+  text-align: left;
+}
+
+/* HISTORY */
+.hi {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  box-shadow: var(--shadow);
+}
+.hi:active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,63,212,.1); }
+.hi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.hi-date { font-size: 12px; color: var(--text2); font-weight: 500; }
+.hi-p {
+  font-size: 10px; font-weight: 700;
+  background: var(--accentbg);
+  color: var(--accent);
+  padding: 3px 10px; border-radius: 20px;
+  border: 1px solid rgba(79,142,247,.25);
+}
+.hi-vals { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+.hi-v {
+  text-align: center;
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 8px 4px;
+}
+.hi-vn { font-size: 15px; font-weight: 700; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--text); }
+.hi-vl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); margin-top: 2px; }
+.hi-foot {
+  font-size: 11px; color: var(--text2);
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.tag-ok   { color: var(--green); font-weight: 600; }
+.tag-pend { color: var(--amber); font-weight: 600; }
+
+/* SETTINGS GROUP */
+.sg {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow);
+}
+.sg-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-bottom: 12px; }
+
+/* INFO ROWS */
+.ir { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
+.ir:last-child { border-bottom: none; }
+.ir-k { font-size: 12px; color: var(--text2); }
+.ir-v { font-size: 13px; font-weight: 600; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--text); }
+
+/* MODAL */
+.ov { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.5); z-index: 200; align-items: flex-end; justify-content: center; backdrop-filter: blur(2px); }
+.ov.on { display: flex; }
+.modal {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  padding: 6px 0 0;
+  width: 100%; max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -8px 30px rgba(0,0,0,.15);
+}
+.modal-handle {
+  width: 36px; height: 4px;
+  background: var(--border2);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.modal-inner { padding: 0 18px 30px; }
+.modal-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
+.mbtns { display: flex; gap: 8px; margin-top: 14px; }
+.mbtns .btn { margin: 0; flex: 1; }
+
+/* TOAST */
+.toast {
+  position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: #fff;
+  padding: 10px 20px; border-radius: 25px;
+  font-size: 12px; font-weight: 600;
+  z-index: 999; opacity: 0; pointer-events: none;
+  transition: opacity .25s; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,.2);
+}
+.toast.on { opacity: 1; }
+.toast.ok  { background: var(--green); }
+.toast.err { background: var(--red); }
+
+/* EMPTY STATE */
+.empty { text-align: center; padding: 60px 20px; color: var(--text3); }
+.empty-ic { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
+.empty p { font-size: 13px; line-height: 1.6; }
+
+/* INFO BOX */
+.info-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 11px;
+  color: var(--text2);
+  line-height: 1.8;
+}
+.info-box strong { color: var(--text); }
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+/* PILL BADGE */
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.pill-green { background: var(--greenbg); color: var(--green); }
+.pill-amber { background: var(--amberbg); color: var(--amber); }
+.pill-blue  { background: var(--accentbg); color: var(--accent); }
+
+/* ESTIMATION RESULT BOXES */
+.est-metal-box {
+  background: rgba(16,212,142,.08);
+  border: 1.5px solid rgba(16,212,142,.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 10px 0;
+  text-align: center;
+}
+.est-metal-val {
+  font-size: 44px;
+  font-weight: 700;
+  font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
+  color: var(--green);
+  line-height: 1.1;
+}
+.est-metal-val.warn { color: var(--amber); }
+.est-unit {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text2);
+  font-family: ui-rounded, -apple-system, sans-serif;
+}
+.est-formula {
+  font-size: 11px;
+  color: var(--text2);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.est-formula code {
+  background: rgba(0,0,0,.05);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-family: ui-monospace, 'SF Mono', monospace;
+  font-size: 11px;
+}
+.est-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 10px 0;
+}
+.est-box {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.est-box::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0; width: 4px;
+  background: var(--accent);
+  border-radius: 10px 0 0 10px;
+}
+.est-box.green::before { background: var(--green); }
+.est-box.amber::before { background: var(--amber); }
+.est-box-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text2); margin-bottom: 4px; }
+.est-box-val { font-size: 24px; font-weight: 700; font-family: ui-monospace, 'SF Mono', monospace; color: var(--accent); }
+.est-box.green .est-box-val { color: var(--green); }
+.est-box.amber .est-box-val { color: var(--amber); }
+.est-box-unit { font-size: 11px; color: var(--text2); margin-left: 2px; }
+.est-rendement-bar {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 8px 0;
+}
+.est-rendement-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+.est-rendement-row:last-child { border-bottom: none; }
+.est-rend-k { color: var(--text2); }
+.est-rend-v { font-weight: 700; font-family: ui-monospace, 'SF Mono', monospace; color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- ÉCRAN MOT DE PASSE -->
+<div id="lockscreen" style="
+  position:fixed;inset:0;z-index:9999;
+  background:#1a1d2e;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:20px;padding:30px;
+">
+  <div style="font-size:52px;">⚗️</div>
+  <div style="font-size:22px;font-weight:700;color:#e8edf7;letter-spacing:-0.5px;">SunZaDev</div>
+  <div style="font-size:13px;color:#8892b0;">Accès protégé</div>
+  <input id="pwd-input" type="password" placeholder="Mot de passe"
+    style="
+      width:100%;max-width:280px;
+      background:#242840;border:1.5px solid #2e3456;
+      color:#e8edf7;padding:14px 18px;
+      font-size:16px;border-radius:12px;
+      outline:none;text-align:center;
+      font-family:ui-rounded,-apple-system,sans-serif;
+    "
+    onkeydown="if(event.key==='Enter')checkPwd()"
+  >
+  <button onclick="checkPwd()" style="
+    width:100%;max-width:280px;
+    padding:14px;border:none;border-radius:12px;
+    background:linear-gradient(135deg,#4f8ef7,#7c5af7);
+    color:#fff;font-size:16px;font-weight:700;
+    font-family:ui-rounded,-apple-system,sans-serif;
+    cursor:pointer;
+    box-shadow:0 4px 16px rgba(79,142,247,.4);
+  ">Entrer</button>
+  <div id="pwd-err" style="color:#ff6b6b;font-size:13px;display:none;">Mot de passe incorrect</div>
+</div>
+
+<script>
+function checkPwd() {
+  const val = document.getElementById('pwd-input').value;
+  const hash = val.split('').reduce((a,c)=>((a<<5)-a+c.charCodeAt(0))|0,0);
+  if (hash === -601088647) {
+    document.getElementById('lockscreen').style.display='none';
+    sessionStorage.setItem('unlocked','1');
+  } else {
+    document.getElementById('pwd-err').style.display='block';
+    document.getElementById('pwd-input').value='';
+    document.getElementById('pwd-input').focus();
+  }
+}
+if (sessionStorage.getItem('unlocked')==='1') {
+  document.getElementById('lockscreen').style.display='none';
+}
+</script>
+
+<div class="hdr">
+  <div class="hdr-logo">
+    <div class="hdr-icon">⚗️</div>
+    <div class="hdr-texts">
+      <div class="hdr-title">SunZaDev</div>
+    </div>
+  </div>
+  <div class="hdr-clock">
+    <div class="hdr-time" id="hdrTime">--:--</div>
+    <div class="hdr-date" id="hdrDate">---</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- ======= TAB 1 : COULÉE ======= -->
+  <div class="tp on" id="tp-c">
+    <div class="stitle">Nouvelle Coulée</div>
+
+    <div class="row2">
+      <div class="fg"><label class="fl">Date</label><input type="date" id="inp-date"></div>
+      <div class="fg"><label class="fl">Heure</label><input type="time" id="inp-heure"></div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">Poche</label>
+      <div class="psel">
+        <button class="pbtn on" id="pb1" onclick="selPoche(1)">POCHE 1</button>
+        <button class="pbtn"    id="pb2" onclick="selPoche(2)">POCHE 2</button>
+      </div>
+    </div>
+
+    <hr>
+    <div class="stitle" style="margin-top:2px;">Pesées</div>
+
+    <div class="fg">
+      <label class="fl">Poche Pleine (kg)</label>
+      <input type="number" id="ip-pp" placeholder="ex : 25 000" oninput="calc()">
+    </div>
+    <div class="fg">
+      <label class="fl">Poche Après Recouler (kg)</label>
+      <input type="number" id="ip-pr" placeholder="ex : 20 000" oninput="calc()">
+    </div>
+
+    <div class="cbox green">
+      <div class="cbox-lbl">Métal (Pleine − Après recouler)</div>
+      <span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span>
+      <div class="cbox-formula" id="c-metal-f"></div>
+    </div>
+
+    <div class="fg">
+      <label class="fl">Poche Vide / Après Nettoyage (kg)</label>
+      <input type="number" id="ip-pv" placeholder="ex : 18 500" oninput="calc()">
+    </div>
+
+    <div class="cbox yellow">
+      <div class="cbox-lbl">Poids Crasse (Après recouler − Poche vide)</div>
+      <span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span>
+    </div>
+
+    <hr>
+    <div class="stitle">Four &amp; Rendement</div>
+
+    <div class="row2">
+      <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="ip-pw" value="30" oninput="calc()"></div>
+      <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="ip-tm" value="180" oninput="calc()"></div>
+    </div>
+
+    <div class="rend-grid">
+      <div class="cbox blue">
+        <div class="cbox-lbl">Débit (t/h)</div>
+        <span class="cbox-val" id="c-debit">—</span>
+        <div class="cbox-formula">(Métal ÷ Temps) × 60 ÷ 1000</div>
+      </div>
+      <div class="cbox">
+        <div class="cbox-lbl">Rendement Four (MWh/t)</div>
+        <span class="cbox-val" id="c-rend">—</span>
+        <div class="cbox-formula">Puissance ÷ Débit t/h</div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="stitle">Aluminium</div>
+
+    <div class="fg">
+      <label class="fl">Alu Estimé Ajouté (kg) — facultatif</label>
+      <input type="number" id="ip-ae" placeholder="ex : 23" step="0.1">
+    </div>
+    <div class="fg">
+      <label class="fl">Analyse Al% Laboratoire — à remplir plus tard</label>
+      <input type="number" id="ip-aa" placeholder="ex : 0.21" step="0.001">
+    </div>
+
+    <button class="btn btn-p" onclick="saveCoulee()">💾 &nbsp;ENREGISTRER LA COULÉE</button>
+    <button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser le formulaire</button>
+  </div>
+
+  <!-- ======= TAB 2 : ESTIMATION ======= -->
+  <div class="tp" id="tp-a">
+    <div class="stitle">Estimation Poche — Pré-coulée</div>
+
+    <div class="info-box" style="margin-bottom:14px;">
+      Sélectionnez la poche, entrez le <strong>poids poche pleine sortie de four</strong> et la <strong>puissance du four</strong>.
+      L'app calcule le métal estimé et le rendement attendu.
+    </div>
+
+    <div class="fg">
+      <label class="fl">Poche</label>
+      <div class="psel">
+        <button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button>
+        <button class="pbtn"    id="apb2" onclick="selAluPoche(2)">POCHE 2</button>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="fg">
+        <label class="fl">Poids Poche Pleine (kg)</label>
+        <input type="number" id="alu-pp" placeholder="ex : 25 560" oninput="calcAlu()">
+      </div>
+      <div class="fg">
+        <label class="fl">Puissance Four (MW/h)</label>
+        <input type="number" id="alu-pw" placeholder="ex : 30" oninput="calcAlu()">
+      </div>
+    </div>
+
+    <div id="alu-res-zone"></div>
+
+    <hr>
+    <div class="stitle">Paramètre Cible</div>
+    <div class="fg">
+      <label class="fl">Cible Al% appliqué sur métal estimé</label>
+      <input type="number" id="alu-target" step="0.001" placeholder="ex : 0.21" oninput="saveSetting('aluTarget',this.value);calcAlu()">
+    </div>
+    <div class="info-box">
+      <strong>Formule métal estimé :</strong><br>
+      Métal = Poche pleine − Poids vide moyen − Crasse moyenne<br><br>
+      <strong>Rendement estimé :</strong><br>
+      Rendement = Puissance four ÷ Débit (t/h)<br>
+      Débit = Métal estimé ÷ Temps moyen × 60 ÷ 1000<br><br>
+      ⚠ Nécessite des coulées avec <strong>Poche vide</strong> renseignée pour la méthode précise.
+    </div>
+  </div>
+
+  <!-- ======= TAB 3 : HISTORIQUE ======= -->
+  <div class="tp" id="tp-h">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <div class="stitle" style="margin:0;border:none;">Historique</div>
+      <select id="filt" onchange="renderHist()" style="width:auto;padding:6px 28px 6px 10px;font-size:11px;">
+        <option value="0">Toutes</option>
+        <option value="1">Poche 1</option>
+        <option value="2">Poche 2</option>
+      </select>
+    </div>
+    <div id="hist-list"></div>
+  </div>
+
+  <!-- ======= TAB 4 : PARAMÈTRES ======= -->
+  <div class="tp" id="tp-s">
+    <div class="stitle">Paramètres</div>
+
+    <div class="sg">
+      <div class="sg-title">Valeurs par défaut</div>
+      <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="s-pw" oninput="saveSetting('pw',this.value)"></div>
+      <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="s-tm" oninput="saveSetting('tm',this.value)"></div>
+      <div class="fg"><label class="fl">Cible Aluminium (%)</label><input type="number"  id="s-at" step="0.001" oninput="saveSetting('aluTarget',this.value);syncAluTarget()"></div>
+    </div>
+
+    <div class="sg">
+      <div class="sg-title">Données stockées</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;" id="data-info">Chargement…</div>
+      <button class="btn btn-s" onclick="exportJSON()" style="margin-top:0;">📤 &nbsp;Exporter toutes les coulées (JSON)</button>
+      <button class="btn btn-r" onclick="openModal('ov-clr')">🗑 &nbsp;Effacer toutes les données</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="bnav-btn on" id="nb-c" onclick="goTab('c')"><span class="bnav-ic">🔥</span>Coulée</button>
+  <button class="bnav-btn"    id="nb-a" onclick="goTab('a')"><span class="bnav-ic">⚗️</span>Estimation</button>
+  <button class="bnav-btn"    id="nb-h" onclick="goTab('h')"><span class="bnav-ic">📋</span>Historique</button>
+  <button class="bnav-btn"    id="nb-s" onclick="goTab('s')"><span class="bnav-ic">⚙️</span>Réglages</button>
+</nav>
+
+<!-- MODAL DETAIL COULÉE -->
+<div class="ov" id="ov-det">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-inner">
+      <div class="modal-title">Détail Coulée</div>
+      <div id="mod-det-body"></div>
+      <div class="mbtns">
+        <button class="btn btn-s" onclick="closeModal('ov-det')">Fermer</button>
+        <button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SAISIE ANALYSE AL -->
+<div class="ov" id="ov-alu">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-inner">
+      <div class="modal-title">Analyse Laboratoire</div>
+      <div class="fg"><label class="fl">Résultat Analyse Al%</label>
+        <input type="number" id="m-alu-pct" step="0.001" placeholder="ex : 0.21"></div>
+      <div class="fg"><label class="fl">Aluminium réel ajouté (kg) — optionnel</label>
+        <input type="number" id="m-alu-reel" placeholder="ex : 23" step="0.1"></div>
+      <div class="mbtns">
+        <button class="btn btn-s" onclick="closeModal('ov-alu')">Annuler</button>
+        <button class="btn btn-p" onclick="saveAlu()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRM CLEAR -->
+<div class="ov" id="ov-clr">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-inner">
+      <div class="modal-title">Effacer les données ?</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Toutes les coulées enregistrées seront supprimées définitivement. Pensez à exporter avant.
+      </p>
+      <div class="mbtns">
+        <button class="btn btn-s" onclick="closeModal('ov-clr')">Annuler</button>
+        <button class="btn btn-r" onclick="clearAll()">Tout effacer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let curPoche  = 1;
+let aluPoche  = 1;
+let selId     = null;
+let cfg = { pw:30, tm:180, aluTarget:0.21 };
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+function init() {
+  loadCfg();
+  setNow();
+  clockTick();
+  setInterval(clockTick, 10000);
+  applySettingsUI();
+  renderHist();
+  updateDataInfo();
+  genIcon();
+}
+
+function clockTick() {
+  const n = new Date();
+  document.getElementById('hdrTime').textContent =
+    n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('hdrDate').textContent =
+    n.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'2-digit',year:'2-digit'});
+}
+
+function setNow() {
+  const n = new Date();
+  document.getElementById('inp-date').value = n.toISOString().slice(0,10);
+  document.getElementById('inp-heure').value = n.toTimeString().slice(0,5);
+}
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function goTab(t) {
+  ['c','a','h','s'].forEach(x => {
+    document.getElementById('tp-'+x).classList.toggle('on', x===t);
+    document.getElementById('nb-'+x).classList.toggle('on', x===t);
+  });
+  if (t==='h') renderHist();
+  if (t==='s') updateDataInfo();
+}
+
+// ─── POCHE SELECT ─────────────────────────────────────────────────────────────
+function selPoche(n) {
+  curPoche = n;
+  document.getElementById('pb1').classList.toggle('on', n===1);
+  document.getElementById('pb2').classList.toggle('on', n===2);
+}
+function selAluPoche(n) {
+  aluPoche = n;
+  document.getElementById('apb1').classList.toggle('on', n===1);
+  document.getElementById('apb2').classList.toggle('on', n===2);
+  calcAlu();
+}
+
+// ─── FORM CALCULATIONS ───────────────────────────────────────────────────────
+function v(id) { return parseFloat(document.getElementById(id).value)||0; }
+function fmt(n) { return n.toLocaleString('fr-FR'); }
+
+function calc() {
+  const pp = v('ip-pp'), pr = v('ip-pr'), pv = v('ip-pv');
+  const pw = v('ip-pw'), tm = v('ip-tm');
+  const metal  = pp - pr;
+  const crasse = pr - pv;
+
+  if (pp>0 && pr>0 && metal>0) {
+    document.getElementById('c-metal').textContent   = fmt(metal);
+    document.getElementById('c-metal-f').textContent = fmt(pp)+' − '+fmt(pr)+' = '+fmt(metal)+' kg';
+  } else {
+    document.getElementById('c-metal').textContent   = '—';
+    document.getElementById('c-metal-f').textContent = '';
+  }
+
+  document.getElementById('c-crasse').textContent = (pr>0&&pv>0&&crasse>=0) ? fmt(crasse) : '—';
+
+  if (metal>0 && pw>0 && tm>0) {
+    const debitKgMin = metal / tm;           // kg/min
+    const debitTh    = debitKgMin * 60 / 1000; // t/h  (×60 → kg/h, ÷1000 → t/h)
+    const rend       = pw / debitTh;         // MW ÷ t/h = MWh/t
+    document.getElementById('c-debit').textContent = debitTh.toFixed(3);
+    document.getElementById('c-rend').textContent  = rend.toFixed(2);
+  } else {
+    document.getElementById('c-debit').textContent = '—';
+    document.getElementById('c-rend').textContent  = '—';
+  }
+}
+
+// ─── ESTIMATION POCHE (poids vide + crasse) ──────────────────────────────────
+function calcAlu() {
+  const pocheNew = v('alu-pp');
+  const zone = document.getElementById('alu-res-zone');
+  if (!pocheNew) { zone.innerHTML=''; return; }
+
+  const target = parseFloat(document.getElementById('alu-target').value)||cfg.aluTarget;
+
+  // Historique de cette poche, du plus récent au plus ancien
+  const hist = getHistory().filter(c => c.poche===aluPoche).sort((a,b)=>b.id-a.id);
+
+  // ── 1. Estimation du métal : Poche pleine − poids vide − crasse ────────────
+  const withVide = hist.filter(c => c.poche_vide != null && c.crasse != null && c.crasse >= 0);
+  let avgVide = null, avgCrasse = null, metalEst = null, methode = 'ratio';
+
+  if (withVide.length) {
+    avgVide   = withVide.reduce((s,c)=>s+c.poche_vide, 0) / withVide.length;
+    avgCrasse = withVide.reduce((s,c)=>s+c.crasse,     0) / withVide.length;
+    metalEst  = pocheNew - avgVide - avgCrasse;
+    if (metalEst < 0) metalEst = 0;
+    methode = 'vide_crasse';
+  } else if (hist.length) {
+    // Fallback : ratio métal/poche_pleine
+    const n = Math.min(hist.length, 3);
+    const ratio = hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0) / n;
+    metalEst = pocheNew * ratio;
+    methode = 'ratio';
+  }
+
+  // ── 2. Estimation Al : efficacité moyenne sur 3 dernières coulées complètes ─
+  const completes = hist.filter(c => c.alu_estime && c.alu_analyse_pct && c.metal);
+  const refs = completes.slice(0, 3);
+  let aluEst = null, effMoy = null;
+  if (refs.length && metalEst) {
+    const efficiencies = refs.map(c => c.alu_estime / (c.alu_analyse_pct * c.metal));
+    effMoy = efficiencies.reduce((s,e)=>s+e, 0) / refs.length;
+    aluEst = effMoy * target * metalEst;
+  }
+
+  // ── 3. Rendement estimé avec la puissance saisie ─────────────────────────────
+  const puissanceEst = parseFloat(document.getElementById('alu-pw').value) || cfg.pw;
+  const withTm  = hist.filter(c => c.temps).slice(0, 3);
+  const avgTm   = withTm.length ? withTm.reduce((s,c)=>s+c.temps,0)/withTm.length : cfg.tm;
+
+  let rendEst = null;
+  if (metalEst && avgTm && puissanceEst) {
+    const debitEst = (metalEst / avgTm) * 60 / 1000; // t/h
+    rendEst = puissanceEst / debitEst;                // MWh/t
+  }
+
+  // Rendement moyen historique (pour comparaison)
+  const withRend = hist.filter(c => c.rendement).slice(0, 3);
+  const rendMoy = withRend.length
+    ? (withRend.reduce((s,c)=>s+c.rendement,0) / withRend.length)
+    : null;
+
+  // ── 4. Construction HTML ────────────────────────────────────────────────────
+  let html;
+
+  if (!hist.length) {
+    html=`<div class="alu-res">
+      <div class="alu-res-title">⚗ Estimation — Poche ${aluPoche}</div>
+      <div class="alu-res-big">—</div>
+      <div class="alu-res-detail" style="color:var(--amber);">
+        ⚠ Aucun historique pour cette poche.<br>
+        Enregistrez au moins une coulée pour obtenir une estimation.
+      </div>
+    </div>`;
+  } else {
+    // Bloc métal estimé
+    const metalStr = metalEst != null ? Math.round(metalEst).toLocaleString('fr-FR') : '—';
+    let formuleTxt = '';
+    if (methode==='vide_crasse' && avgVide!=null) {
+      formuleTxt = `<div class="est-formula">
+        <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
+        − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(poids vide moy. · ${withVide.length} ref.)</span>
+        − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(crasse moy.)</span>
+      </div>`;
+    } else {
+      formuleTxt = `<div class="est-formula" style="color:var(--amber);">
+        ⚠ Méthode ratio utilisée — renseignez le <strong>poids vide</strong> dans vos coulées pour plus de précision.
+      </div>`;
+    }
+
+    // Al estimé box
+    const aluStr     = aluEst  ? aluEst.toFixed(1)  : '—';
+    const rendEstStr = rendEst ? rendEst.toFixed(2)  : '—';
+    const rendDelta  = (rendEst && rendMoy)
+      ? `<div style="font-size:10px;margin-top:3px;color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'};">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`
+      : `<div style="font-size:10px;color:var(--text2);margin-top:3px;">${puissanceEst} MW/h · ${Math.round(avgTm)} min</div>`;
+
+    // Rendement Al : comparaison efficacité vs 1 (neutre)
+    let rendAluTxt = '';
+    if (effMoy) {
+      const rendAl = (1/effMoy).toFixed(3);
+      rendAluTxt = `<div class="est-rendement-row">
+        <span class="est-rend-k">Efficacité Al (réelle)</span>
+        <span class="est-rend-v">${rendAl} %·kg/kg</span>
+      </div>`;
+    }
+
+    // Badge précision
+    const badge = refs.length < 3
+      ? `<span style="color:var(--amber);font-size:10px;">⏳ ${refs.length}/3 coulées Al</span>`
+      : `<span style="color:var(--green);font-size:10px;">✓ Moyenne 3 coulées</span>`;
+
+    // Lignes de référence Al
+    const lignesAl = refs.map((c) => {
+      const d = new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+      return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:11px;">
+        <span style="color:var(--text2)">${d} · ${fmt(c.metal)} kg métal</span>
+        <span>${c.alu_estime} kg → <span class="tag-ok">${c.alu_analyse_pct}%</span></span>
+      </div>`;
+    }).join('');
+
+    html=`<div class="alu-res">
+      <div class="alu-res-title">⚗ Estimation — Poche ${aluPoche}</div>
+
+      <div class="est-metal-box">
+        <div class="cbox-lbl">Métal estimé</div>
+        <div class="est-metal-val">${metalStr} <span class="est-unit">kg</span></div>
+        ${formuleTxt}
+      </div>
+
+      <div class="est-grid">
+        <div class="est-box green">
+          <div class="est-box-lbl">Al à ajouter</div>
+          <div class="est-box-val">${aluStr}<span class="est-box-unit">kg</span></div>
+          <div style="font-size:10px;color:var(--text2);margin-top:3px;">cible ${target}%</div>
+        </div>
+        <div class="est-box amber">
+          <div class="est-box-lbl">Rendement estimé</div>
+          <div class="est-box-val">${rendEstStr}<span class="est-box-unit">MWh/t</span></div>
+          ${rendDelta}
+        </div>
+      </div>
+
+      <div class="est-rendement-bar">
+        ${rendAluTxt}
+        <div class="est-rendement-row">
+          <span class="est-rend-k">Puissance four</span>
+          <span class="est-rend-v" style="color:var(--accent)">${puissanceEst} MW/h</span>
+        </div>
+        ${rendEst && metalEst ? `<div class="est-rendement-row">
+          <span class="est-rend-k">Débit estimé</span>
+          <span class="est-rend-v">${((metalEst/avgTm)*60/1000).toFixed(3)} t/h</span>
+        </div>` : ''}
+        ${rendMoy ? `<div class="est-rendement-row">
+          <span class="est-rend-k">Rendement four moyen</span>
+          <span class="est-rend-v">${rendMoy.toFixed(2)} MWh/t</span>
+        </div>` : ''}
+        ${avgVide!=null ? `<div class="est-rendement-row">
+          <span class="est-rend-k">Poids vide moyen</span>
+          <span class="est-rend-v">${Math.round(avgVide).toLocaleString('fr-FR')} kg</span>
+        </div>
+        <div class="est-rendement-row">
+          <span class="est-rend-k">Crasse moyenne</span>
+          <span class="est-rend-v">${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>
+        </div>` : ''}
+        <div class="est-rendement-row">
+          <span class="est-rend-k">Références disponibles</span>
+          <span class="est-rend-v">${hist.length} coulée${hist.length>1?'s':''}</span>
+        </div>
+      </div>
+
+      ${refs.length ? `<div class="alu-res-prev">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <strong style="font-size:11px;">Références Al utilisées</strong>${badge}
+        </div>
+        ${lignesAl}
+      </div>` : `<div class="alu-res-prev" style="color:var(--amber);font-size:11px;">
+        ⚠ Aucune coulée avec analyse Al%. La quantité d'alu ne peut pas être calculée.<br>
+        Renseignez le résultat labo dans l'<strong>Historique</strong>.
+      </div>`}
+    </div>`;
+  }
+  zone.innerHTML = html;
+}
+
+// ─── SAVE / LOAD ─────────────────────────────────────────────────────────────
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('fc_coulees')||'[]'); }
+  catch { return []; }
+}
+function saveHistory(d) { localStorage.setItem('fc_coulees', JSON.stringify(d)); }
+
+function saveCoulee() {
+  const pp = v('ip-pp'), pr = v('ip-pr');
+  if (!pp||!pr) { toast('⚠ Poids poche pleine et après recouler requis', true); return; }
+
+  const pv = v('ip-pv'), pw = v('ip-pw')||cfg.pw, tm = v('ip-tm')||cfg.tm;
+  const metal  = pp-pr;
+  const crasse = pr-pv;
+  const debitTh = (metal/tm)*60/1000;
+  const rend    = pw/debitTh;
+
+  const c = {
+    id:           Date.now(),
+    date:         document.getElementById('inp-date').value,
+    heure:        document.getElementById('inp-heure').value,
+    poche:        curPoche,
+    poche_pleine: pp,
+    poche_apres:  pr,
+    poche_vide:   pv||null,
+    puissance:    pw,
+    temps:        tm,
+    metal,
+    crasse:       (pv&&crasse>=0)?crasse:null,
+    debit:        +debitTh.toFixed(4),
+    rendement:    +rend.toFixed(5),
+    alu_estime:   v('ip-ae')||null,
+    alu_analyse_pct: v('ip-aa')||null,
+    alu_reel:     null
+  };
+
+  const d = getHistory();
+  d.push(c);
+  saveHistory(d);
+  toast('✓ Coulée enregistrée');
+  resetForm();
+  updateDataInfo();
+}
+
+function resetForm() {
+  ['ip-pp','ip-pr','ip-pv','ip-ae','ip-aa'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('ip-pw').value = cfg.pw;
+  document.getElementById('ip-tm').value = cfg.tm;
+  ['c-metal','c-crasse','c-debit','c-rend'].forEach(id => document.getElementById(id).textContent='—');
+  document.getElementById('c-metal-f').textContent='';
+  setNow();
+}
+
+// ─── HISTORY ─────────────────────────────────────────────────────────────────
+function renderHist() {
+  const filt = parseInt(document.getElementById('filt').value)||0;
+  let data = getHistory().sort((a,b)=>b.id-a.id);
+  if (filt>0) data = data.filter(c=>c.poche===filt);
+
+  const el = document.getElementById('hist-list');
+  if (!data.length) {
+    el.innerHTML=`<div class="empty"><div class="empty-ic">📋</div>Aucune coulée enregistrée</div>`;
+    return;
+  }
+
+  el.innerHTML = data.map(c => {
+      const aluTag = c.alu_analyse_pct
+      ? `<span class="tag-ok">✓ ${c.alu_analyse_pct}%</span>`
+      : `<span class="tag-pend">⏳ analyse en attente</span>`;
+    const aluVal = c.alu_analyse_pct
+      ? `<div class="hi-vn tag-ok">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`
+      : c.alu_estime
+        ? `<div class="hi-vn tag-pend">${c.alu_estime} kg</div><div class="hi-vl">Al estimé</div>`
+        : `<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
+    return `<div class="hi" onclick="openDet(${c.id})">
+      <div class="hi-top">
+        <div class="hi-date">${c.date} &nbsp;${c.heure}</div>
+        <div class="hi-p">P${c.poche}</div>
+      </div>
+      <div class="hi-vals">
+        <div class="hi-v"><div class="hi-vn">${fmt(c.poche_pleine)}</div><div class="hi-vl">Pleine kg</div></div>
+        <div class="hi-v"><div class="hi-vn">${fmt(c.metal)}</div><div class="hi-vl">Métal kg</div></div>
+        <div class="hi-v">${aluVal}</div>
+      </div>
+      <div class="hi-foot">
+        <span>Rendement : <strong style="color:var(--accent2)">${c.rendement} MWh/t</strong></span>
+        ${aluTag}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── DETAIL MODAL ────────────────────────────────────────────────────────────
+function openDet(id) {
+  const c = getHistory().find(x=>x.id===id);
+  if(!c) return;
+  selId = id;
+  const row = (k,v,cls='')=>`<div class="ir"><span class="ir-k">${k}</span><span class="ir-v ${cls}">${v}</span></div>`;
+  document.getElementById('mod-det-body').innerHTML = [
+    row('Date / Heure',         `${c.date} &nbsp;${c.heure}`),
+    row('Poche',                `Poche ${c.poche}`),
+    row('Poche Pleine',         `${fmt(c.poche_pleine)} kg`),
+    row('Après Recouler',       `${fmt(c.poche_apres)} kg`),
+    row('Métal',                `${fmt(c.metal)} kg`, 'tag-ok'),
+    c.poche_vide ? row('Poche Vide',   `${fmt(c.poche_vide)} kg`) : '',
+    c.crasse!=null ? row('Crasse',     `${fmt(c.crasse)} kg`, 'tag-pend') : '',
+    row('Puissance Four',       `${c.puissance} MW/h`),
+    row('Temps Coulée',         `${c.temps} min`),
+    row('Débit',                `${c.debit} t/h`),
+    row('Rendement Four',       `${c.rendement} MWh/t`, 'tag-ok'),
+    row('Al Estimé Ajouté',     c.alu_estime ? `${c.alu_estime} kg` : '—'),
+    row('Al Analyse %',         c.alu_analyse_pct ? `${c.alu_analyse_pct}%` : '⏳ En attente',
+                                c.alu_analyse_pct ? 'tag-ok' : 'tag-pend'),
+    c.alu_reel ? row('Al Réel Ajouté', `${c.alu_reel} kg`, 'tag-ok') : ''
+  ].join('');
+  document.getElementById('btn-aa').style.display = c.alu_analyse_pct ? 'none' : 'block';
+  openModal('ov-det');
+}
+
+function openAluModal() {
+  closeModal('ov-det');
+  document.getElementById('m-alu-pct').value  = '';
+  document.getElementById('m-alu-reel').value = '';
+  openModal('ov-alu');
+}
+
+function saveAlu() {
+  const pct  = parseFloat(document.getElementById('m-alu-pct').value);
+  const reel = parseFloat(document.getElementById('m-alu-reel').value)||null;
+  if (!pct) { toast('⚠ Entrez la valeur Al%', true); return; }
+  const d   = getHistory();
+  const idx = d.findIndex(c=>c.id===selId);
+  if (idx>=0) {
+    d[idx].alu_analyse_pct = pct;
+    if (reel) d[idx].alu_reel = reel;
+    saveHistory(d);
+    toast('✓ Analyse Al enregistrée');
+    closeModal('ov-alu');
+    renderHist();
+  }
+}
+
+// ─── SETTINGS ────────────────────────────────────────────────────────────────
+function loadCfg() {
+  try {
+    const s = JSON.parse(localStorage.getItem('fc_cfg')||'{}');
+    cfg.pw        = +s.pw        || 30;
+    cfg.tm        = +s.tm        || 180;
+    cfg.aluTarget = +s.aluTarget || 0.21;
+  } catch {}
+}
+
+function saveSetting(k,val) {
+  cfg[k] = parseFloat(val)||cfg[k];
+  localStorage.setItem('fc_cfg', JSON.stringify(cfg));
+}
+
+function applySettingsUI() {
+  document.getElementById('s-pw').value  = cfg.pw;
+  document.getElementById('s-tm').value  = cfg.tm;
+  document.getElementById('s-at').value  = cfg.aluTarget;
+  document.getElementById('ip-pw').value = cfg.pw;
+  document.getElementById('ip-tm').value = cfg.tm;
+  document.getElementById('alu-pw').value = cfg.pw;
+  syncAluTarget();
+}
+
+function syncAluTarget() {
+  cfg.aluTarget = parseFloat(document.getElementById('s-at').value)||0.21;
+  document.getElementById('alu-target').value = cfg.aluTarget;
+  document.getElementById('s-at').value       = cfg.aluTarget;
+}
+
+function updateDataInfo() {
+  const n = getHistory().length;
+  const el = document.getElementById('data-info');
+  if (el) el.textContent = n + ' coulée' + (n!==1?'s':'') + ' enregistrée' + (n!==1?'s':'');
+}
+
+// ─── EXPORT ──────────────────────────────────────────────────────────────────
+function exportJSON() {
+  const d   = getHistory();
+  const json= JSON.stringify(d, null, 2);
+  const url = URL.createObjectURL(new Blob([json],{type:'application/json'}));
+  const a   = document.createElement('a');
+  a.href = url;
+  a.download = 'ferrocalc_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  toast('✓ Export téléchargé');
+}
+
+function clearAll() {
+  localStorage.removeItem('fc_coulees');
+  closeModal('ov-clr');
+  renderHist();
+  updateDataInfo();
+  toast('✓ Données effacées');
+}
+
+// ─── MODAL / TOAST ───────────────────────────────────────────────────────────
+function openModal(id)  { document.getElementById(id).classList.add('on'); }
+function closeModal(id) { document.getElementById(id).classList.remove('on'); }
+
+let toastT;
+function toast(msg, err=false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast on' + (err?' err':' ok');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>{ el.classList.remove('on'); }, 2500);
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.ov').forEach(ov => ov.addEventListener('click', e => {
+  if (e.target===ov) closeModal(ov.id);
+}));
+
+// ─── START ────────────────────────────────────────────────────────────────────
+function genIcon() {
+  try {
+    const c = document.createElement('canvas');
+    c.width = c.height = 512;
+    const ctx = c.getContext('2d');
+    // Fond arrondi bleu
+    const r = 100;
+    ctx.beginPath();
+    ctx.moveTo(r,0); ctx.lineTo(512-r,0);
+    ctx.arcTo(512,0,512,r,r); ctx.lineTo(512,512-r);
+    ctx.arcTo(512,512,512-r,512,r); ctx.lineTo(r,512);
+    ctx.arcTo(0,512,0,512-r,r); ctx.lineTo(0,r);
+    ctx.arcTo(0,0,r,0,r); ctx.closePath();
+    ctx.fillStyle='#1a1d2e'; ctx.fill();
+    // Lueur
+    const g = ctx.createRadialGradient(256,200,0,256,256,350);
+    g.addColorStop(0,'rgba(124,90,247,.4)'); g.addColorStop(1,'rgba(79,142,247,.1)');
+    ctx.fillStyle=g; ctx.fill();
+    // Emoji
+    ctx.font='280px serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('⚗',258,270);
+    const link=document.createElement('link');
+    link.rel='apple-touch-icon'; link.sizes='512x512';
+    link.href=c.toDataURL('image/png');
+    document.head.appendChild(link);
+  } catch(e){}
+}
+init();
+</script>
+</body>
+</html>
