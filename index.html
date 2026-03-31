@@ -713,6 +713,23 @@ if (localStorage.getItem('unlocked')==='1' || sessionStorage.getItem('unlocked')
   </div>
 </div>
 
+<div class="row2">
+  <div class="fg">
+    <label class="fl">Temps Coulée (min)</label>
+    <input type="number" id="alu-tm" placeholder="ex : 180" oninput="calcAlu()">
+  </div>
+  <div class="fg">
+    <label class="fl">Ajout (kg)</label>
+    <input type="number" id="alu-aj" placeholder="ex : 500" step="1" oninput="calcAlu()">
+  </div>
+</div>
+<div class="fg" style="display:flex;flex-direction:column;justify-content:flex-end;">
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:11px 13px;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;">
+      <input type="checkbox" id="alu-fleuret" onchange="calcAlu()" style="width:18px;height:18px;accent-color:var(--accent);flex-shrink:0;">
+      <span style="font-size:14px;font-weight:600;color:var(--text);">🗡 Fleuret <span style="font-size:11px;color:var(--accent);font-weight:700;">+1 000 kg</span></span>
+    </label>
+  </div>
+
 <div id="alu-res-zone"></div>
 
 <hr>
@@ -1036,25 +1053,34 @@ function calcAlu() {
     methode = 'ratio';
   }
 
-  // ── 2. Estimation Al : efficacité moyenne sur 3 dernières coulées complètes ─
+  // ── 2. Ajout + Fleuret → Métal Net pour rendement ───────────────────────────
+  const ajoutEst   = parseFloat(document.getElementById('alu-aj').value) || 0;
+  const fleuret    = document.getElementById('alu-fleuret').checked;
+  const fleuretKg  = fleuret ? 1000 : 0;
+  const metalNet   = metalEst != null ? Math.max(0, metalEst - ajoutEst + fleuretKg) : null;
+
+  // ── 3. Estimation Al : sur métal BRUT estimé ────────────────────────────────
   const completes = hist.filter(c => c.alu_estime && c.alu_analyse_pct && c.metal);
   const refs = completes.slice(0, 3);
   let aluEst = null, effMoy = null;
   if (refs.length && metalEst) {
     const efficiencies = refs.map(c => c.alu_estime / (c.alu_analyse_pct * c.metal));
     effMoy = efficiencies.reduce((s,e)=>s+e, 0) / refs.length;
-    aluEst = effMoy * target * metalEst;
+    aluEst = effMoy * target * metalEst; // Al calculé sur métal BRUT
   }
 
-  // ── 3. Rendement estimé avec la puissance saisie ─────────────────────────────
+  // ── 4. Rendement estimé sur métal NET (brut − ajout + fleuret) ──────────────
   const puissanceEst = parseFloat(document.getElementById('alu-pw').value) || cfg.pw;
   const withTm  = hist.filter(c => c.temps).slice(0, 3);
   const avgTm   = withTm.length ? withTm.reduce((s,c)=>s+c.temps,0)/withTm.length : cfg.tm;
+  const tmSaisi = parseFloat(document.getElementById('alu-tm').value);
+  const tmUsed  = tmSaisi || avgTm;  // priorité au temps saisi
 
   let rendEst = null;
-  if (metalEst && avgTm && puissanceEst) {
-    const debitEst = (metalEst / avgTm) * 60 / 1000; // t/h
-    rendEst = puissanceEst / debitEst;                // MWh/t
+  const metalPourRend = metalNet != null ? metalNet : metalEst;
+  if (metalPourRend && tmUsed && puissanceEst) {
+    const debitEst = (metalPourRend / tmUsed) * 60 / 1000;
+    rendEst = puissanceEst / debitEst;
   }
 
   // Rendement moyen historique (pour comparaison)
@@ -1077,24 +1103,38 @@ function calcAlu() {
     </div>`;
   } else {
     // Bloc métal estimé
-    const metalStr = metalEst != null ? Math.round(metalEst).toLocaleString('fr-FR') : '—';
+    const metalBrutStr = metalEst != null ? Math.round(metalEst).toLocaleString('fr-FR') : '—';
+    const metalNetStr  = metalNet != null ? Math.round(metalNet).toLocaleString('fr-FR')  : metalBrutStr;
+    const hasCorrections = ajoutEst > 0 || fleuret;
+    const metalStr = metalNetStr;
     let formuleTxt = '';
+    const correctionsTxt = hasCorrections ? `
+      <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;">
+        <span style="color:var(--text2)">Métal brut : </span><code>${metalBrutStr} kg</code>
+        ${ajoutEst>0 ? `<br><span style="color:var(--amber);">− Ajout : ${Math.round(ajoutEst).toLocaleString('fr-FR')} kg</span>` : ''}
+        ${fleuret   ? `<br><span style="color:var(--green);">+ Fleuret : +1 000 kg</span>` : ''}
+        <br><strong style="color:var(--text);">= Métal net : ${metalNetStr} kg</strong>
+        <span style="color:var(--text3);font-size:10px;"> (utilisé pour le rendement)</span>
+      </div>` : '';
     if (methode==='apres' && avgApres!=null) {
       formuleTxt = `<div class="est-formula">
         <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
         − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code>
         <span style="color:var(--text3)">(moy. après recouler · ${withApres.length} ref.)</span>
         ${avgVide!=null ? `<br><span style="color:var(--text3);font-size:10px;">dont vide moy. ${Math.round(avgVide).toLocaleString('fr-FR')} kg + crasse moy. ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>` : ''}
+        ${correctionsTxt}
       </div>`;
     } else if (methode==='vide_crasse' && avgVide!=null) {
       formuleTxt = `<div class="est-formula">
         <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
         − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(vide moy.)</span>
         − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(crasse moy.)</span>
+        ${correctionsTxt}
       </div>`;
     } else {
       formuleTxt = `<div class="est-formula" style="color:var(--amber);">
         ⚠ Méthode ratio — renseignez <strong>Après Recouler</strong> dans vos coulées pour plus de précision.
+        ${correctionsTxt}
       </div>`;
     }
 
@@ -1103,7 +1143,7 @@ function calcAlu() {
     const rendEstStr = rendEst ? rendEst.toFixed(2)  : '—';
     const rendDelta  = (rendEst && rendMoy)
       ? `<div style="font-size:10px;margin-top:3px;color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'};">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`
-      : `<div style="font-size:10px;color:var(--text2);margin-top:3px;">${puissanceEst} MW/h · ${Math.round(avgTm)} min</div>`;
+      : `<div style="font-size:10px;color:var(--text2);margin-top:3px;">${puissanceEst} MW/h · ${Math.round(tmUsed)} min${tmSaisi?'':' (moy.)'}</div>`;
 
     // Rendement Al : comparaison efficacité vs 1 (neutre)
     let rendAluTxt = '';
@@ -1157,9 +1197,13 @@ function calcAlu() {
           <span class="est-rend-k">Puissance four</span>
           <span class="est-rend-v" style="color:var(--accent)">${puissanceEst} MW/h</span>
         </div>
-        ${rendEst && metalEst ? `<div class="est-rendement-row">
+        ${rendEst && metalPourRend ? `<div class="est-rendement-row">
           <span class="est-rend-k">Débit estimé</span>
-          <span class="est-rend-v">${((metalEst/avgTm)*60/1000).toFixed(3)} t/h</span>
+          <span class="est-rend-v">${((metalPourRend/tmUsed)*60/1000).toFixed(3)} t/h</span>
+        </div>
+        <div class="est-rendement-row">
+          <span class="est-rend-k">Temps utilisé</span>
+          <span class="est-rend-v">${Math.round(tmUsed)} min <span style="font-size:10px;color:var(--text3);">${tmSaisi?'(saisi)':'(moy. hist.)'}</span></span>
         </div>` : ''}
         ${rendMoy ? `<div class="est-rendement-row">
           <span class="est-rend-k">Rendement four moyen</span>
@@ -1427,6 +1471,7 @@ function applySettingsUI() {
   document.getElementById('ip-pw').value = cfg.pw;
   document.getElementById('ip-tm').value = cfg.tm;
   document.getElementById('alu-pw').value = cfg.pw;
+  document.getElementById('alu-tm').value = cfg.tm;
   syncAluTarget();
 }
 
