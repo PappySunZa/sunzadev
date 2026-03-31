@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -508,10 +509,12 @@ select {
 .est-rend-k { color: var(--text2); }
 .est-rend-v { font-weight: 700; font-family: ui-monospace, 'SF Mono', monospace; color: var(--text); }
 </style>
+
 </head>
 <body>
 
 <!-- ÉCRAN MOT DE PASSE -->
+
 <div id="lockscreen" style="
   position:fixed;inset:0;z-index:9999;
   background:#1a1d2e;
@@ -533,6 +536,10 @@ select {
     "
     onkeydown="if(event.key==='Enter')checkPwd()"
   >
+  <label style="display:flex;align-items:center;gap:8px;color:#8892b0;font-size:13px;cursor:pointer;">
+    <input type="checkbox" id="pwd-remember" style="width:16px;height:16px;accent-color:#4f8ef7;">
+    Rester connecté
+  </label>
   <button onclick="checkPwd()" style="
     width:100%;max-width:280px;
     padding:14px;border:none;border-radius:12px;
@@ -550,14 +557,16 @@ function checkPwd() {
   const val = document.getElementById('pwd-input').value;
   if (val === atob('Um9zYWxpZTEzMDM=')) {
     document.getElementById('lockscreen').style.display='none';
-    sessionStorage.setItem('unlocked','1');
+    const remember = document.getElementById('pwd-remember').checked;
+    if (remember) localStorage.setItem('unlocked','1');
+    else sessionStorage.setItem('unlocked','1');
   } else {
     document.getElementById('pwd-err').style.display='block';
     document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
   }
 }
-if (sessionStorage.getItem('unlocked')==='1') {
+if (localStorage.getItem('unlocked')==='1' || sessionStorage.getItem('unlocked')==='1') {
   document.getElementById('lockscreen').style.display='none';
 }
 </script>
@@ -578,134 +587,154 @@ if (sessionStorage.getItem('unlocked')==='1') {
 <div class="content">
 
   <!-- ======= TAB 1 : COULÉE ======= -->
+
   <div class="tp on" id="tp-c">
     <div class="stitle">Nouvelle Coulée</div>
 
-    <div class="row2">
-      <div class="fg"><label class="fl">Date</label><input type="date" id="inp-date"></div>
-      <div class="fg"><label class="fl">Heure</label><input type="time" id="inp-heure"></div>
-    </div>
+```
+<div class="row2">
+  <div class="fg"><label class="fl">Date</label><input type="date" id="inp-date"></div>
+  <div class="fg"><label class="fl">Heure</label><input type="time" id="inp-heure"></div>
+</div>
 
-    <div class="fg">
-      <label class="fl">Poche</label>
-      <div class="psel">
-        <button class="pbtn on" id="pb1" onclick="selPoche(1)">POCHE 1</button>
-        <button class="pbtn"    id="pb2" onclick="selPoche(2)">POCHE 2</button>
-      </div>
-    </div>
+<div class="fg">
+  <label class="fl">Poche</label>
+  <div class="psel">
+    <button class="pbtn on" id="pb1" onclick="selPoche(1)">POCHE 1</button>
+    <button class="pbtn"    id="pb2" onclick="selPoche(2)">POCHE 2</button>
+  </div>
+</div>
 
-    <hr>
-    <div class="stitle" style="margin-top:2px;">Pesées</div>
+<hr>
+<div class="stitle" style="margin-top:2px;">Pesées</div>
 
-    <div class="fg">
-      <label class="fl">Poche Pleine (kg)</label>
-      <input type="number" id="ip-pp" placeholder="ex : 25 000" oninput="calc()">
-    </div>
-    <div class="fg">
-      <label class="fl">Poche Après Recouler (kg)</label>
-      <input type="number" id="ip-pr" placeholder="ex : 20 000" oninput="calc()">
-    </div>
+<div class="fg">
+  <label class="fl">Poche Pleine (kg)</label>
+  <input type="number" id="ip-pp" placeholder="ex : 25 000" oninput="calc()">
+</div>
+<div class="fg">
+  <label class="fl">Poche Après Recouler (kg)</label>
+  <input type="number" id="ip-pr" placeholder="ex : 20 000" oninput="calc()">
+</div>
 
-    <div class="cbox green">
-      <div class="cbox-lbl">Métal (Pleine − Après recouler)</div>
-      <span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span>
-      <div class="cbox-formula" id="c-metal-f"></div>
-    </div>
+<div class="cbox green">
+  <div class="cbox-lbl">Métal brut (Pleine − Après recouler)</div>
+  <span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span>
+  <div class="cbox-formula" id="c-metal-f"></div>
+</div>
 
-    <div class="fg">
-      <label class="fl">Poche Vide / Après Nettoyage (kg)</label>
-      <input type="number" id="ip-pv" placeholder="ex : 18 500" oninput="calc()">
-    </div>
+<div class="fg">
+  <label class="fl">Ajout (kg) — optionnel</label>
+  <input type="number" id="ip-aj" placeholder="ex : 500" step="1" oninput="calc()">
+</div>
 
-    <div class="cbox yellow">
-      <div class="cbox-lbl">Poids Crasse (Après recouler − Poche vide)</div>
-      <span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span>
-    </div>
+<div class="cbox blue">
+  <div class="cbox-lbl">Métal Net (Métal brut − Ajout)</div>
+  <span class="cbox-val" id="c-metalnet">—</span><span class="cbox-unit">kg</span>
+  <div class="cbox-formula" id="c-metalnet-f"></div>
+</div>
 
-    <hr>
-    <div class="stitle">Four &amp; Rendement</div>
+<div class="fg">
+  <label class="fl">Poche Vide / Après Nettoyage (kg)</label>
+  <input type="number" id="ip-pv" placeholder="ex : 18 500" oninput="calc()">
+</div>
 
-    <div class="row2">
-      <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="ip-pw" value="30" oninput="calc()"></div>
-      <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="ip-tm" value="180" oninput="calc()"></div>
-    </div>
+<div class="cbox yellow">
+  <div class="cbox-lbl">Poids Crasse (Après recouler − Poche vide)</div>
+  <span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span>
+</div>
 
-    <div class="rend-grid">
-      <div class="cbox blue">
-        <div class="cbox-lbl">Débit (t/h)</div>
-        <span class="cbox-val" id="c-debit">—</span>
-        <div class="cbox-formula">(Métal ÷ Temps) × 60 ÷ 1000</div>
-      </div>
-      <div class="cbox">
-        <div class="cbox-lbl">Rendement Four (MWh/t)</div>
-        <span class="cbox-val" id="c-rend">—</span>
-        <div class="cbox-formula">Puissance ÷ Débit t/h</div>
-      </div>
-    </div>
+<hr>
+<div class="stitle">Four &amp; Rendement</div>
 
-    <hr>
-    <div class="stitle">Aluminium</div>
+<div class="row2">
+  <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="ip-pw" value="30" oninput="calc()"></div>
+  <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="ip-tm" value="180" oninput="calc()"></div>
+</div>
 
-    <div class="fg">
-      <label class="fl">Alu Estimé Ajouté (kg) — facultatif</label>
-      <input type="number" id="ip-ae" placeholder="ex : 23" step="0.1">
-    </div>
-    <div class="fg">
-      <label class="fl">Analyse Al% Laboratoire — à remplir plus tard</label>
-      <input type="number" id="ip-aa" placeholder="ex : 0.21" step="0.001">
-    </div>
+<div class="rend-grid">
+  <div class="cbox blue">
+    <div class="cbox-lbl">Débit (t/h)</div>
+    <span class="cbox-val" id="c-debit">—</span>
+    <div class="cbox-formula">(Métal ÷ Temps) × 60 ÷ 1000</div>
+  </div>
+  <div class="cbox">
+    <div class="cbox-lbl">Rendement Four (MWh/t)</div>
+    <span class="cbox-val" id="c-rend">—</span>
+    <div class="cbox-formula">Puissance ÷ Débit t/h</div>
+  </div>
+</div>
 
-    <button class="btn btn-p" onclick="saveCoulee()">💾 &nbsp;ENREGISTRER LA COULÉE</button>
-    <button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser le formulaire</button>
+<hr>
+<div class="stitle">Aluminium</div>
+
+<div class="fg">
+  <label class="fl">Alu Estimé Ajouté (kg) — facultatif</label>
+  <input type="number" id="ip-ae" placeholder="ex : 23" step="0.1">
+</div>
+<div class="fg">
+  <label class="fl">Analyse Al% Laboratoire — à remplir plus tard</label>
+  <input type="number" id="ip-aa" placeholder="ex : 0.21" step="0.001">
+</div>
+
+<button class="btn btn-p" onclick="saveCoulee()">💾 &nbsp;ENREGISTRER LA COULÉE</button>
+<button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser le formulaire</button>
+```
+
   </div>
 
   <!-- ======= TAB 2 : ESTIMATION ======= -->
+
   <div class="tp" id="tp-a">
     <div class="stitle">Estimation Poche — Pré-coulée</div>
 
-    <div class="info-box" style="margin-bottom:14px;">
-      Sélectionnez la poche, entrez le <strong>poids poche pleine sortie de four</strong> et la <strong>puissance du four</strong>.
-      L'app calcule le métal estimé et le rendement attendu.
-    </div>
+```
+<div class="info-box" style="margin-bottom:14px;">
+  Sélectionnez la poche, entrez le <strong>poids poche pleine sortie de four</strong> et la <strong>puissance du four</strong>.
+  L'app calcule le métal estimé et le rendement attendu.
+</div>
 
-    <div class="fg">
-      <label class="fl">Poche</label>
-      <div class="psel">
-        <button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button>
-        <button class="pbtn"    id="apb2" onclick="selAluPoche(2)">POCHE 2</button>
-      </div>
-    </div>
+<div class="fg">
+  <label class="fl">Poche</label>
+  <div class="psel">
+    <button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button>
+    <button class="pbtn"    id="apb2" onclick="selAluPoche(2)">POCHE 2</button>
+  </div>
+</div>
 
-    <div class="row2">
-      <div class="fg">
-        <label class="fl">Poids Poche Pleine (kg)</label>
-        <input type="number" id="alu-pp" placeholder="ex : 25 560" oninput="calcAlu()">
-      </div>
-      <div class="fg">
-        <label class="fl">Puissance Four (MW/h)</label>
-        <input type="number" id="alu-pw" placeholder="ex : 30" oninput="calcAlu()">
-      </div>
-    </div>
+<div class="row2">
+  <div class="fg">
+    <label class="fl">Poids Poche Pleine (kg)</label>
+    <input type="number" id="alu-pp" placeholder="ex : 25 560" oninput="calcAlu()">
+  </div>
+  <div class="fg">
+    <label class="fl">Puissance Four (MW/h)</label>
+    <input type="number" id="alu-pw" placeholder="ex : 30" oninput="calcAlu()">
+  </div>
+</div>
 
-    <div id="alu-res-zone"></div>
+<div id="alu-res-zone"></div>
 
-    <hr>
-    <div class="stitle">Paramètre Cible</div>
-    <div class="fg">
-      <label class="fl">Cible Al% appliqué sur métal estimé</label>
-      <input type="number" id="alu-target" step="0.001" placeholder="ex : 0.21" oninput="saveSetting('aluTarget',this.value);calcAlu()">
-    </div>
-    <div class="info-box">
-      <strong>Formule métal estimé :</strong><br>
-      Métal = Poche pleine − Poids vide moyen − Crasse moyenne<br><br>
-      <strong>Rendement estimé :</strong><br>
-      Rendement = Puissance four ÷ Débit (t/h)<br>
-      Débit = Métal estimé ÷ Temps moyen × 60 ÷ 1000<br><br>
-      ⚠ Nécessite des coulées avec <strong>Poche vide</strong> renseignée pour la méthode précise.
-    </div>
+<hr>
+<div class="stitle">Paramètre Cible</div>
+<div class="fg">
+  <label class="fl">Cible Al% appliqué sur métal estimé</label>
+  <input type="number" id="alu-target" step="0.001" placeholder="ex : 0.21" oninput="saveSetting('aluTarget',this.value);calcAlu()">
+</div>
+<div class="info-box">
+  <strong>Formule métal estimé :</strong><br>
+  Métal = Poche pleine − Poids vide moyen − Crasse moyenne<br><br>
+  <strong>Rendement estimé :</strong><br>
+  Rendement = Puissance four ÷ Débit (t/h)<br>
+  Débit = Métal estimé ÷ Temps moyen × 60 ÷ 1000<br><br>
+  ⚠ Nécessite des coulées avec <strong>Poche vide</strong> renseignée pour la méthode précise.
+</div>
+```
+
   </div>
 
   <!-- ======= TAB 3 : HISTORIQUE ======= -->
+
   <div class="tp" id="tp-h">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
       <div class="stitle" style="margin:0;border:none;">Historique</div>
@@ -719,26 +748,31 @@ if (sessionStorage.getItem('unlocked')==='1') {
   </div>
 
   <!-- ======= TAB 4 : PARAMÈTRES ======= -->
+
   <div class="tp" id="tp-s">
     <div class="stitle">Paramètres</div>
 
-    <div class="sg">
-      <div class="sg-title">Valeurs par défaut</div>
-      <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="s-pw" oninput="saveSetting('pw',this.value)"></div>
-      <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="s-tm" oninput="saveSetting('tm',this.value)"></div>
-      <div class="fg"><label class="fl">Cible Aluminium (%)</label><input type="number"  id="s-at" step="0.001" oninput="saveSetting('aluTarget',this.value);syncAluTarget()"></div>
-    </div>
+```
+<div class="sg">
+  <div class="sg-title">Valeurs par défaut</div>
+  <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="s-pw" oninput="saveSetting('pw',this.value)"></div>
+  <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="s-tm" oninput="saveSetting('tm',this.value)"></div>
+  <div class="fg"><label class="fl">Cible Aluminium (%)</label><input type="number"  id="s-at" step="0.001" oninput="saveSetting('aluTarget',this.value);syncAluTarget()"></div>
+</div>
 
-    <div class="sg">
-      <div class="sg-title">Données stockées</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;" id="data-info">Chargement…</div>
-      <button class="btn btn-s" onclick="exportJSON()" style="margin-top:0;">📤 &nbsp;Exporter toutes les coulées (JSON)</button>
-      <button class="btn btn-r" onclick="openModal('ov-clr')">🗑 &nbsp;Effacer toutes les données</button>
-    </div>
+<div class="sg">
+  <div class="sg-title">Données stockées</div>
+  <div style="font-size:12px;color:var(--text2);margin-bottom:10px;" id="data-info">Chargement…</div>
+  <button class="btn btn-s" onclick="exportJSON()" style="margin-top:0;">📤 &nbsp;Exporter toutes les coulées (JSON)</button>
+  <button class="btn btn-r" onclick="openModal('ov-clr')">🗑 &nbsp;Effacer toutes les données</button>
+</div>
+```
+
   </div>
 </div>
 
 <!-- BOTTOM NAV -->
+
 <nav class="bnav">
   <button class="bnav-btn on" id="nb-c" onclick="goTab('c')"><span class="bnav-ic">🔥</span>Coulée</button>
   <button class="bnav-btn"    id="nb-a" onclick="goTab('a')"><span class="bnav-ic">⚗️</span>Estimation</button>
@@ -747,6 +781,7 @@ if (sessionStorage.getItem('unlocked')==='1') {
 </nav>
 
 <!-- MODAL DETAIL COULÉE -->
+
 <div class="ov" id="ov-det">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -755,6 +790,10 @@ if (sessionStorage.getItem('unlocked')==='1') {
       <div id="mod-det-body"></div>
       <div class="mbtns">
         <button class="btn btn-s" onclick="closeModal('ov-det')">Fermer</button>
+        <button class="btn btn-s" onclick="openEditModal()">✏️ Modifier</button>
+        <button class="btn btn-r" onclick="confirmDelete()">🗑</button>
+      </div>
+      <div style="margin-top:8px;">
         <button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button>
       </div>
     </div>
@@ -762,6 +801,7 @@ if (sessionStorage.getItem('unlocked')==='1') {
 </div>
 
 <!-- MODAL SAISIE ANALYSE AL -->
+
 <div class="ov" id="ov-alu">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -780,6 +820,7 @@ if (sessionStorage.getItem('unlocked')==='1') {
 </div>
 
 <!-- MODAL CONFIRM CLEAR -->
+
 <div class="ov" id="ov-clr">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -791,6 +832,55 @@ if (sessionStorage.getItem('unlocked')==='1') {
       <div class="mbtns">
         <button class="btn btn-s" onclick="closeModal('ov-clr')">Annuler</button>
         <button class="btn btn-r" onclick="clearAll()">Tout effacer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MODIFIER COULÉE -->
+
+<div class="ov" id="ov-edit">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-inner">
+      <div class="modal-title">Modifier la Coulée</div>
+      <div class="row2">
+        <div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="e-pp"></div>
+        <div class="fg"><label class="fl">Après Recouler (kg)</label><input type="number" id="e-pr"></div>
+      </div>
+      <div class="row2">
+        <div class="fg"><label class="fl">Poche Vide (kg)</label><input type="number" id="e-pv"></div>
+        <div class="fg"><label class="fl">Ajout (kg)</label><input type="number" id="e-aj"></div>
+      </div>
+      <div class="row2">
+        <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="e-pw"></div>
+        <div class="fg"><label class="fl">Temps (min)</label><input type="number" id="e-tm"></div>
+      </div>
+      <div class="row2">
+        <div class="fg"><label class="fl">Al Estimé (kg)</label><input type="number" id="e-ae" step="0.1"></div>
+        <div class="fg"><label class="fl">Analyse Al%</label><input type="number" id="e-aa" step="0.001"></div>
+      </div>
+      <div class="mbtns">
+        <button class="btn btn-s" onclick="closeModal('ov-edit');openModal('ov-det')">Annuler</button>
+        <button class="btn btn-p" onclick="saveEdit()">💾 Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMER SUPPRESSION -->
+
+<div class="ov" id="ov-del">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-inner">
+      <div class="modal-title">Supprimer cette coulée ?</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;">
+        Cette action est irréversible. La coulée sera définitivement supprimée.
+      </p>
+      <div class="mbtns">
+        <button class="btn btn-s" onclick="closeModal('ov-del');openModal('ov-det')">Annuler</button>
+        <button class="btn btn-r" onclick="deleteCoulee()">Supprimer</button>
       </div>
     </div>
   </div>
@@ -863,7 +953,9 @@ function fmt(n) { return n.toLocaleString('fr-FR'); }
 function calc() {
   const pp = v('ip-pp'), pr = v('ip-pr'), pv = v('ip-pv');
   const pw = v('ip-pw'), tm = v('ip-tm');
-  const metal  = pp - pr;
+  const aj    = v('ip-aj');
+  const metal = pp - pr;
+  const metalNet = metal - aj;
   const crasse = pr - pv;
 
   if (pp>0 && pr>0 && metal>0) {
@@ -874,12 +966,25 @@ function calc() {
     document.getElementById('c-metal-f').textContent = '';
   }
 
+  if (metal>0) {
+    const mn = aj>0 ? metalNet : metal;
+    document.getElementById('c-metalnet').textContent = fmt(mn);
+    document.getElementById('c-metalnet-f').textContent = aj>0
+      ? fmt(metal)+' − '+fmt(aj)+' = '+fmt(mn)+' kg'
+      : 'Pas d\'ajout renseigné';
+  } else {
+    document.getElementById('c-metalnet').textContent = '—';
+    document.getElementById('c-metalnet-f').textContent = '';
+  }
+
   document.getElementById('c-crasse').textContent = (pr>0&&pv>0&&crasse>=0) ? fmt(crasse) : '—';
 
-  if (metal>0 && pw>0 && tm>0) {
-    const debitKgMin = metal / tm;           // kg/min
-    const debitTh    = debitKgMin * 60 / 1000; // t/h  (×60 → kg/h, ÷1000 → t/h)
-    const rend       = pw / debitTh;         // MW ÷ t/h = MWh/t
+  // Rendement calculé sur métal net
+  const metalRend = (aj>0 && metalNet>0) ? metalNet : metal;
+  if (metalRend>0 && pw>0 && tm>0) {
+    const debitKgMin = metalRend / tm;
+    const debitTh    = debitKgMin * 60 / 1000;
+    const rend       = pw / debitTh;
     document.getElementById('c-debit').textContent = debitTh.toFixed(3);
     document.getElementById('c-rend').textContent  = rend.toFixed(2);
   } else {
@@ -899,18 +1004,32 @@ function calcAlu() {
   // Historique de cette poche, du plus récent au plus ancien
   const hist = getHistory().filter(c => c.poche===aluPoche).sort((a,b)=>b.id-a.id);
 
-  // ── 1. Estimation du métal : Poche pleine − poids vide − crasse ────────────
-  const withVide = hist.filter(c => c.poche_vide != null && c.crasse != null && c.crasse >= 0);
-  let avgVide = null, avgCrasse = null, metalEst = null, methode = 'ratio';
+  // ── 1. Estimation du métal — formule optimale ────────────────────────────────
+  // Priorité 1 : avg(poche_apres) sur les 3 dernières → métal = poche_pleine - avg(poche_apres)
+  // Priorité 2 : avg(poche_vide) + avg(crasse) séparément
+  // Priorité 3 : ratio métal/poche_pleine
+  const withApres = hist.filter(c => c.poche_apres).slice(0, 3);
+  const withVide  = hist.filter(c => c.poche_vide != null && c.crasse != null && c.crasse >= 0).slice(0, 3);
+  let avgApres = null, avgVide = null, avgCrasse = null;
+  let metalEst = null, methode = 'ratio';
 
-  if (withVide.length) {
+  if (withApres.length) {
+    avgApres  = withApres.reduce((s,c)=>s+c.poche_apres, 0) / withApres.length;
+    metalEst  = pocheNew - avgApres;
+    if (metalEst < 0) metalEst = 0;
+    methode = 'apres';
+    // Aussi calculer vide/crasse pour affichage
+    if (withVide.length) {
+      avgVide   = withVide.reduce((s,c)=>s+c.poche_vide, 0) / withVide.length;
+      avgCrasse = withVide.reduce((s,c)=>s+c.crasse,     0) / withVide.length;
+    }
+  } else if (withVide.length) {
     avgVide   = withVide.reduce((s,c)=>s+c.poche_vide, 0) / withVide.length;
     avgCrasse = withVide.reduce((s,c)=>s+c.crasse,     0) / withVide.length;
     metalEst  = pocheNew - avgVide - avgCrasse;
     if (metalEst < 0) metalEst = 0;
     methode = 'vide_crasse';
   } else if (hist.length) {
-    // Fallback : ratio métal/poche_pleine
     const n = Math.min(hist.length, 3);
     const ratio = hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0) / n;
     metalEst = pocheNew * ratio;
@@ -960,15 +1079,22 @@ function calcAlu() {
     // Bloc métal estimé
     const metalStr = metalEst != null ? Math.round(metalEst).toLocaleString('fr-FR') : '—';
     let formuleTxt = '';
-    if (methode==='vide_crasse' && avgVide!=null) {
+    if (methode==='apres' && avgApres!=null) {
       formuleTxt = `<div class="est-formula">
         <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
-        − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(poids vide moy. · ${withVide.length} ref.)</span>
+        − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code>
+        <span style="color:var(--text3)">(moy. après recouler · ${withApres.length} ref.)</span>
+        ${avgVide!=null ? `<br><span style="color:var(--text3);font-size:10px;">dont vide moy. ${Math.round(avgVide).toLocaleString('fr-FR')} kg + crasse moy. ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>` : ''}
+      </div>`;
+    } else if (methode==='vide_crasse' && avgVide!=null) {
+      formuleTxt = `<div class="est-formula">
+        <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
+        − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(vide moy.)</span>
         − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(crasse moy.)</span>
       </div>`;
     } else {
       formuleTxt = `<div class="est-formula" style="color:var(--amber);">
-        ⚠ Méthode ratio utilisée — renseignez le <strong>poids vide</strong> dans vos coulées pour plus de précision.
+        ⚠ Méthode ratio — renseignez <strong>Après Recouler</strong> dans vos coulées pour plus de précision.
       </div>`;
     }
 
@@ -1079,10 +1205,12 @@ function saveCoulee() {
   if (!pp||!pr) { toast('⚠ Poids poche pleine et après recouler requis', true); return; }
 
   const pv = v('ip-pv'), pw = v('ip-pw')||cfg.pw, tm = v('ip-tm')||cfg.tm;
-  const metal  = pp-pr;
-  const crasse = pr-pv;
-  const debitTh = (metal/tm)*60/1000;
-  const rend    = pw/debitTh;
+  const aj     = v('ip-aj') || 0;
+  const metal  = pp - pr;
+  const metalNet = aj > 0 ? metal - aj : metal;
+  const crasse = pr - pv;
+  const debitTh = (metalNet / tm) * 60 / 1000;  // rendement sur métal net
+  const rend    = pw / debitTh;
 
   const c = {
     id:           Date.now(),
@@ -1094,7 +1222,9 @@ function saveCoulee() {
     poche_vide:   pv||null,
     puissance:    pw,
     temps:        tm,
-    metal,
+    metal,                          // métal brut (pour Al)
+    ajout:        aj||null,
+    metal_net:    aj>0 ? metalNet : null,
     crasse:       (pv&&crasse>=0)?crasse:null,
     debit:        +debitTh.toFixed(4),
     rendement:    +rend.toFixed(5),
@@ -1112,11 +1242,12 @@ function saveCoulee() {
 }
 
 function resetForm() {
-  ['ip-pp','ip-pr','ip-pv','ip-ae','ip-aa'].forEach(id => document.getElementById(id).value='');
+  ['ip-pp','ip-pr','ip-pv','ip-aj','ip-ae','ip-aa'].forEach(id => document.getElementById(id).value='');
   document.getElementById('ip-pw').value = cfg.pw;
   document.getElementById('ip-tm').value = cfg.tm;
-  ['c-metal','c-crasse','c-debit','c-rend'].forEach(id => document.getElementById(id).textContent='—');
+  ['c-metal','c-metalnet','c-crasse','c-debit','c-rend'].forEach(id => document.getElementById(id).textContent='—');
   document.getElementById('c-metal-f').textContent='';
+  document.getElementById('c-metalnet-f').textContent='';
   setNow();
 }
 
@@ -1133,7 +1264,7 @@ function renderHist() {
   }
 
   el.innerHTML = data.map(c => {
-      const aluTag = c.alu_analyse_pct
+    const aluTag = c.alu_analyse_pct
       ? `<span class="tag-ok">✓ ${c.alu_analyse_pct}%</span>`
       : `<span class="tag-pend">⏳ analyse en attente</span>`;
     const aluVal = c.alu_analyse_pct
@@ -1141,6 +1272,8 @@ function renderHist() {
       : c.alu_estime
         ? `<div class="hi-vn tag-pend">${c.alu_estime} kg</div><div class="hi-vl">Al estimé</div>`
         : `<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
+    const metalAff = c.metal_net != null ? c.metal_net : c.metal;
+    const metalLbl = c.metal_net != null ? 'Métal net kg' : 'Métal kg';
     return `<div class="hi" onclick="openDet(${c.id})">
       <div class="hi-top">
         <div class="hi-date">${c.date} &nbsp;${c.heure}</div>
@@ -1148,11 +1281,11 @@ function renderHist() {
       </div>
       <div class="hi-vals">
         <div class="hi-v"><div class="hi-vn">${fmt(c.poche_pleine)}</div><div class="hi-vl">Pleine kg</div></div>
-        <div class="hi-v"><div class="hi-vn">${fmt(c.metal)}</div><div class="hi-vl">Métal kg</div></div>
+        <div class="hi-v"><div class="hi-vn">${fmt(metalAff)}</div><div class="hi-vl">${metalLbl}</div></div>
         <div class="hi-v">${aluVal}</div>
       </div>
       <div class="hi-foot">
-        <span>Rendement : <strong style="color:var(--accent2)">${c.rendement} MWh/t</strong></span>
+        <span>Rendement : <strong style="color:var(--accent)">${c.rendement} MWh/t</strong></span>
         ${aluTag}
       </div>
     </div>`;
@@ -1170,9 +1303,11 @@ function openDet(id) {
     row('Poche',                `Poche ${c.poche}`),
     row('Poche Pleine',         `${fmt(c.poche_pleine)} kg`),
     row('Après Recouler',       `${fmt(c.poche_apres)} kg`),
-    row('Métal',                `${fmt(c.metal)} kg`, 'tag-ok'),
-    c.poche_vide ? row('Poche Vide',   `${fmt(c.poche_vide)} kg`) : '',
-    c.crasse!=null ? row('Crasse',     `${fmt(c.crasse)} kg`, 'tag-pend') : '',
+    row('Métal brut',           `${fmt(c.metal)} kg`, 'tag-ok'),
+    c.ajout     ? row('Ajout',      `${fmt(c.ajout)} kg`, 'tag-pend') : '',
+    c.metal_net != null ? row('Métal Net', `${fmt(c.metal_net)} kg`, 'tag-ok') : '',
+    c.poche_vide  ? row('Poche Vide',`${fmt(c.poche_vide)} kg`) : '',
+    c.crasse!=null ? row('Crasse',   `${fmt(c.crasse)} kg`, 'tag-pend') : '',
     row('Puissance Four',       `${c.puissance} MW/h`),
     row('Temps Coulée',         `${c.temps} min`),
     row('Débit',                `${c.debit} t/h`),
@@ -1184,6 +1319,67 @@ function openDet(id) {
   ].join('');
   document.getElementById('btn-aa').style.display = c.alu_analyse_pct ? 'none' : 'block';
   openModal('ov-det');
+}
+
+function openEditModal() {
+  const c = getHistory().find(x=>x.id===selId);
+  if(!c) return;
+  closeModal('ov-det');
+  document.getElementById('e-pp').value  = c.poche_pleine || '';
+  document.getElementById('e-pr').value  = c.poche_apres  || '';
+  document.getElementById('e-pv').value  = c.poche_vide   || '';
+  document.getElementById('e-aj').value  = c.ajout        || '';
+  document.getElementById('e-pw').value  = c.puissance    || '';
+  document.getElementById('e-tm').value  = c.temps        || '';
+  document.getElementById('e-ae').value  = c.alu_estime   || '';
+  document.getElementById('e-aa').value  = c.alu_analyse_pct || '';
+  openModal('ov-edit');
+}
+
+function saveEdit() {
+  const d   = getHistory();
+  const idx = d.findIndex(c=>c.id===selId);
+  if(idx<0) return;
+  const c = d[idx];
+  const pp = parseFloat(document.getElementById('e-pp').value)||c.poche_pleine;
+  const pr = parseFloat(document.getElementById('e-pr').value)||c.poche_apres;
+  const pv = parseFloat(document.getElementById('e-pv').value)||null;
+  const pw = parseFloat(document.getElementById('e-pw').value)||c.puissance;
+  const tm = parseFloat(document.getElementById('e-tm').value)||c.temps;
+  const aj = parseFloat(document.getElementById('e-aj').value)||0;
+  const metal = pp - pr;
+  const metalNet = aj>0 ? metal-aj : metal;
+  const crasse = (pv && (pr-pv)>=0) ? pr-pv : null;
+  const debitTh = (metalNet/tm)*60/1000;
+  d[idx] = {
+    ...c,
+    poche_pleine: pp, poche_apres: pr, poche_vide: pv,
+    puissance: pw, temps: tm,
+    metal, ajout: aj||null, metal_net: aj>0?metalNet:null,
+    crasse,
+    debit: +debitTh.toFixed(4),
+    rendement: +(pw/debitTh).toFixed(5),
+    alu_estime: parseFloat(document.getElementById('e-ae').value)||c.alu_estime||null,
+    alu_analyse_pct: parseFloat(document.getElementById('e-aa').value)||c.alu_analyse_pct||null,
+  };
+  saveHistory(d);
+  toast('✓ Coulée modifiée');
+  closeModal('ov-edit');
+  renderHist();
+}
+
+function confirmDelete() {
+  closeModal('ov-det');
+  openModal('ov-del');
+}
+
+function deleteCoulee() {
+  let d = getHistory().filter(c=>c.id!==selId);
+  saveHistory(d);
+  closeModal('ov-del');
+  renderHist();
+  updateDataInfo();
+  toast('✓ Coulée supprimée');
 }
 
 function openAluModal() {
@@ -1316,5 +1512,6 @@ function genIcon() {
 }
 init();
 </script>
+
 </body>
 </html>
