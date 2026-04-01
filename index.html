@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -10,1553 +9,850 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1d2e">
 <title>SunZaDev</title>
-
 <style>
 :root {
-  --bg:      #1a1d2e;
-  --bg2:     #242840;
-  --bg3:     #1e2135;
-  --border:  #2e3456;
-  --border2: #3a4170;
-  --text:    #e8edf7;
-  --text2:   #8892b0;
-  --text3:   #4a5470;
-  --accent:  #4f8ef7;
-  --accent2: #7c5af7;
-  --accentbg:rgba(79,142,247,.13);
-  --green:   #10d48e;
-  --greenbg: rgba(16,212,142,.12);
-  --red:     #ff6b6b;
-  --redbg:   rgba(255,107,107,.12);
-  --amber:   #ffb038;
-  --amberbg: rgba(255,176,56,.12);
-  --shadow:  0 2px 8px rgba(0,0,0,.35), 0 1px 3px rgba(0,0,0,.25);
-  --shadow2: 0 6px 20px rgba(0,0,0,.4);
+  --bg:#1a1d2e; --bg2:#242840; --bg3:#1e2135;
+  --border:#2e3456; --border2:#3a4170;
+  --text:#e8edf7; --text2:#8892b0; --text3:#4a5470;
+  --accent:#4f8ef7; --accent2:#7c5af7; --accentbg:rgba(79,142,247,.13);
+  --green:#10d48e; --greenbg:rgba(16,212,142,.12);
+  --red:#ff6b6b; --amber:#ffb038; --amberbg:rgba(255,176,56,.12);
+  --shadow:0 2px 8px rgba(0,0,0,.35),0 1px 3px rgba(0,0,0,.25);
+  --mono:ui-monospace,'SF Mono','Menlo',monospace;
+  --font:ui-rounded,-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
-  height: 100%;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;display:flex;flex-direction:column;max-width:500px;margin:0 auto;height:100%}
+ 
+/* LOCKSCREEN */
+#lockscreen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:30px}
+#lockscreen h1{font-size:22px;font-weight:700;letter-spacing:-.5px}
+#lockscreen p{font-size:13px;color:var(--text2)}
+#pwd-input{width:100%;max-width:280px;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);padding:14px 18px;font-size:16px;border-radius:12px;outline:none;text-align:center;font-family:var(--font)}
+#pwd-btn{width:100%;max-width:280px;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:16px;font-weight:700;font-family:var(--font);cursor:pointer;box-shadow:0 4px 16px rgba(79,142,247,.4)}
+#pwd-err{color:var(--red);font-size:13px;display:none}
+.chk-row{display:flex;align-items:center;gap:8px;color:var(--text2);font-size:13px;cursor:pointer}
+.chk-row input{width:16px;height:16px;accent-color:var(--accent)}
+ 
 /* HEADER */
-.hdr {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 18px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  box-shadow: var(--shadow);
-  position: relative;
-  z-index: 10;
-}
-.hdr::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-}
-.hdr-logo { display: flex; align-items: center; gap: 10px; }
-.hdr-icon {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 2px 12px rgba(79,142,247,.4);
-}
-.hdr-texts { display: flex; flex-direction: column; gap: 1px; }
-.hdr-title { font-size: 17px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
-.hdr-sub { font-size: 11px; color: var(--text2); font-weight: 400; }
-.hdr-clock { text-align: right; }
-.hdr-time { font-size: 17px; font-weight: 600; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--text); }
-.hdr-date { font-size: 10px; color: var(--text3); margin-top: 1px; text-transform: capitalize; }
-
-/* CONTENT */
-.content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px 14px 90px;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* TAB CONTENT */
-.tp { display: none; }
-.tp.on { display: block; }
-
-/* BOTTOM NAV */
-.bnav {
-  position: fixed;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 100%; max-width: 500px;
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  display: flex;
-  z-index: 50;
-  box-shadow: 0 -2px 12px rgba(0,0,0,.07);
-}
-.bnav-btn {
-  flex: 1; padding: 10px 2px 12px;
-  background: none; border: none;
-  color: var(--text3);
-  font-size: 9px; font-weight: 600;
-  letter-spacing: 0.3px; text-transform: uppercase;
-  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  transition: color 0.15s;
-}
-.bnav-btn.on { color: var(--accent); }
-.bnav-ic { font-size: 20px; line-height: 1; }
-
-/* SECTION TITLE */
-.stitle {
-  font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--text2);
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
-
-/* CARD WRAPPER */
-.card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow);
-}
-.card-title {
-  font-size: 11px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 1px;
-  color: var(--text2);
-  margin-bottom: 12px;
-  display: flex; align-items: center; gap: 6px;
-}
-.card-title-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent); display: inline-block;
-}
-
-/* FIELDS */
-.fg { margin-bottom: 10px; }
-.fg:last-child { margin-bottom: 0; }
-.fl {
-  font-size: 11px; font-weight: 500;
-  color: var(--text2);
-  margin-bottom: 5px; display: block;
-}
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="time"],
-select {
-  width: 100%;
-  background: var(--bg3);
-  border: 1.5px solid var(--border);
-  color: var(--text);
-  padding: 10px 13px;
-  font-size: 16px;
-  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-  appearance: none;
-  -webkit-appearance: none;
-}
-input:focus, select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(79,142,247,.18);
-  background: #242840;
-}
-input::placeholder { color: var(--text3); }
-
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-/* POCHE SELECTOR */
-.psel { display: flex; gap: 8px; }
-.pbtn {
-  flex: 1; padding: 12px 8px;
-  background: var(--bg3);
-  border: 1.5px solid var(--border);
-  color: var(--text2);
-  font-size: 14px; font-weight: 700;
-  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  border-radius: 8px; cursor: pointer;
-  transition: all 0.15s;
-}
-.pbtn.on {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: var(--accentbg);
-  box-shadow: 0 0 0 3px rgba(79,142,247,.18);
-}
-
-/* CALCULATED BOXES */
-.cbox {
-  background: var(--bg3);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.cbox::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: var(--accent);
-  border-radius: 10px 0 0 10px;
-}
-.cbox.green::before { background: var(--green); }
-.cbox.blue::before  { background: var(--accent2); }
-.cbox.amber::before { background: var(--amber); }
-.cbox-lbl { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text2); margin-bottom: 4px; }
-.cbox-val { font-size: 26px; font-weight: 700; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--accent); }
-.cbox.green .cbox-val { color: var(--green); }
-.cbox.blue .cbox-val  { color: var(--accent2); }
-.cbox.amber .cbox-val { color: var(--amber); }
-.cbox-unit { font-size: 12px; color: var(--text2); margin-left: 4px; font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; }
-.cbox-formula { font-size: 10px; color: var(--text3); margin-top: 2px; }
-
-.rend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-.rend-grid .cbox { margin-bottom: 0; }
-.rend-grid .cbox-val { font-size: 20px; }
-
+.hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 18px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:var(--shadow);position:relative;z-index:10}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.hdr-logo{display:flex;align-items:center;gap:10px}
+.hdr-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 12px rgba(79,142,247,.4)}
+.hdr-title{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.hdr-time{font-size:17px;font-weight:600;font-family:var(--mono);text-align:right}
+.hdr-date{font-size:10px;color:var(--text3);text-align:right;text-transform:capitalize}
+ 
+/* LAYOUT */
+.content{flex:1;overflow-y:auto;padding:16px 14px 90px;-webkit-overflow-scrolling:touch}
+.tp{display:none}.tp.on{display:block}
+ 
+/* NAV */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:50;box-shadow:0 -2px 12px rgba(0,0,0,.07)}
+.bnav-btn{flex:1;padding:10px 2px 12px;background:none;border:none;color:var(--text3);font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-family:var(--font);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s}
+.bnav-btn.on{color:var(--accent)}
+.bnav-ic{font-size:20px;line-height:1}
+ 
+/* TYPOGRAPHY */
+.stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+hr{border:none;border-top:1px solid var(--border);margin:14px 0}
+ 
+/* FORM */
+.fg{margin-bottom:10px}
+.fg:last-child{margin-bottom:0}
+.fl{font-size:11px;font-weight:500;color:var(--text2);margin-bottom:5px;display:block}
+input[type="text"],input[type="number"],input[type="date"],input[type="time"],select{width:100%;background:var(--bg3);border:1.5px solid var(--border);color:var(--text);padding:10px 13px;font-size:16px;font-family:var(--font);border-radius:8px;outline:none;transition:border-color .15s,box-shadow .15s;appearance:none;-webkit-appearance:none}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,.18);background:var(--bg2)}
+input::placeholder{color:var(--text3)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+ 
+/* POCHE BTNS */
+.psel{display:flex;gap:8px}
+.pbtn{flex:1;padding:12px 8px;background:var(--bg3);border:1.5px solid var(--border);color:var(--text2);font-size:14px;font-weight:700;font-family:var(--font);border-radius:8px;cursor:pointer;transition:all .15s}
+.pbtn.on{border-color:var(--accent);color:var(--accent);background:var(--accentbg);box-shadow:0 0 0 3px rgba(79,142,247,.18)}
+ 
+/* FLEURET */
+.fleuret-label{display:flex;align-items:center;gap:10px;cursor:pointer;padding:11px 13px;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px}
+.fleuret-label input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0}
+.fleuret-txt{font-size:14px;font-weight:600;color:var(--text)}
+.fleuret-badge{font-size:11px;color:var(--accent);font-weight:700}
+ 
+/* RESULT BOXES — unified .cbox system */
+.cbox{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;position:relative;overflow:hidden}
+.cbox::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);border-radius:10px 0 0 10px}
+.cbox.green::before{background:var(--green)}
+.cbox.blue::before{background:var(--accent2)}
+.cbox.amber::before{background:var(--amber)}
+.cbox.red::before{background:var(--red)}
+.cbox-lbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:4px}
+.cbox-val{font-size:26px;font-weight:700;font-family:var(--mono);color:var(--accent)}
+.cbox.green .cbox-val{color:var(--green)}
+.cbox.blue .cbox-val{color:var(--accent2)}
+.cbox.amber .cbox-val{color:var(--amber)}
+.cbox-unit{font-size:12px;color:var(--text2);margin-left:4px;font-family:var(--font)}
+.cbox-formula{font-size:10px;color:var(--text3);margin-top:2px}
+.rend-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.rend-grid .cbox{margin-bottom:0}
+.rend-grid .cbox-val{font-size:20px}
+ 
 /* BUTTONS */
-.btn {
-  display: block; width: 100%;
-  padding: 13px 12px;
-  border: none; border-radius: 9px;
-  font-size: 13px; font-weight: 600;
-  font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  letter-spacing: 0.3px;
-  cursor: pointer; transition: all 0.15s; margin-top: 8px;
-}
-.btn-p {
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: #fff;
-  box-shadow: 0 2px 12px rgba(79,142,247,.35);
-}
-.btn-p:active { opacity: .85; transform: scale(0.99); }
-.btn-s {
-  background: transparent;
-  border: 1.5px solid var(--border);
-  color: var(--text2);
-}
-.btn-s:active { background: var(--bg3); }
-.btn-r { background: transparent; border: 1.5px solid var(--red); color: var(--red); }
-
-/* HR */
-hr { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
-
-/* ALU RESULT */
-.alu-res {
-  background: rgba(79,142,247,.08);
-  border: 1.5px solid rgba(79,142,247,.25);
-  border-radius: 14px;
-  padding: 20px 16px 16px;
-  margin-top: 14px;
-  text-align: center;
-  box-shadow: 0 2px 12px rgba(79,142,247,.1);
-}
-.alu-res-title {
-  font-size: 10px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--accent); margin-bottom: 10px;
-}
-.alu-res-big {
-  font-size: 56px; font-weight: 700;
-  font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
-  color: var(--accent);
-  line-height: 1;
-}
-.alu-res-unit { font-size: 22px; color: var(--text2); font-weight: 400; font-family: ui-rounded, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; }
-.alu-res-detail { font-size: 12px; color: var(--text2); margin-top: 10px; line-height: 1.7; }
-.alu-res-prev {
-  font-size: 11px; color: var(--text2);
-  margin-top: 12px; padding-top: 12px;
-  border-top: 1px solid rgba(79,142,247,.15);
-  text-align: left;
-}
-
+.btn{display:block;width:100%;padding:13px 12px;border:none;border-radius:9px;font-size:13px;font-weight:600;font-family:var(--font);letter-spacing:.3px;cursor:pointer;transition:all .15s;margin-top:8px}
+.btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 2px 12px rgba(79,142,247,.35)}
+.btn-p:active{opacity:.85;transform:scale(.99)}
+.btn-s{background:transparent;border:1.5px solid var(--border);color:var(--text2)}
+.btn-s:active{background:var(--bg3)}
+.btn-r{background:transparent;border:1.5px solid var(--red);color:var(--red)}
+ 
+/* ESTIMATION RESULT */
+.est-res{background:rgba(79,142,247,.08);border:1.5px solid rgba(79,142,247,.25);border-radius:14px;padding:20px 16px 16px;margin-top:14px}
+.est-res-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:10px;text-align:center}
+.est-metal{background:rgba(16,212,142,.08);border:1.5px solid rgba(16,212,142,.2);border-radius:12px;padding:16px;margin:10px 0;text-align:center}
+.est-metal-val{font-size:44px;font-weight:700;font-family:var(--mono);color:var(--green);line-height:1.1}
+.est-unit{font-size:20px;font-weight:400;color:var(--text2);font-family:var(--font)}
+.est-formula{font-size:11px;color:var(--text2);margin-top:8px;line-height:1.6}
+.est-formula code{background:rgba(0,0,0,.1);border-radius:4px;padding:0 4px;font-family:var(--mono);font-size:11px}
+.est-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+/* est-box reuses cbox styles — just smaller val */
+.est-grid .cbox-val{font-size:24px}
+.est-grid .cbox{margin-bottom:0;text-align:center}
+.est-sub{font-size:10px;color:var(--text2);margin-top:3px}
+ 
+/* INFO TABLE — unified .ir system */
+.ir-wrap{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin:8px 0}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.ir:last-child{border-bottom:none}
+.ir-k{color:var(--text2)}
+.ir-v{font-weight:700;font-family:var(--mono);color:var(--text);font-size:13px}
+.est-refs{font-size:11px;color:var(--text2);margin-top:12px;padding-top:12px;border-top:1px solid rgba(79,142,247,.15)}
+ 
 /* HISTORY */
-.hi {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
-  box-shadow: var(--shadow);
-}
-.hi:active { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,63,212,.1); }
-.hi-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.hi-date { font-size: 12px; color: var(--text2); font-weight: 500; }
-.hi-p {
-  font-size: 10px; font-weight: 700;
-  background: var(--accentbg);
-  color: var(--accent);
-  padding: 3px 10px; border-radius: 20px;
-  border: 1px solid rgba(79,142,247,.25);
-}
-.hi-vals { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
-.hi-v {
-  text-align: center;
-  background: var(--bg3);
-  border-radius: 8px;
-  padding: 8px 4px;
-}
-.hi-vn { font-size: 15px; font-weight: 700; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--text); }
-.hi-vl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text3); margin-top: 2px; }
-.hi-foot {
-  font-size: 11px; color: var(--text2);
-  margin-top: 10px; padding-top: 10px;
-  border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: center;
-}
-.tag-ok   { color: var(--green); font-weight: 600; }
-.tag-pend { color: var(--amber); font-weight: 600; }
-
-/* SETTINGS GROUP */
-.sg {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow);
-}
-.sg-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text2); margin-bottom: 12px; }
-
-/* INFO ROWS */
-.ir { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); }
-.ir:last-child { border-bottom: none; }
-.ir-k { font-size: 12px; color: var(--text2); }
-.ir-v { font-size: 13px; font-weight: 600; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; color: var(--text); }
-
-/* MODAL */
-.ov { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.5); z-index: 200; align-items: flex-end; justify-content: center; backdrop-filter: blur(2px); }
-.ov.on { display: flex; }
-.modal {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 20px 20px 0 0;
-  padding: 6px 0 0;
-  width: 100%; max-width: 500px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 -8px 30px rgba(0,0,0,.15);
-}
-.modal-handle {
-  width: 36px; height: 4px;
-  background: var(--border2);
-  border-radius: 2px;
-  margin: 0 auto 16px;
-}
-.modal-inner { padding: 0 18px 30px; }
-.modal-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 16px; }
-.mbtns { display: flex; gap: 8px; margin-top: 14px; }
-.mbtns .btn { margin: 0; flex: 1; }
-
-/* TOAST */
-.toast {
-  position: fixed; top: 75px; left: 50%; transform: translateX(-50%);
-  background: var(--text); color: #fff;
-  padding: 10px 20px; border-radius: 25px;
-  font-size: 12px; font-weight: 600;
-  z-index: 999; opacity: 0; pointer-events: none;
-  transition: opacity .25s; white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0,0,0,.2);
-}
-.toast.on { opacity: 1; }
-.toast.ok  { background: var(--green); }
-.toast.err { background: var(--red); }
-
-/* EMPTY STATE */
-.empty { text-align: center; padding: 60px 20px; color: var(--text3); }
-.empty-ic { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
-.empty p { font-size: 13px; line-height: 1.6; }
-
+.hi{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;transition:box-shadow .15s,border-color .15s;box-shadow:var(--shadow)}
+.hi:active{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,.18)}
+.hi-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.hi-date{font-size:12px;color:var(--text2);font-weight:500}
+.hi-p{font-size:10px;font-weight:700;background:var(--accentbg);color:var(--accent);padding:3px 10px;border-radius:20px;border:1px solid rgba(79,142,247,.25)}
+.hi-vals{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hi-v{text-align:center;background:var(--bg3);border-radius:8px;padding:8px 4px}
+.hi-vn{font-size:15px;font-weight:700;font-family:var(--mono);color:var(--text)}
+.hi-vl{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-top:2px}
+.hi-foot{font-size:11px;color:var(--text2);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.tag-ok{color:var(--green);font-weight:600}
+.tag-pend{color:var(--amber);font-weight:600}
+ 
+/* SETTINGS */
+.sg{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.sg-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:12px}
+ 
 /* INFO BOX */
-.info-box {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 11px;
-  color: var(--text2);
-  line-height: 1.8;
-}
-.info-box strong { color: var(--text); }
-
-select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 32px;
-}
-
-/* PILL BADGE */
-.pill {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 3px 10px; border-radius: 20px;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.3px;
-}
-.pill-green { background: var(--greenbg); color: var(--green); }
-.pill-amber { background: var(--amberbg); color: var(--amber); }
-.pill-blue  { background: var(--accentbg); color: var(--accent); }
-
-/* ESTIMATION RESULT BOXES */
-.est-metal-box {
-  background: rgba(16,212,142,.08);
-  border: 1.5px solid rgba(16,212,142,.2);
-  border-radius: 12px;
-  padding: 16px;
-  margin: 10px 0;
-  text-align: center;
-}
-.est-metal-val {
-  font-size: 44px;
-  font-weight: 700;
-  font-family: ui-monospace, 'SF Mono', 'Menlo', monospace;
-  color: var(--green);
-  line-height: 1.1;
-}
-.est-metal-val.warn { color: var(--amber); }
-.est-unit {
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--text2);
-  font-family: ui-rounded, -apple-system, sans-serif;
-}
-.est-formula {
-  font-size: 11px;
-  color: var(--text2);
-  margin-top: 8px;
-  line-height: 1.6;
-}
-.est-formula code {
-  background: rgba(0,0,0,.05);
-  border-radius: 4px;
-  padding: 0 4px;
-  font-family: ui-monospace, 'SF Mono', monospace;
-  font-size: 11px;
-}
-.est-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin: 10px 0;
-}
-.est-box {
-  background: var(--bg3);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
-  text-align: center;
-  position: relative; overflow: hidden;
-}
-.est-box::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0; width: 4px;
-  background: var(--accent);
-  border-radius: 10px 0 0 10px;
-}
-.est-box.green::before { background: var(--green); }
-.est-box.amber::before { background: var(--amber); }
-.est-box-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text2); margin-bottom: 4px; }
-.est-box-val { font-size: 24px; font-weight: 700; font-family: ui-monospace, 'SF Mono', monospace; color: var(--accent); }
-.est-box.green .est-box-val { color: var(--green); }
-.est-box.amber .est-box-val { color: var(--amber); }
-.est-box-unit { font-size: 11px; color: var(--text2); margin-left: 2px; }
-.est-rendement-bar {
-  background: var(--bg3);
-  border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin: 8px 0;
-}
-.est-rendement-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border);
-}
-.est-rendement-row:last-child { border-bottom: none; }
-.est-rend-k { color: var(--text2); }
-.est-rend-v { font-weight: 700; font-family: ui-monospace, 'SF Mono', monospace; color: var(--text); }
+.info-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:11px;color:var(--text2);line-height:1.8}
+.info-box strong{color:var(--text)}
+ 
+/* MODAL */
+.ov{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
+.ov.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px 20px 0 0;padding:6px 0 0;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 -8px 30px rgba(0,0,0,.15)}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 16px}
+.modal-inner{padding:0 18px 30px}
+.modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
+.mbtns{display:flex;gap:8px;margin-top:14px}
+.mbtns .btn{margin:0;flex:1}
+ 
+/* TOAST */
+.toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.toast.on{opacity:1}
+.toast.ok{background:var(--green)}
+.toast.err{background:var(--red)}
+ 
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-ic{font-size:48px;margin-bottom:12px;opacity:.5}
 </style>
-
 </head>
 <body>
-
-<!-- ÉCRAN MOT DE PASSE -->
-
-<div id="lockscreen" style="
-  position:fixed;inset:0;z-index:9999;
-  background:#1a1d2e;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:20px;padding:30px;
-">
-  <div style="font-size:52px;">⚗️</div>
-  <div style="font-size:22px;font-weight:700;color:#e8edf7;letter-spacing:-0.5px;">SunZaDev</div>
-  <div style="font-size:13px;color:#8892b0;">Accès protégé</div>
-  <input id="pwd-input" type="password" placeholder="Mot de passe"
-    style="
-      width:100%;max-width:280px;
-      background:#242840;border:1.5px solid #2e3456;
-      color:#e8edf7;padding:14px 18px;
-      font-size:16px;border-radius:12px;
-      outline:none;text-align:center;
-      font-family:ui-rounded,-apple-system,sans-serif;
-    "
-    onkeydown="if(event.key==='Enter')checkPwd()"
-  >
-  <label style="display:flex;align-items:center;gap:8px;color:#8892b0;font-size:13px;cursor:pointer;">
-    <input type="checkbox" id="pwd-remember" style="width:16px;height:16px;accent-color:#4f8ef7;">
-    Rester connecté
-  </label>
-  <button onclick="checkPwd()" style="
-    width:100%;max-width:280px;
-    padding:14px;border:none;border-radius:12px;
-    background:linear-gradient(135deg,#4f8ef7,#7c5af7);
-    color:#fff;font-size:16px;font-weight:700;
-    font-family:ui-rounded,-apple-system,sans-serif;
-    cursor:pointer;
-    box-shadow:0 4px 16px rgba(79,142,247,.4);
-  ">Entrer</button>
-  <div id="pwd-err" style="color:#ff6b6b;font-size:13px;display:none;">Mot de passe incorrect</div>
+ 
+<!-- LOCKSCREEN -->
+<div id="lockscreen">
+  <div style="font-size:52px">⚗️</div>
+  <h1>SunZaDev</h1>
+  <p>Accès protégé</p>
+  <input id="pwd-input" type="password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')checkPwd()">
+  <label class="chk-row"><input type="checkbox" id="pwd-remember"> Rester connecté</label>
+  <button id="pwd-btn" onclick="checkPwd()">Entrer</button>
+  <div id="pwd-err">Mot de passe incorrect</div>
 </div>
-
+ 
 <script>
-function checkPwd() {
-  const val = document.getElementById('pwd-input').value;
-  if (val === atob('Um9zYWxpZTEzMDM=')) {
+function checkPwd(){
+  if(document.getElementById('pwd-input').value===atob('Um9zYWxpZTEzMDM=')){
     document.getElementById('lockscreen').style.display='none';
-    const remember = document.getElementById('pwd-remember').checked;
-    if (remember) localStorage.setItem('unlocked','1');
-    else sessionStorage.setItem('unlocked','1');
+    document.getElementById('pwd-remember').checked
+      ? localStorage.setItem('unlocked','1')
+      : sessionStorage.setItem('unlocked','1');
   } else {
     document.getElementById('pwd-err').style.display='block';
     document.getElementById('pwd-input').value='';
     document.getElementById('pwd-input').focus();
   }
 }
-if (localStorage.getItem('unlocked')==='1' || sessionStorage.getItem('unlocked')==='1') {
+if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')==='1')
   document.getElementById('lockscreen').style.display='none';
-}
 </script>
-
+ 
+<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-logo">
     <div class="hdr-icon">⚗️</div>
-    <div class="hdr-texts">
-      <div class="hdr-title">SunZaDev</div>
-    </div>
+    <div><div class="hdr-title">SunZaDev</div></div>
   </div>
-  <div class="hdr-clock">
+  <div>
     <div class="hdr-time" id="hdrTime">--:--</div>
     <div class="hdr-date" id="hdrDate">---</div>
   </div>
 </div>
-
+ 
 <div class="content">
-
-  <!-- ======= TAB 1 : COULÉE ======= -->
-
-  <div class="tp on" id="tp-c">
-    <div class="stitle">Nouvelle Coulée</div>
-
-```
-<div class="row2">
-  <div class="fg"><label class="fl">Date</label><input type="date" id="inp-date"></div>
-  <div class="fg"><label class="fl">Heure</label><input type="time" id="inp-heure"></div>
-</div>
-
-<div class="fg">
-  <label class="fl">Poche</label>
-  <div class="psel">
-    <button class="pbtn on" id="pb1" onclick="selPoche(1)">POCHE 1</button>
-    <button class="pbtn"    id="pb2" onclick="selPoche(2)">POCHE 2</button>
-  </div>
-</div>
-
-<hr>
-<div class="stitle" style="margin-top:2px;">Pesées</div>
-
-<div class="fg">
-  <label class="fl">Poche Pleine (kg)</label>
-  <input type="number" id="ip-pp" placeholder="ex : 25 000" oninput="calc()">
-</div>
-<div class="fg">
-  <label class="fl">Poche Après Recouler (kg)</label>
-  <input type="number" id="ip-pr" placeholder="ex : 20 000" oninput="calc()">
-</div>
-
-<div class="cbox green">
-  <div class="cbox-lbl">Métal brut (Pleine − Après recouler)</div>
-  <span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span>
-  <div class="cbox-formula" id="c-metal-f"></div>
-</div>
-
-<div class="fg">
-  <label class="fl">Ajout (kg) — optionnel</label>
-  <input type="number" id="ip-aj" placeholder="ex : 500" step="1" oninput="calc()">
-</div>
-
-<div class="cbox blue">
-  <div class="cbox-lbl">Métal Net (Métal brut − Ajout)</div>
-  <span class="cbox-val" id="c-metalnet">—</span><span class="cbox-unit">kg</span>
-  <div class="cbox-formula" id="c-metalnet-f"></div>
-</div>
-
-<div class="fg">
-  <label class="fl">Poche Vide / Après Nettoyage (kg)</label>
-  <input type="number" id="ip-pv" placeholder="ex : 18 500" oninput="calc()">
-</div>
-
-<div class="cbox yellow">
-  <div class="cbox-lbl">Poids Crasse (Après recouler − Poche vide)</div>
-  <span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span>
-</div>
-
-<hr>
-<div class="stitle">Four &amp; Rendement</div>
-
-<div class="row2">
-  <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="ip-pw" value="30" oninput="calc()"></div>
-  <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="ip-tm" value="180" oninput="calc()"></div>
-</div>
-
-<div class="rend-grid">
-  <div class="cbox blue">
-    <div class="cbox-lbl">Débit (t/h)</div>
-    <span class="cbox-val" id="c-debit">—</span>
-    <div class="cbox-formula">(Métal ÷ Temps) × 60 ÷ 1000</div>
-  </div>
-  <div class="cbox">
-    <div class="cbox-lbl">Rendement Four (MWh/t)</div>
-    <span class="cbox-val" id="c-rend">—</span>
-    <div class="cbox-formula">Puissance ÷ Débit t/h</div>
-  </div>
-</div>
-
-<hr>
-<div class="stitle">Aluminium</div>
-
-<div class="fg">
-  <label class="fl">Alu Estimé Ajouté (kg) — facultatif</label>
-  <input type="number" id="ip-ae" placeholder="ex : 23" step="0.1">
-</div>
-<div class="fg">
-  <label class="fl">Analyse Al% Laboratoire — à remplir plus tard</label>
-  <input type="number" id="ip-aa" placeholder="ex : 0.21" step="0.001">
-</div>
-
-<button class="btn btn-p" onclick="saveCoulee()">💾 &nbsp;ENREGISTRER LA COULÉE</button>
-<button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser le formulaire</button>
-```
-
-  </div>
-
-  <!-- ======= TAB 2 : ESTIMATION ======= -->
-
-  <div class="tp" id="tp-a">
-    <div class="stitle">Estimation Poche — Pré-coulée</div>
-
-```
-<div class="info-box" style="margin-bottom:14px;">
-  Sélectionnez la poche, entrez le <strong>poids poche pleine sortie de four</strong> et la <strong>puissance du four</strong>.
-  L'app calcule le métal estimé et le rendement attendu.
-</div>
-
-<div class="fg">
-  <label class="fl">Poche</label>
-  <div class="psel">
-    <button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button>
-    <button class="pbtn"    id="apb2" onclick="selAluPoche(2)">POCHE 2</button>
-  </div>
-</div>
-
-<div class="row2">
-  <div class="fg">
-    <label class="fl">Poids Poche Pleine (kg)</label>
-    <input type="number" id="alu-pp" placeholder="ex : 25 560" oninput="calcAlu()">
+ 
+<!-- ═══ COULÉE ═══ -->
+<div class="tp on" id="tp-c">
+  <div class="stitle">Nouvelle Coulée</div>
+  <div class="row2">
+    <div class="fg"><label class="fl">Date</label><input type="date" id="inp-date"></div>
+    <div class="fg"><label class="fl">Heure</label><input type="time" id="inp-heure"></div>
   </div>
   <div class="fg">
-    <label class="fl">Puissance Four (MW/h)</label>
-    <input type="number" id="alu-pw" placeholder="ex : 30" oninput="calcAlu()">
+    <label class="fl">Poche</label>
+    <div class="psel">
+      <button class="pbtn on" id="pb1" onclick="selPoche(1)">POCHE 1</button>
+      <button class="pbtn"    id="pb2" onclick="selPoche(2)">POCHE 2</button>
+    </div>
   </div>
-</div>
-
-<div class="row2">
+  <hr>
+  <div class="stitle" style="margin-top:2px">Pesées</div>
+  <div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="ip-pp" placeholder="ex : 25 000" oninput="calc()"></div>
+  <div class="fg"><label class="fl">Poche Après Recouler (kg)</label><input type="number" id="ip-pr" placeholder="ex : 20 000" oninput="calc()"></div>
+  <div class="cbox green">
+    <div class="cbox-lbl">Métal brut (Pleine − Après recouler)</div>
+    <span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span>
+    <div class="cbox-formula" id="c-metal-f"></div>
+  </div>
+  <div class="fg"><label class="fl">Ajout (kg) — optionnel</label><input type="number" id="ip-aj" placeholder="ex : 500" step="1" oninput="calc()"></div>
   <div class="fg">
-    <label class="fl">Temps Coulée (min)</label>
-    <input type="number" id="alu-tm" placeholder="ex : 180" oninput="calcAlu()">
-  </div>
-  <div class="fg">
-    <label class="fl">Ajout (kg)</label>
-    <input type="number" id="alu-aj" placeholder="ex : 500" step="1" oninput="calcAlu()">
-  </div>
-</div>
-<div class="fg" style="display:flex;flex-direction:column;justify-content:flex-end;">
-    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:11px 13px;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;">
-      <input type="checkbox" id="alu-fleuret" onchange="calcAlu()" style="width:18px;height:18px;accent-color:var(--accent);flex-shrink:0;">
-      <span style="font-size:14px;font-weight:600;color:var(--text);">🗡 Fleuret <span style="font-size:11px;color:var(--accent);font-weight:700;">+1 000 kg</span></span>
+    <label class="fleuret-label">
+      <input type="checkbox" id="ip-fleuret" onchange="calc()">
+      <span class="fleuret-txt">🗡 Fleuret <span class="fleuret-badge">+1 000 kg métal net</span></span>
     </label>
   </div>
-
-<div id="alu-res-zone"></div>
-
-<hr>
-<div class="stitle">Paramètre Cible</div>
-<div class="fg">
-  <label class="fl">Cible Al% appliqué sur métal estimé</label>
-  <input type="number" id="alu-target" step="0.001" placeholder="ex : 0.21" oninput="saveSetting('aluTarget',this.value);calcAlu()">
-</div>
-<div class="info-box">
-  <strong>Formule métal estimé :</strong><br>
-  Métal = Poche pleine − Poids vide moyen − Crasse moyenne<br><br>
-  <strong>Rendement estimé :</strong><br>
-  Rendement = Puissance four ÷ Débit (t/h)<br>
-  Débit = Métal estimé ÷ Temps moyen × 60 ÷ 1000<br><br>
-  ⚠ Nécessite des coulées avec <strong>Poche vide</strong> renseignée pour la méthode précise.
-</div>
-```
-
+  <div class="cbox blue">
+    <div class="cbox-lbl">Métal Net (brut − ajout + fleuret)</div>
+    <span class="cbox-val" id="c-metalnet">—</span><span class="cbox-unit">kg</span>
+    <div class="cbox-formula" id="c-metalnet-f"></div>
   </div>
-
-  <!-- ======= TAB 3 : HISTORIQUE ======= -->
-
-  <div class="tp" id="tp-h">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-      <div class="stitle" style="margin:0;border:none;">Historique</div>
-      <select id="filt" onchange="renderHist()" style="width:auto;padding:6px 28px 6px 10px;font-size:11px;">
-        <option value="0">Toutes</option>
-        <option value="1">Poche 1</option>
-        <option value="2">Poche 2</option>
-      </select>
+  <div class="fg"><label class="fl">Poche Vide / Après Nettoyage (kg)</label><input type="number" id="ip-pv" placeholder="ex : 18 500" oninput="calc()"></div>
+  <div class="cbox amber">
+    <div class="cbox-lbl">Poids Crasse (Après recouler − Poche vide)</div>
+    <span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span>
+  </div>
+  <hr>
+  <div class="stitle">Four &amp; Rendement</div>
+  <div class="row2">
+    <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="ip-pw" oninput="calc()"></div>
+    <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number" id="ip-tm" oninput="calc()"></div>
+  </div>
+  <div class="rend-grid">
+    <div class="cbox blue"><div class="cbox-lbl">Débit (t/h)</div><span class="cbox-val" id="c-debit">—</span><div class="cbox-formula">Métal net ÷ Temps × 60 ÷ 1000</div></div>
+    <div class="cbox"><div class="cbox-lbl">Rendement (MWh/t)</div><span class="cbox-val" id="c-rend">—</span><div class="cbox-formula">Puissance ÷ Débit</div></div>
+  </div>
+  <hr>
+  <div class="stitle">Aluminium</div>
+  <div class="row2">
+    <div class="fg"><label class="fl">Al Estimé Ajouté (kg)</label><input type="number" id="ip-ae" placeholder="ex : 23" step="0.1"></div>
+    <div class="fg"><label class="fl">Analyse Al% Labo</label><input type="number" id="ip-aa" placeholder="ex : 0.21" step="0.001"></div>
+  </div>
+  <button class="btn btn-p" onclick="saveCoulee()">💾 &nbsp;ENREGISTRER LA COULÉE</button>
+  <button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser</button>
+</div>
+ 
+<!-- ═══ ESTIMATION ═══ -->
+<div class="tp" id="tp-a">
+  <div class="stitle">Estimation Poche — Pré-coulée</div>
+  <div class="info-box" style="margin-bottom:14px">
+    Entrez le <strong>poids poche pleine sortie de four</strong>. L'app calcule le métal estimé et le rendement attendu.
+  </div>
+  <div class="fg">
+    <label class="fl">Poche</label>
+    <div class="psel">
+      <button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button>
+      <button class="pbtn"    id="apb2" onclick="selAluPoche(2)">POCHE 2</button>
     </div>
-    <div id="hist-list"></div>
   </div>
-
-  <!-- ======= TAB 4 : PARAMÈTRES ======= -->
-
-  <div class="tp" id="tp-s">
-    <div class="stitle">Paramètres</div>
-
-```
-<div class="sg">
-  <div class="sg-title">Valeurs par défaut</div>
-  <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="s-pw" oninput="saveSetting('pw',this.value)"></div>
-  <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number"   id="s-tm" oninput="saveSetting('tm',this.value)"></div>
-  <div class="fg"><label class="fl">Cible Aluminium (%)</label><input type="number"  id="s-at" step="0.001" oninput="saveSetting('aluTarget',this.value);syncAluTarget()"></div>
-</div>
-
-<div class="sg">
-  <div class="sg-title">Données stockées</div>
-  <div style="font-size:12px;color:var(--text2);margin-bottom:10px;" id="data-info">Chargement…</div>
-  <button class="btn btn-s" onclick="exportJSON()" style="margin-top:0;">📤 &nbsp;Exporter toutes les coulées (JSON)</button>
-  <button class="btn btn-r" onclick="openModal('ov-clr')">🗑 &nbsp;Effacer toutes les données</button>
-</div>
-```
-
+  <div class="row2">
+    <div class="fg"><label class="fl">Poids Poche Pleine (kg)</label><input type="number" id="alu-pp" placeholder="ex : 25 560" oninput="calcAlu()"></div>
+    <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="alu-pw" oninput="calcAlu()"></div>
+  </div>
+  <div class="row2">
+    <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number" id="alu-tm" oninput="calcAlu()"></div>
+    <div class="fg"><label class="fl">Ajout (kg)</label><input type="number" id="alu-aj" placeholder="ex : 500" step="1" oninput="calcAlu()"></div>
+  </div>
+  <div class="fg">
+    <label class="fleuret-label">
+      <input type="checkbox" id="alu-fleuret" onchange="calcAlu()">
+      <span class="fleuret-txt">🗡 Fleuret <span class="fleuret-badge">+1 000 kg</span></span>
+    </label>
+  </div>
+  <div id="alu-res-zone"></div>
+  <hr>
+  <div class="stitle">Paramètre Cible</div>
+  <div class="fg"><label class="fl">Cible Al% (sur métal brut)</label><input type="number" id="alu-target" step="0.001" placeholder="ex : 0.21" oninput="saveSetting('aluTarget',this.value);calcAlu()"></div>
+  <div class="info-box">
+    <strong>Méthode (priorité) :</strong><br>
+    1. Poche pleine − moy(après recouler)<br>
+    2. Poche pleine − moy(vide) − moy(crasse)<br>
+    3. Ratio métal/poids (fallback)<br><br>
+    <strong>Rendement :</strong> sur métal net (brut − ajout + fleuret)
   </div>
 </div>
-
-<!-- BOTTOM NAV -->
-
+ 
+<!-- ═══ HISTORIQUE ═══ -->
+<div class="tp" id="tp-h">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div class="stitle" style="margin:0;border:none">Historique</div>
+    <select id="filt" onchange="renderHist()" style="width:auto;padding:6px 28px 6px 10px;font-size:11px">
+      <option value="0">Toutes</option>
+      <option value="1">Poche 1</option>
+      <option value="2">Poche 2</option>
+    </select>
+  </div>
+  <div id="hist-list"></div>
+</div>
+ 
+<!-- ═══ PARAMÈTRES ═══ -->
+<div class="tp" id="tp-s">
+  <div class="stitle">Paramètres</div>
+  <div class="sg">
+    <div class="sg-title">Valeurs par défaut</div>
+    <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="s-pw" oninput="saveSetting('pw',this.value)"></div>
+    <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number" id="s-tm" oninput="saveSetting('tm',this.value)"></div>
+    <div class="fg"><label class="fl">Cible Aluminium (%)</label><input type="number" id="s-at" step="0.001" oninput="saveSetting('aluTarget',this.value);syncAluTarget()"></div>
+  </div>
+  <div class="sg">
+    <div class="sg-title">Données stockées</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:10px" id="data-info">Chargement…</div>
+    <button class="btn btn-s" onclick="exportJSON()" style="margin-top:0">📤 &nbsp;Exporter (JSON)</button>
+    <button class="btn btn-r" onclick="openModal('ov-clr')">🗑 &nbsp;Effacer toutes les données</button>
+  </div>
+  <div class="sg">
+    <div class="sg-title">Session</div>
+    <button class="btn btn-r" onclick="deconnexion()" style="margin-top:0">🔒 &nbsp;Se déconnecter</button>
+  </div>
+</div>
+</div>
+ 
+<!-- NAV -->
 <nav class="bnav">
   <button class="bnav-btn on" id="nb-c" onclick="goTab('c')"><span class="bnav-ic">🔥</span>Coulée</button>
   <button class="bnav-btn"    id="nb-a" onclick="goTab('a')"><span class="bnav-ic">⚗️</span>Estimation</button>
   <button class="bnav-btn"    id="nb-h" onclick="goTab('h')"><span class="bnav-ic">📋</span>Historique</button>
   <button class="bnav-btn"    id="nb-s" onclick="goTab('s')"><span class="bnav-ic">⚙️</span>Réglages</button>
 </nav>
-
-<!-- MODAL DETAIL COULÉE -->
-
+ 
+<!-- MODALS -->
 <div class="ov" id="ov-det">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-inner">
-      <div class="modal-title">Détail Coulée</div>
-      <div id="mod-det-body"></div>
-      <div class="mbtns">
-        <button class="btn btn-s" onclick="closeModal('ov-det')">Fermer</button>
-        <button class="btn btn-s" onclick="openEditModal()">✏️ Modifier</button>
-        <button class="btn btn-r" onclick="confirmDelete()">🗑</button>
-      </div>
-      <div style="margin-top:8px;">
-        <button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button>
-      </div>
+  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+    <div class="modal-title">Détail Coulée</div>
+    <div id="mod-det-body"></div>
+    <div class="mbtns">
+      <button class="btn btn-s" onclick="closeModal('ov-det')">Fermer</button>
+      <button class="btn btn-s" onclick="openEditModal()">✏️ Modifier</button>
+      <button class="btn btn-r" onclick="confirmDelete()">🗑</button>
     </div>
-  </div>
+    <div style="margin-top:8px"><button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button></div>
+  </div></div>
 </div>
-
-<!-- MODAL SAISIE ANALYSE AL -->
-
+ 
 <div class="ov" id="ov-alu">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-inner">
-      <div class="modal-title">Analyse Laboratoire</div>
-      <div class="fg"><label class="fl">Résultat Analyse Al%</label>
-        <input type="number" id="m-alu-pct" step="0.001" placeholder="ex : 0.21"></div>
-      <div class="fg"><label class="fl">Aluminium réel ajouté (kg) — optionnel</label>
-        <input type="number" id="m-alu-reel" placeholder="ex : 23" step="0.1"></div>
-      <div class="mbtns">
-        <button class="btn btn-s" onclick="closeModal('ov-alu')">Annuler</button>
-        <button class="btn btn-p" onclick="saveAlu()">Enregistrer</button>
-      </div>
+  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+    <div class="modal-title">Analyse Laboratoire</div>
+    <div class="fg"><label class="fl">Résultat Al%</label><input type="number" id="m-alu-pct" step="0.001" placeholder="ex : 0.21"></div>
+    <div class="fg"><label class="fl">Al réel ajouté (kg) — optionnel</label><input type="number" id="m-alu-reel" placeholder="ex : 23" step="0.1"></div>
+    <div class="mbtns">
+      <button class="btn btn-s" onclick="closeModal('ov-alu')">Annuler</button>
+      <button class="btn btn-p" onclick="saveAlu()">Enregistrer</button>
     </div>
-  </div>
+  </div></div>
 </div>
-
-<!-- MODAL CONFIRM CLEAR -->
-
-<div class="ov" id="ov-clr">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-inner">
-      <div class="modal-title">Effacer les données ?</div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;">
-        Toutes les coulées enregistrées seront supprimées définitivement. Pensez à exporter avant.
-      </p>
-      <div class="mbtns">
-        <button class="btn btn-s" onclick="closeModal('ov-clr')">Annuler</button>
-        <button class="btn btn-r" onclick="clearAll()">Tout effacer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL MODIFIER COULÉE -->
-
+ 
 <div class="ov" id="ov-edit">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-inner">
-      <div class="modal-title">Modifier la Coulée</div>
-      <div class="row2">
-        <div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="e-pp"></div>
-        <div class="fg"><label class="fl">Après Recouler (kg)</label><input type="number" id="e-pr"></div>
-      </div>
-      <div class="row2">
-        <div class="fg"><label class="fl">Poche Vide (kg)</label><input type="number" id="e-pv"></div>
-        <div class="fg"><label class="fl">Ajout (kg)</label><input type="number" id="e-aj"></div>
-      </div>
-      <div class="row2">
-        <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="e-pw"></div>
-        <div class="fg"><label class="fl">Temps (min)</label><input type="number" id="e-tm"></div>
-      </div>
-      <div class="row2">
-        <div class="fg"><label class="fl">Al Estimé (kg)</label><input type="number" id="e-ae" step="0.1"></div>
-        <div class="fg"><label class="fl">Analyse Al%</label><input type="number" id="e-aa" step="0.001"></div>
-      </div>
-      <div class="mbtns">
-        <button class="btn btn-s" onclick="closeModal('ov-edit');openModal('ov-det')">Annuler</button>
-        <button class="btn btn-p" onclick="saveEdit()">💾 Enregistrer</button>
-      </div>
+  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+    <div class="modal-title">Modifier la Coulée</div>
+    <div class="row2">
+      <div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="e-pp"></div>
+      <div class="fg"><label class="fl">Après Recouler (kg)</label><input type="number" id="e-pr"></div>
     </div>
-  </div>
+    <div class="row2">
+      <div class="fg"><label class="fl">Poche Vide (kg)</label><input type="number" id="e-pv"></div>
+      <div class="fg"><label class="fl">Ajout (kg)</label><input type="number" id="e-aj"></div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="e-pw"></div>
+      <div class="fg"><label class="fl">Temps (min)</label><input type="number" id="e-tm"></div>
+    </div>
+    <div class="row2">
+      <div class="fg"><label class="fl">Al Estimé (kg)</label><input type="number" id="e-ae" step="0.1"></div>
+      <div class="fg"><label class="fl">Analyse Al%</label><input type="number" id="e-aa" step="0.001"></div>
+    </div>
+    <div class="mbtns">
+      <button class="btn btn-s" onclick="closeModal('ov-edit');openModal('ov-det')">Annuler</button>
+      <button class="btn btn-p" onclick="saveEdit()">💾 Enregistrer</button>
+    </div>
+  </div></div>
 </div>
-
-<!-- MODAL CONFIRMER SUPPRESSION -->
-
+ 
 <div class="ov" id="ov-del">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-inner">
-      <div class="modal-title">Supprimer cette coulée ?</div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;">
-        Cette action est irréversible. La coulée sera définitivement supprimée.
-      </p>
-      <div class="mbtns">
-        <button class="btn btn-s" onclick="closeModal('ov-del');openModal('ov-det')">Annuler</button>
-        <button class="btn btn-r" onclick="deleteCoulee()">Supprimer</button>
-      </div>
+  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+    <div class="modal-title">Supprimer cette coulée ?</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Action irréversible.</p>
+    <div class="mbtns">
+      <button class="btn btn-s" onclick="closeModal('ov-del');openModal('ov-det')">Annuler</button>
+      <button class="btn btn-r" onclick="deleteCoulee()">Supprimer</button>
     </div>
-  </div>
+  </div></div>
 </div>
-
+ 
+<div class="ov" id="ov-clr">
+  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+    <div class="modal-title">Effacer les données ?</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Toutes les coulées seront supprimées. Pensez à exporter avant.</p>
+    <div class="mbtns">
+      <button class="btn btn-s" onclick="closeModal('ov-clr')">Annuler</button>
+      <button class="btn btn-r" onclick="clearAll()">Tout effacer</button>
+    </div>
+  </div></div>
+</div>
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script>
 'use strict';
-
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let curPoche  = 1;
-let aluPoche  = 1;
-let selId     = null;
-let cfg = { pw:30, tm:180, aluTarget:0.21 };
-
+ 
+// ─── STATE & CACHE ────────────────────────────────────────────────────────────
+let curPoche=1, aluPoche=1, selId=null;
+let cfg={pw:30,tm:180,aluTarget:0.21};
+let _hist=null; // cache mémoire
+ 
+// ─── STORAGE ─────────────────────────────────────────────────────────────────
+function getHistory(){
+  if(_hist===null){
+    try{_hist=JSON.parse(localStorage.getItem('fc_coulees')||'[]')}catch{_hist=[]}
+  }
+  return _hist;
+}
+function saveHistory(d){_hist=d;localStorage.setItem('fc_coulees',JSON.stringify(d))}
+ 
+// ─── METAL CALC (centralisé) ─────────────────────────────────────────────────
+function metalCalc(pp,pr,aj,fl){
+  const brut=pp-pr;
+  const net=brut-(aj||0)+(fl?1000:0);
+  return{brut,net};
+}
+ 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-function init() {
-  loadCfg();
-  setNow();
-  clockTick();
-  setInterval(clockTick, 10000);
-  applySettingsUI();
-  renderHist();
-  updateDataInfo();
-  genIcon();
+function init(){
+  loadCfg(); setNow(); clockTick();
+  setInterval(clockTick,10000);
+  applySettingsUI(); renderHist(); updateDataInfo(); genIcon();
 }
-
-function clockTick() {
-  const n = new Date();
-  document.getElementById('hdrTime').textContent =
-    n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('hdrDate').textContent =
-    n.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'2-digit',year:'2-digit'});
+ 
+function clockTick(){
+  const n=new Date();
+  document.getElementById('hdrTime').textContent=n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('hdrDate').textContent=n.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'2-digit',year:'2-digit'});
 }
-
-function setNow() {
-  const n = new Date();
-  document.getElementById('inp-date').value = n.toISOString().slice(0,10);
-  document.getElementById('inp-heure').value = n.toTimeString().slice(0,5);
+ 
+function setNow(){
+  const n=new Date();
+  document.getElementById('inp-date').value=n.toISOString().slice(0,10);
+  document.getElementById('inp-heure').value=n.toTimeString().slice(0,5);
 }
-
+ 
 // ─── TABS ────────────────────────────────────────────────────────────────────
-function goTab(t) {
-  ['c','a','h','s'].forEach(x => {
-    document.getElementById('tp-'+x).classList.toggle('on', x===t);
-    document.getElementById('nb-'+x).classList.toggle('on', x===t);
+function goTab(t){
+  ['c','a','h','s'].forEach(x=>{
+    document.getElementById('tp-'+x).classList.toggle('on',x===t);
+    document.getElementById('nb-'+x).classList.toggle('on',x===t);
   });
-  if (t==='h') renderHist();
-  if (t==='s') updateDataInfo();
+  if(t==='h')renderHist();
+  if(t==='s')updateDataInfo();
 }
-
+ 
 // ─── POCHE SELECT ─────────────────────────────────────────────────────────────
-function selPoche(n) {
-  curPoche = n;
-  document.getElementById('pb1').classList.toggle('on', n===1);
-  document.getElementById('pb2').classList.toggle('on', n===2);
+function selPoche(n){
+  curPoche=n;
+  document.getElementById('pb1').classList.toggle('on',n===1);
+  document.getElementById('pb2').classList.toggle('on',n===2);
 }
-function selAluPoche(n) {
-  aluPoche = n;
-  document.getElementById('apb1').classList.toggle('on', n===1);
-  document.getElementById('apb2').classList.toggle('on', n===2);
+function selAluPoche(n){
+  aluPoche=n;
+  document.getElementById('apb1').classList.toggle('on',n===1);
+  document.getElementById('apb2').classList.toggle('on',n===2);
   calcAlu();
 }
-
-// ─── FORM CALCULATIONS ───────────────────────────────────────────────────────
-function v(id) { return parseFloat(document.getElementById(id).value)||0; }
-function fmt(n) { return n.toLocaleString('fr-FR'); }
-
-function calc() {
-  const pp = v('ip-pp'), pr = v('ip-pr'), pv = v('ip-pv');
-  const pw = v('ip-pw'), tm = v('ip-tm');
-  const aj    = v('ip-aj');
-  const metal = pp - pr;
-  const metalNet = metal - aj;
-  const crasse = pr - pv;
-
-  if (pp>0 && pr>0 && metal>0) {
-    document.getElementById('c-metal').textContent   = fmt(metal);
-    document.getElementById('c-metal-f').textContent = fmt(pp)+' − '+fmt(pr)+' = '+fmt(metal)+' kg';
-  } else {
-    document.getElementById('c-metal').textContent   = '—';
-    document.getElementById('c-metal-f').textContent = '';
-  }
-
-  if (metal>0) {
-    const mn = aj>0 ? metalNet : metal;
-    document.getElementById('c-metalnet').textContent = fmt(mn);
-    document.getElementById('c-metalnet-f').textContent = aj>0
-      ? fmt(metal)+' − '+fmt(aj)+' = '+fmt(mn)+' kg'
-      : 'Pas d\'ajout renseigné';
-  } else {
-    document.getElementById('c-metalnet').textContent = '—';
-    document.getElementById('c-metalnet-f').textContent = '';
-  }
-
-  document.getElementById('c-crasse').textContent = (pr>0&&pv>0&&crasse>=0) ? fmt(crasse) : '—';
-
-  // Rendement calculé sur métal net
-  const metalRend = (aj>0 && metalNet>0) ? metalNet : metal;
-  if (metalRend>0 && pw>0 && tm>0) {
-    const debitKgMin = metalRend / tm;
-    const debitTh    = debitKgMin * 60 / 1000;
-    const rend       = pw / debitTh;
-    document.getElementById('c-debit').textContent = debitTh.toFixed(3);
-    document.getElementById('c-rend').textContent  = rend.toFixed(2);
-  } else {
-    document.getElementById('c-debit').textContent = '—';
-    document.getElementById('c-rend').textContent  = '—';
-  }
+ 
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function v(id){return parseFloat(document.getElementById(id).value)||0}
+function fmt(n){return n.toLocaleString('fr-FR')}
+function el(id){return document.getElementById(id)}
+function avg(arr,fn){return arr.length?arr.reduce((s,c)=>s+fn(c),0)/arr.length:null}
+ 
+// ─── COULÉE CALC ─────────────────────────────────────────────────────────────
+function calc(){
+  const pp=v('ip-pp'),pr=v('ip-pr'),pv=v('ip-pv'),pw=v('ip-pw'),tm=v('ip-tm');
+  const aj=v('ip-aj'),fl=el('ip-fleuret').checked;
+  const {brut,net}=metalCalc(pp,pr,aj,fl);
+  const crasse=pr-pv;
+ 
+  if(pp>0&&pr>0&&brut>0){
+    el('c-metal').textContent=fmt(brut);
+    el('c-metal-f').textContent=fmt(pp)+' − '+fmt(pr)+' = '+fmt(brut)+' kg';
+  } else {el('c-metal').textContent='—';el('c-metal-f').textContent=''}
+ 
+  if(brut>0){
+    const mn=(aj>0||fl)?net:brut;
+    el('c-metalnet').textContent=fmt(mn);
+    const parts=[];
+    if(aj>0)parts.push('− '+fmt(aj)+' (ajout)');
+    if(fl)parts.push('+ 1 000 (fleuret)');
+    el('c-metalnet-f').textContent=parts.length?fmt(brut)+' '+parts.join(' ')+' = '+fmt(mn)+' kg':'Aucun ajout';
+  } else {el('c-metalnet').textContent='—';el('c-metalnet-f').textContent=''}
+ 
+  el('c-crasse').textContent=(pr>0&&pv>0&&crasse>=0)?fmt(crasse):'—';
+ 
+  const mr=(aj>0||fl)&&net>0?net:brut;
+  if(mr>0&&pw>0&&tm>0){
+    const d=(mr/tm)*60/1000;
+    el('c-debit').textContent=d.toFixed(3);
+    el('c-rend').textContent=(pw/d).toFixed(2);
+  } else {el('c-debit').textContent='—';el('c-rend').textContent='—'}
 }
-
-// ─── ESTIMATION POCHE (poids vide + crasse) ──────────────────────────────────
-function calcAlu() {
-  const pocheNew = v('alu-pp');
-  const zone = document.getElementById('alu-res-zone');
-  if (!pocheNew) { zone.innerHTML=''; return; }
-
-  const target = parseFloat(document.getElementById('alu-target').value)||cfg.aluTarget;
-
-  // Historique de cette poche, du plus récent au plus ancien
-  const hist = getHistory().filter(c => c.poche===aluPoche).sort((a,b)=>b.id-a.id);
-
-  // ── 1. Estimation du métal — formule optimale ────────────────────────────────
-  // Priorité 1 : avg(poche_apres) sur les 3 dernières → métal = poche_pleine - avg(poche_apres)
-  // Priorité 2 : avg(poche_vide) + avg(crasse) séparément
-  // Priorité 3 : ratio métal/poche_pleine
-  const withApres = hist.filter(c => c.poche_apres).slice(0, 3);
-  const withVide  = hist.filter(c => c.poche_vide != null && c.crasse != null && c.crasse >= 0).slice(0, 3);
-  let avgApres = null, avgVide = null, avgCrasse = null;
-  let metalEst = null, methode = 'ratio';
-
-  if (withApres.length) {
-    avgApres  = withApres.reduce((s,c)=>s+c.poche_apres, 0) / withApres.length;
-    metalEst  = pocheNew - avgApres;
-    if (metalEst < 0) metalEst = 0;
-    methode = 'apres';
-    // Aussi calculer vide/crasse pour affichage
-    if (withVide.length) {
-      avgVide   = withVide.reduce((s,c)=>s+c.poche_vide, 0) / withVide.length;
-      avgCrasse = withVide.reduce((s,c)=>s+c.crasse,     0) / withVide.length;
-    }
-  } else if (withVide.length) {
-    avgVide   = withVide.reduce((s,c)=>s+c.poche_vide, 0) / withVide.length;
-    avgCrasse = withVide.reduce((s,c)=>s+c.crasse,     0) / withVide.length;
-    metalEst  = pocheNew - avgVide - avgCrasse;
-    if (metalEst < 0) metalEst = 0;
-    methode = 'vide_crasse';
-  } else if (hist.length) {
-    const n = Math.min(hist.length, 3);
-    const ratio = hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0) / n;
-    metalEst = pocheNew * ratio;
-    methode = 'ratio';
+ 
+// ─── ESTIMATION ──────────────────────────────────────────────────────────────
+function calcAlu(){
+  const pocheNew=v('alu-pp');
+  const zone=el('alu-res-zone');
+  if(!pocheNew){zone.innerHTML='';return}
+ 
+  const target=parseFloat(el('alu-target').value)||cfg.aluTarget;
+  const hist=getHistory().filter(c=>c.poche===aluPoche).sort((a,b)=>b.id-a.id);
+ 
+  // ── Métal estimé ───────────────────────────────────────────────────────────
+  const wApres=hist.filter(c=>c.poche_apres).slice(0,3);
+  const wVide=hist.filter(c=>c.poche_vide!=null&&c.crasse!=null&&c.crasse>=0).slice(0,3);
+  let metalEst=null,methode='ratio',avgApres=null,avgVide=null,avgCrasse=null;
+ 
+  if(wApres.length){
+    avgApres=avg(wApres,c=>c.poche_apres);
+    metalEst=Math.max(0,pocheNew-avgApres);
+    methode='apres';
+    if(wVide.length){avgVide=avg(wVide,c=>c.poche_vide);avgCrasse=avg(wVide,c=>c.crasse)}
+  } else if(wVide.length){
+    avgVide=avg(wVide,c=>c.poche_vide);avgCrasse=avg(wVide,c=>c.crasse);
+    metalEst=Math.max(0,pocheNew-avgVide-avgCrasse);methode='vide_crasse';
+  } else if(hist.length){
+    const n=Math.min(hist.length,3);
+    metalEst=pocheNew*hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0)/n;
   }
-
-  // ── 2. Ajout + Fleuret → Métal Net pour rendement ───────────────────────────
-  const ajoutEst   = parseFloat(document.getElementById('alu-aj').value) || 0;
-  const fleuret    = document.getElementById('alu-fleuret').checked;
-  const fleuretKg  = fleuret ? 1000 : 0;
-  const metalNet   = metalEst != null ? Math.max(0, metalEst - ajoutEst + fleuretKg) : null;
-
-  // ── 3. Estimation Al : sur métal BRUT estimé ────────────────────────────────
-  const completes = hist.filter(c => c.alu_estime && c.alu_analyse_pct && c.metal);
-  const refs = completes.slice(0, 3);
-  let aluEst = null, effMoy = null;
-  if (refs.length && metalEst) {
-    const efficiencies = refs.map(c => c.alu_estime / (c.alu_analyse_pct * c.metal));
-    effMoy = efficiencies.reduce((s,e)=>s+e, 0) / refs.length;
-    aluEst = effMoy * target * metalEst; // Al calculé sur métal BRUT
+ 
+  // ── Al estimé (sur métal brut) ─────────────────────────────────────────────
+  const refs=hist.filter(c=>c.alu_estime&&c.alu_analyse_pct&&c.metal).slice(0,3);
+  let aluEst=null,effMoy=null;
+  if(refs.length&&metalEst){
+    effMoy=avg(refs,c=>c.alu_estime/(c.alu_analyse_pct*c.metal));
+    aluEst=effMoy*target*metalEst;
   }
-
-  // ── 4. Rendement estimé sur métal NET (brut − ajout + fleuret) ──────────────
-  const puissanceEst = parseFloat(document.getElementById('alu-pw').value) || cfg.pw;
-  const withTm  = hist.filter(c => c.temps).slice(0, 3);
-  const avgTm   = withTm.length ? withTm.reduce((s,c)=>s+c.temps,0)/withTm.length : cfg.tm;
-  const tmSaisi = parseFloat(document.getElementById('alu-tm').value);
-  const tmUsed  = tmSaisi || avgTm;  // priorité au temps saisi
-
-  let rendEst = null;
-  const metalPourRend = metalNet != null ? metalNet : metalEst;
-  if (metalPourRend && tmUsed && puissanceEst) {
-    const debitEst = (metalPourRend / tmUsed) * 60 / 1000;
-    rendEst = puissanceEst / debitEst;
-  }
-
-  // Rendement moyen historique (pour comparaison)
-  const withRend = hist.filter(c => c.rendement).slice(0, 3);
-  const rendMoy = withRend.length
-    ? (withRend.reduce((s,c)=>s+c.rendement,0) / withRend.length)
-    : null;
-
-  // ── 4. Construction HTML ────────────────────────────────────────────────────
-  let html;
-
-  if (!hist.length) {
-    html=`<div class="alu-res">
-      <div class="alu-res-title">⚗ Estimation — Poche ${aluPoche}</div>
-      <div class="alu-res-big">—</div>
-      <div class="alu-res-detail" style="color:var(--amber);">
-        ⚠ Aucun historique pour cette poche.<br>
-        Enregistrez au moins une coulée pour obtenir une estimation.
-      </div>
-    </div>`;
-  } else {
-    // Bloc métal estimé
-    const metalBrutStr = metalEst != null ? Math.round(metalEst).toLocaleString('fr-FR') : '—';
-    const metalNetStr  = metalNet != null ? Math.round(metalNet).toLocaleString('fr-FR')  : metalBrutStr;
-    const hasCorrections = ajoutEst > 0 || fleuret;
-    const metalStr = metalNetStr;
-    let formuleTxt = '';
-    const correctionsTxt = hasCorrections ? `
-      <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;">
-        <span style="color:var(--text2)">Métal brut : </span><code>${metalBrutStr} kg</code>
-        ${ajoutEst>0 ? `<br><span style="color:var(--amber);">− Ajout : ${Math.round(ajoutEst).toLocaleString('fr-FR')} kg</span>` : ''}
-        ${fleuret   ? `<br><span style="color:var(--green);">+ Fleuret : +1 000 kg</span>` : ''}
-        <br><strong style="color:var(--text);">= Métal net : ${metalNetStr} kg</strong>
-        <span style="color:var(--text3);font-size:10px;"> (utilisé pour le rendement)</span>
-      </div>` : '';
-    if (methode==='apres' && avgApres!=null) {
-      formuleTxt = `<div class="est-formula">
-        <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
-        − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code>
-        <span style="color:var(--text3)">(moy. après recouler · ${withApres.length} ref.)</span>
-        ${avgVide!=null ? `<br><span style="color:var(--text3);font-size:10px;">dont vide moy. ${Math.round(avgVide).toLocaleString('fr-FR')} kg + crasse moy. ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>` : ''}
-        ${correctionsTxt}
-      </div>`;
-    } else if (methode==='vide_crasse' && avgVide!=null) {
-      formuleTxt = `<div class="est-formula">
-        <code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code>
-        − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(vide moy.)</span>
-        − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(crasse moy.)</span>
-        ${correctionsTxt}
-      </div>`;
-    } else {
-      formuleTxt = `<div class="est-formula" style="color:var(--amber);">
-        ⚠ Méthode ratio — renseignez <strong>Après Recouler</strong> dans vos coulées pour plus de précision.
-        ${correctionsTxt}
-      </div>`;
-    }
-
-    // Al estimé box
-    const aluStr     = aluEst  ? aluEst.toFixed(1)  : '—';
-    const rendEstStr = rendEst ? rendEst.toFixed(2)  : '—';
-    const rendDelta  = (rendEst && rendMoy)
-      ? `<div style="font-size:10px;margin-top:3px;color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'};">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`
-      : `<div style="font-size:10px;color:var(--text2);margin-top:3px;">${puissanceEst} MW/h · ${Math.round(tmUsed)} min${tmSaisi?'':' (moy.)'}</div>`;
-
-    // Rendement Al : comparaison efficacité vs 1 (neutre)
-    let rendAluTxt = '';
-    if (effMoy) {
-      const rendAl = (1/effMoy).toFixed(3);
-      rendAluTxt = `<div class="est-rendement-row">
-        <span class="est-rend-k">Efficacité Al (réelle)</span>
-        <span class="est-rend-v">${rendAl} %·kg/kg</span>
-      </div>`;
-    }
-
-    // Badge précision
-    const badge = refs.length < 3
-      ? `<span style="color:var(--amber);font-size:10px;">⏳ ${refs.length}/3 coulées Al</span>`
-      : `<span style="color:var(--green);font-size:10px;">✓ Moyenne 3 coulées</span>`;
-
-    // Lignes de référence Al
-    const lignesAl = refs.map((c) => {
-      const d = new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
-      return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);font-size:11px;">
-        <span style="color:var(--text2)">${d} · ${fmt(c.metal)} kg métal</span>
-        <span>${c.alu_estime} kg → <span class="tag-ok">${c.alu_analyse_pct}%</span></span>
-      </div>`;
-    }).join('');
-
-    html=`<div class="alu-res">
-      <div class="alu-res-title">⚗ Estimation — Poche ${aluPoche}</div>
-
-      <div class="est-metal-box">
-        <div class="cbox-lbl">Métal estimé</div>
-        <div class="est-metal-val">${metalStr} <span class="est-unit">kg</span></div>
-        ${formuleTxt}
-      </div>
-
-      <div class="est-grid">
-        <div class="est-box green">
-          <div class="est-box-lbl">Al à ajouter</div>
-          <div class="est-box-val">${aluStr}<span class="est-box-unit">kg</span></div>
-          <div style="font-size:10px;color:var(--text2);margin-top:3px;">cible ${target}%</div>
-        </div>
-        <div class="est-box amber">
-          <div class="est-box-lbl">Rendement estimé</div>
-          <div class="est-box-val">${rendEstStr}<span class="est-box-unit">MWh/t</span></div>
-          ${rendDelta}
-        </div>
-      </div>
-
-      <div class="est-rendement-bar">
-        ${rendAluTxt}
-        <div class="est-rendement-row">
-          <span class="est-rend-k">Puissance four</span>
-          <span class="est-rend-v" style="color:var(--accent)">${puissanceEst} MW/h</span>
-        </div>
-        ${rendEst && metalPourRend ? `<div class="est-rendement-row">
-          <span class="est-rend-k">Débit estimé</span>
-          <span class="est-rend-v">${((metalPourRend/tmUsed)*60/1000).toFixed(3)} t/h</span>
-        </div>
-        <div class="est-rendement-row">
-          <span class="est-rend-k">Temps utilisé</span>
-          <span class="est-rend-v">${Math.round(tmUsed)} min <span style="font-size:10px;color:var(--text3);">${tmSaisi?'(saisi)':'(moy. hist.)'}</span></span>
-        </div>` : ''}
-        ${rendMoy ? `<div class="est-rendement-row">
-          <span class="est-rend-k">Rendement four moyen</span>
-          <span class="est-rend-v">${rendMoy.toFixed(2)} MWh/t</span>
-        </div>` : ''}
-        ${avgVide!=null ? `<div class="est-rendement-row">
-          <span class="est-rend-k">Poids vide moyen</span>
-          <span class="est-rend-v">${Math.round(avgVide).toLocaleString('fr-FR')} kg</span>
-        </div>
-        <div class="est-rendement-row">
-          <span class="est-rend-k">Crasse moyenne</span>
-          <span class="est-rend-v">${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>
-        </div>` : ''}
-        <div class="est-rendement-row">
-          <span class="est-rend-k">Références disponibles</span>
-          <span class="est-rend-v">${hist.length} coulée${hist.length>1?'s':''}</span>
-        </div>
-      </div>
-
-      ${refs.length ? `<div class="alu-res-prev">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-          <strong style="font-size:11px;">Références Al utilisées</strong>${badge}
-        </div>
-        ${lignesAl}
-      </div>` : `<div class="alu-res-prev" style="color:var(--amber);font-size:11px;">
-        ⚠ Aucune coulée avec analyse Al%. La quantité d'alu ne peut pas être calculée.<br>
-        Renseignez le résultat labo dans l'<strong>Historique</strong>.
-      </div>`}
-    </div>`;
-  }
-  zone.innerHTML = html;
-}
-
-// ─── SAVE / LOAD ─────────────────────────────────────────────────────────────
-function getHistory() {
-  try { return JSON.parse(localStorage.getItem('fc_coulees')||'[]'); }
-  catch { return []; }
-}
-function saveHistory(d) { localStorage.setItem('fc_coulees', JSON.stringify(d)); }
-
-function saveCoulee() {
-  const pp = v('ip-pp'), pr = v('ip-pr');
-  if (!pp||!pr) { toast('⚠ Poids poche pleine et après recouler requis', true); return; }
-
-  const pv = v('ip-pv'), pw = v('ip-pw')||cfg.pw, tm = v('ip-tm')||cfg.tm;
-  const aj     = v('ip-aj') || 0;
-  const metal  = pp - pr;
-  const metalNet = aj > 0 ? metal - aj : metal;
-  const crasse = pr - pv;
-  const debitTh = (metalNet / tm) * 60 / 1000;  // rendement sur métal net
-  const rend    = pw / debitTh;
-
-  const c = {
-    id:           Date.now(),
-    date:         document.getElementById('inp-date').value,
-    heure:        document.getElementById('inp-heure').value,
-    poche:        curPoche,
-    poche_pleine: pp,
-    poche_apres:  pr,
-    poche_vide:   pv||null,
-    puissance:    pw,
-    temps:        tm,
-    metal,                          // métal brut (pour Al)
-    ajout:        aj||null,
-    metal_net:    aj>0 ? metalNet : null,
-    crasse:       (pv&&crasse>=0)?crasse:null,
-    debit:        +debitTh.toFixed(4),
-    rendement:    +rend.toFixed(5),
-    alu_estime:   v('ip-ae')||null,
-    alu_analyse_pct: v('ip-aa')||null,
-    alu_reel:     null
-  };
-
-  const d = getHistory();
-  d.push(c);
-  saveHistory(d);
-  toast('✓ Coulée enregistrée');
-  resetForm();
-  updateDataInfo();
-}
-
-function resetForm() {
-  ['ip-pp','ip-pr','ip-pv','ip-aj','ip-ae','ip-aa'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('ip-pw').value = cfg.pw;
-  document.getElementById('ip-tm').value = cfg.tm;
-  ['c-metal','c-metalnet','c-crasse','c-debit','c-rend'].forEach(id => document.getElementById(id).textContent='—');
-  document.getElementById('c-metal-f').textContent='';
-  document.getElementById('c-metalnet-f').textContent='';
-  setNow();
-}
-
-// ─── HISTORY ─────────────────────────────────────────────────────────────────
-function renderHist() {
-  const filt = parseInt(document.getElementById('filt').value)||0;
-  let data = getHistory().sort((a,b)=>b.id-a.id);
-  if (filt>0) data = data.filter(c=>c.poche===filt);
-
-  const el = document.getElementById('hist-list');
-  if (!data.length) {
-    el.innerHTML=`<div class="empty"><div class="empty-ic">📋</div>Aucune coulée enregistrée</div>`;
+ 
+  // ── Métal net + rendement ─────────────────────────────────────────────────
+  const ajoutEst=parseFloat(el('alu-aj').value)||0;
+  const fl=el('alu-fleuret').checked;
+  const metalNet=metalEst!=null?Math.max(0,metalEst-ajoutEst+(fl?1000:0)):null;
+  const pw=parseFloat(el('alu-pw').value)||cfg.pw;
+  const wTm=hist.filter(c=>c.temps).slice(0,3);
+  const avgTm=avg(wTm,c=>c.temps)||cfg.tm;
+  const tmSaisi=parseFloat(el('alu-tm').value);
+  const tmUsed=tmSaisi||avgTm;
+  const mr=metalNet??metalEst;
+  const rendEst=mr&&tmUsed&&pw?pw/((mr/tmUsed)*60/1000):null;
+  const rendMoy=avg(hist.filter(c=>c.rendement).slice(0,3),c=>c.rendement);
+ 
+  if(!hist.length){
+    zone.innerHTML=`<div class="est-res"><div class="est-res-title">⚗ Estimation — Poche ${aluPoche}</div>
+    <div style="color:var(--amber);font-size:13px;text-align:center">⚠ Aucun historique. Enregistrez une première coulée.</div></div>`;
     return;
   }
-
-  el.innerHTML = data.map(c => {
-    const aluTag = c.alu_analyse_pct
-      ? `<span class="tag-ok">✓ ${c.alu_analyse_pct}%</span>`
-      : `<span class="tag-pend">⏳ analyse en attente</span>`;
-    const aluVal = c.alu_analyse_pct
-      ? `<div class="hi-vn tag-ok">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`
-      : c.alu_estime
-        ? `<div class="hi-vn tag-pend">${c.alu_estime} kg</div><div class="hi-vl">Al estimé</div>`
-        : `<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
-    const metalAff = c.metal_net != null ? c.metal_net : c.metal;
-    const metalLbl = c.metal_net != null ? 'Métal net kg' : 'Métal kg';
-    return `<div class="hi" onclick="openDet(${c.id})">
-      <div class="hi-top">
-        <div class="hi-date">${c.date} &nbsp;${c.heure}</div>
-        <div class="hi-p">P${c.poche}</div>
-      </div>
+ 
+  // ── Formule métal ─────────────────────────────────────────────────────────
+  let formuleTxt='';
+  const hasCorr=ajoutEst>0||fl;
+  const corrTxt=hasCorr?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);font-size:11px">
+    <span style="color:var(--text2)">Métal brut : </span><code>${Math.round(metalEst).toLocaleString('fr-FR')} kg</code>
+    ${ajoutEst>0?`<br><span style="color:var(--amber)">− Ajout : ${Math.round(ajoutEst).toLocaleString('fr-FR')} kg</span>`:''}
+    ${fl?`<br><span style="color:var(--green)">+ Fleuret : +1 000 kg</span>`:''}
+    <br><strong>= Métal net : ${Math.round(metalNet).toLocaleString('fr-FR')} kg</strong>
+  </div>`:'';
+ 
+  if(methode==='apres')
+    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(moy. après recouler · ${wApres.length} ref.)</span>
+    ${avgVide?`<br><span style="color:var(--text3);font-size:10px">dont vide moy. ${Math.round(avgVide).toLocaleString('fr-FR')} + crasse moy. ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>`:''}
+    ${corrTxt}</div>`;
+  else if(methode==='vide_crasse')
+    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code>${corrTxt}</div>`;
+  else
+    formuleTxt=`<div class="est-formula" style="color:var(--amber)">⚠ Méthode ratio — renseignez Après Recouler pour plus de précision.${corrTxt}</div>`;
+ 
+  // ── Rendement delta ───────────────────────────────────────────────────────
+  const rdelta=rendEst&&rendMoy
+    ?`<div class="est-sub" style="color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'}">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`
+    :`<div class="est-sub">${pw} MW/h · ${Math.round(tmUsed)} min${tmSaisi?'':' (moy.)'}</div>`;
+ 
+  // ── Références Al ────────────────────────────────────────────────────────
+  const badge=refs.length<3
+    ?`<span style="color:var(--amber);font-size:10px">⏳ ${refs.length}/3</span>`
+    :`<span style="color:var(--green);font-size:10px">✓ 3 coulées</span>`;
+  const lignes=refs.map(c=>{
+    const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+    return`<div class="ir"><span class="ir-k">${d} · ${fmt(c.metal)} kg</span><span>${c.alu_estime} kg → <span class="tag-ok">${c.alu_analyse_pct}%</span></span></div>`;
+  }).join('');
+ 
+  zone.innerHTML=`<div class="est-res">
+    <div class="est-res-title">⚗ Estimation — Poche ${aluPoche}</div>
+    <div class="est-metal">
+      <div class="cbox-lbl">Métal net estimé</div>
+      <div class="est-metal-val">${metalNet!=null?Math.round(metalNet).toLocaleString('fr-FR'):Math.round(metalEst).toLocaleString('fr-FR')} <span class="est-unit">kg</span></div>
+      ${formuleTxt}
+    </div>
+    <div class="est-grid">
+      <div class="cbox green"><div class="cbox-lbl">Al à ajouter</div><div class="cbox-val" style="font-size:24px">${aluEst?aluEst.toFixed(1):'—'}</div><div class="cbox-unit" style="display:inline">kg</div><div class="est-sub">cible ${target}%</div></div>
+      <div class="cbox amber"><div class="cbox-lbl">Rendement estimé</div><div class="cbox-val" style="font-size:24px">${rendEst?rendEst.toFixed(2):'—'}</div><div class="cbox-unit" style="display:inline">MWh/t</div>${rdelta}</div>
+    </div>
+    <div class="ir-wrap">
+      ${rendEst&&mr?`<div class="ir"><span class="ir-k">Débit estimé</span><span class="ir-v">${((mr/tmUsed)*60/1000).toFixed(3)} t/h</span></div>
+      <div class="ir"><span class="ir-k">Temps utilisé</span><span class="ir-v">${Math.round(tmUsed)} min <span style="font-size:10px;color:var(--text3)">${tmSaisi?'(saisi)':'(moy.)'}</span></span></div>`:''}
+      ${rendMoy?`<div class="ir"><span class="ir-k">Rendement four moy.</span><span class="ir-v">${rendMoy.toFixed(2)} MWh/t</span></div>`:''}
+      ${avgVide!=null?`<div class="ir"><span class="ir-k">Poids vide moyen</span><span class="ir-v">${Math.round(avgVide).toLocaleString('fr-FR')} kg</span></div>
+      <div class="ir"><span class="ir-k">Crasse moyenne</span><span class="ir-v">${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span></div>`:''}
+      <div class="ir"><span class="ir-k">Références disponibles</span><span class="ir-v">${hist.length} coulée${hist.length>1?'s':''}</span></div>
+    </div>
+    ${refs.length?`<div class="est-refs"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size:11px">Références Al</strong>${badge}</div>${lignes}</div>`
+    :`<div class="est-refs" style="color:var(--amber)">⚠ Aucune analyse Al% — enregistrez des analyses dans l'Historique.</div>`}
+  </div>`;
+}
+ 
+// ─── SAVE COULÉE ─────────────────────────────────────────────────────────────
+function saveCoulee(){
+  const pp=v('ip-pp'),pr=v('ip-pr');
+  if(!pp||!pr){toast('⚠ Poids poche pleine et après recouler requis',true);return}
+  const pv=v('ip-pv'),pw=v('ip-pw')||cfg.pw,tm=v('ip-tm')||cfg.tm;
+  const aj=v('ip-aj'),fl=el('ip-fleuret').checked;
+  const {brut,net}=metalCalc(pp,pr,aj,fl);
+  const crasse=pr-pv;
+  const debit=(net/tm)*60/1000;
+  const d=getHistory();
+  d.push({
+    id:Date.now(),
+    date:el('inp-date').value,heure:el('inp-heure').value,
+    poche:curPoche,poche_pleine:pp,poche_apres:pr,poche_vide:pv||null,
+    puissance:pw,temps:tm,metal:brut,ajout:aj||null,fleuret:fl||null,
+    metal_net:(aj||fl)?net:null,
+    crasse:(pv&&crasse>=0)?crasse:null,
+    debit:+debit.toFixed(4),rendement:+(pw/debit).toFixed(5),
+    alu_estime:v('ip-ae')||null,alu_analyse_pct:v('ip-aa')||null,alu_reel:null
+  });
+  saveHistory(d);toast('✓ Coulée enregistrée');resetForm();updateDataInfo();
+}
+ 
+function resetForm(){
+  ['ip-pp','ip-pr','ip-pv','ip-aj','ip-ae','ip-aa'].forEach(id=>el(id).value='');
+  el('ip-fleuret').checked=false;
+  el('ip-pw').value=cfg.pw;el('ip-tm').value=cfg.tm;
+  ['c-metal','c-metalnet','c-crasse','c-debit','c-rend'].forEach(id=>el(id).textContent='—');
+  el('c-metal-f').textContent='';el('c-metalnet-f').textContent='';
+  setNow();
+}
+ 
+// ─── HISTORIQUE ──────────────────────────────────────────────────────────────
+function renderHist(){
+  const filt=parseInt(el('filt').value)||0;
+  let data=getHistory().sort((a,b)=>b.id-a.id);
+  if(filt>0)data=data.filter(c=>c.poche===filt);
+  const lst=el('hist-list');
+  if(!data.length){lst.innerHTML=`<div class="empty"><div class="empty-ic">📋</div>Aucune coulée enregistrée</div>`;return}
+  lst.innerHTML=data.map(c=>{
+    const aluTag=c.alu_analyse_pct?`<span class="tag-ok">✓ ${c.alu_analyse_pct}%</span>`:`<span class="tag-pend">⏳ en attente</span>`;
+    const aluVal=c.alu_analyse_pct
+      ?`<div class="hi-vn tag-ok">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`
+      :c.alu_estime?`<div class="hi-vn tag-pend">${c.alu_estime}kg</div><div class="hi-vl">Al estimé</div>`
+      :`<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
+    const mAff=c.metal_net??c.metal;
+    return`<div class="hi" onclick="openDet(${c.id})">
+      <div class="hi-top"><div class="hi-date">${c.date} ${c.heure}</div><div class="hi-p">P${c.poche}${c.fleuret?' 🗡':''}</div></div>
       <div class="hi-vals">
         <div class="hi-v"><div class="hi-vn">${fmt(c.poche_pleine)}</div><div class="hi-vl">Pleine kg</div></div>
-        <div class="hi-v"><div class="hi-vn">${fmt(metalAff)}</div><div class="hi-vl">${metalLbl}</div></div>
+        <div class="hi-v"><div class="hi-vn">${fmt(mAff)}</div><div class="hi-vl">${c.metal_net!=null?'Métal net':'Métal'} kg</div></div>
         <div class="hi-v">${aluVal}</div>
       </div>
-      <div class="hi-foot">
-        <span>Rendement : <strong style="color:var(--accent)">${c.rendement} MWh/t</strong></span>
-        ${aluTag}
-      </div>
+      <div class="hi-foot"><span>Rend. : <strong style="color:var(--accent)">${c.rendement} MWh/t</strong></span>${aluTag}</div>
     </div>`;
   }).join('');
 }
-
-// ─── DETAIL MODAL ────────────────────────────────────────────────────────────
-function openDet(id) {
-  const c = getHistory().find(x=>x.id===id);
-  if(!c) return;
-  selId = id;
-  const row = (k,v,cls='')=>`<div class="ir"><span class="ir-k">${k}</span><span class="ir-v ${cls}">${v}</span></div>`;
-  document.getElementById('mod-det-body').innerHTML = [
-    row('Date / Heure',         `${c.date} &nbsp;${c.heure}`),
-    row('Poche',                `Poche ${c.poche}`),
-    row('Poche Pleine',         `${fmt(c.poche_pleine)} kg`),
-    row('Après Recouler',       `${fmt(c.poche_apres)} kg`),
-    row('Métal brut',           `${fmt(c.metal)} kg`, 'tag-ok'),
-    c.ajout     ? row('Ajout',      `${fmt(c.ajout)} kg`, 'tag-pend') : '',
-    c.metal_net != null ? row('Métal Net', `${fmt(c.metal_net)} kg`, 'tag-ok') : '',
-    c.poche_vide  ? row('Poche Vide',`${fmt(c.poche_vide)} kg`) : '',
-    c.crasse!=null ? row('Crasse',   `${fmt(c.crasse)} kg`, 'tag-pend') : '',
-    row('Puissance Four',       `${c.puissance} MW/h`),
-    row('Temps Coulée',         `${c.temps} min`),
-    row('Débit',                `${c.debit} t/h`),
-    row('Rendement Four',       `${c.rendement} MWh/t`, 'tag-ok'),
-    row('Al Estimé Ajouté',     c.alu_estime ? `${c.alu_estime} kg` : '—'),
-    row('Al Analyse %',         c.alu_analyse_pct ? `${c.alu_analyse_pct}%` : '⏳ En attente',
-                                c.alu_analyse_pct ? 'tag-ok' : 'tag-pend'),
-    c.alu_reel ? row('Al Réel Ajouté', `${c.alu_reel} kg`, 'tag-ok') : ''
-  ].join('');
-  document.getElementById('btn-aa').style.display = c.alu_analyse_pct ? 'none' : 'block';
+ 
+// ─── DETAIL ───────────────────────────────────────────────────────────────────
+function openDet(id){
+  const c=getHistory().find(x=>x.id===id);
+  if(!c)return;
+  selId=id;
+  const row=(k,v,cls='')=>`<div class="ir"><span class="ir-k">${k}</span><span class="ir-v ${cls}">${v}</span></div>`;
+  el('mod-det-body').innerHTML=`<div class="ir-wrap">`+[
+    row('Date / Heure',`${c.date} ${c.heure}`),
+    row('Poche',`Poche ${c.poche}`),
+    row('Poche Pleine',`${fmt(c.poche_pleine)} kg`),
+    row('Après Recouler',`${fmt(c.poche_apres)} kg`),
+    row('Métal brut',`${fmt(c.metal)} kg`,'tag-ok'),
+    c.ajout?row('Ajout',`${fmt(c.ajout)} kg`,'tag-pend'):'',
+    c.fleuret?row('Fleuret','🗡 +1 000 kg','tag-ok'):'',
+    c.metal_net!=null?row('Métal Net',`${fmt(c.metal_net)} kg`,'tag-ok'):'',
+    c.poche_vide?row('Poche Vide',`${fmt(c.poche_vide)} kg`):'',
+    c.crasse!=null?row('Crasse',`${fmt(c.crasse)} kg`,'tag-pend'):'',
+    row('Puissance',`${c.puissance} MW/h`),row('Temps',`${c.temps} min`),
+    row('Débit',`${c.debit} t/h`),row('Rendement',`${c.rendement} MWh/t`,'tag-ok'),
+    row('Al Estimé',c.alu_estime?`${c.alu_estime} kg`:'—'),
+    row('Al Analyse %',c.alu_analyse_pct?`${c.alu_analyse_pct}%`:'⏳ En attente',c.alu_analyse_pct?'tag-ok':'tag-pend'),
+    c.alu_reel?row('Al Réel',`${c.alu_reel} kg`,'tag-ok'):''
+  ].join('')+`</div>`;
+  el('btn-aa').style.display=c.alu_analyse_pct?'none':'block';
   openModal('ov-det');
 }
-
-function openEditModal() {
-  const c = getHistory().find(x=>x.id===selId);
-  if(!c) return;
+ 
+function openEditModal(){
+  const c=getHistory().find(x=>x.id===selId);if(!c)return;
   closeModal('ov-det');
-  document.getElementById('e-pp').value  = c.poche_pleine || '';
-  document.getElementById('e-pr').value  = c.poche_apres  || '';
-  document.getElementById('e-pv').value  = c.poche_vide   || '';
-  document.getElementById('e-aj').value  = c.ajout        || '';
-  document.getElementById('e-pw').value  = c.puissance    || '';
-  document.getElementById('e-tm').value  = c.temps        || '';
-  document.getElementById('e-ae').value  = c.alu_estime   || '';
-  document.getElementById('e-aa').value  = c.alu_analyse_pct || '';
+  ['pp','pr','pv','aj','pw','tm','ae','aa'].forEach(k=>{
+    const map={pp:'poche_pleine',pr:'poche_apres',pv:'poche_vide',aj:'ajout',pw:'puissance',tm:'temps',ae:'alu_estime',aa:'alu_analyse_pct'};
+    el('e-'+k).value=c[map[k]]||'';
+  });
   openModal('ov-edit');
 }
-
-function saveEdit() {
-  const d   = getHistory();
-  const idx = d.findIndex(c=>c.id===selId);
-  if(idx<0) return;
-  const c = d[idx];
-  const pp = parseFloat(document.getElementById('e-pp').value)||c.poche_pleine;
-  const pr = parseFloat(document.getElementById('e-pr').value)||c.poche_apres;
-  const pv = parseFloat(document.getElementById('e-pv').value)||null;
-  const pw = parseFloat(document.getElementById('e-pw').value)||c.puissance;
-  const tm = parseFloat(document.getElementById('e-tm').value)||c.temps;
-  const aj = parseFloat(document.getElementById('e-aj').value)||0;
-  const metal = pp - pr;
-  const metalNet = aj>0 ? metal-aj : metal;
-  const crasse = (pv && (pr-pv)>=0) ? pr-pv : null;
-  const debitTh = (metalNet/tm)*60/1000;
-  d[idx] = {
-    ...c,
-    poche_pleine: pp, poche_apres: pr, poche_vide: pv,
-    puissance: pw, temps: tm,
-    metal, ajout: aj||null, metal_net: aj>0?metalNet:null,
-    crasse,
-    debit: +debitTh.toFixed(4),
-    rendement: +(pw/debitTh).toFixed(5),
-    alu_estime: parseFloat(document.getElementById('e-ae').value)||c.alu_estime||null,
-    alu_analyse_pct: parseFloat(document.getElementById('e-aa').value)||c.alu_analyse_pct||null,
-  };
-  saveHistory(d);
-  toast('✓ Coulée modifiée');
-  closeModal('ov-edit');
-  renderHist();
+ 
+function saveEdit(){
+  const d=getHistory();const idx=d.findIndex(c=>c.id===selId);if(idx<0)return;
+  const c=d[idx];
+  const pp=parseFloat(el('e-pp').value)||c.poche_pleine;
+  const pr=parseFloat(el('e-pr').value)||c.poche_apres;
+  const pv=parseFloat(el('e-pv').value)||null;
+  const pw=parseFloat(el('e-pw').value)||c.puissance;
+  const tm=parseFloat(el('e-tm').value)||c.temps;
+  const aj=parseFloat(el('e-aj').value)||0;
+  const {brut,net}=metalCalc(pp,pr,aj,c.fleuret);
+  const crasse=pv&&(pr-pv)>=0?pr-pv:null;
+  const debit=(net/tm)*60/1000;
+  d[idx]={...c,poche_pleine:pp,poche_apres:pr,poche_vide:pv,puissance:pw,temps:tm,
+    metal:brut,ajout:aj||null,metal_net:(aj||c.fleuret)?net:null,crasse,
+    debit:+debit.toFixed(4),rendement:+(pw/debit).toFixed(5),
+    alu_estime:parseFloat(el('e-ae').value)||c.alu_estime||null,
+    alu_analyse_pct:parseFloat(el('e-aa').value)||c.alu_analyse_pct||null};
+  saveHistory(d);toast('✓ Coulée modifiée');closeModal('ov-edit');renderHist();
 }
-
-function confirmDelete() {
+ 
+function confirmDelete(){closeModal('ov-det');openModal('ov-del')}
+function deleteCoulee(){
+  saveHistory(getHistory().filter(c=>c.id!==selId));
+  closeModal('ov-del');renderHist();updateDataInfo();toast('✓ Coulée supprimée');
+}
+ 
+function openAluModal(){
   closeModal('ov-det');
-  openModal('ov-del');
+  el('m-alu-pct').value='';el('m-alu-reel').value='';openModal('ov-alu');
 }
-
-function deleteCoulee() {
-  let d = getHistory().filter(c=>c.id!==selId);
-  saveHistory(d);
-  closeModal('ov-del');
-  renderHist();
-  updateDataInfo();
-  toast('✓ Coulée supprimée');
-}
-
-function openAluModal() {
-  closeModal('ov-det');
-  document.getElementById('m-alu-pct').value  = '';
-  document.getElementById('m-alu-reel').value = '';
-  openModal('ov-alu');
-}
-
-function saveAlu() {
-  const pct  = parseFloat(document.getElementById('m-alu-pct').value);
-  const reel = parseFloat(document.getElementById('m-alu-reel').value)||null;
-  if (!pct) { toast('⚠ Entrez la valeur Al%', true); return; }
-  const d   = getHistory();
-  const idx = d.findIndex(c=>c.id===selId);
-  if (idx>=0) {
-    d[idx].alu_analyse_pct = pct;
-    if (reel) d[idx].alu_reel = reel;
-    saveHistory(d);
-    toast('✓ Analyse Al enregistrée');
-    closeModal('ov-alu');
-    renderHist();
+function saveAlu(){
+  const pct=parseFloat(el('m-alu-pct').value);
+  if(!pct){toast('⚠ Entrez la valeur Al%',true);return}
+  const d=getHistory(),idx=d.findIndex(c=>c.id===selId);
+  if(idx>=0){
+    d[idx].alu_analyse_pct=pct;
+    const reel=parseFloat(el('m-alu-reel').value);
+    if(reel)d[idx].alu_reel=reel;
+    saveHistory(d);toast('✓ Analyse Al enregistrée');closeModal('ov-alu');renderHist();
   }
 }
-
+ 
 // ─── SETTINGS ────────────────────────────────────────────────────────────────
-function loadCfg() {
-  try {
-    const s = JSON.parse(localStorage.getItem('fc_cfg')||'{}');
-    cfg.pw        = +s.pw        || 30;
-    cfg.tm        = +s.tm        || 180;
-    cfg.aluTarget = +s.aluTarget || 0.21;
-  } catch {}
+function loadCfg(){
+  try{const s=JSON.parse(localStorage.getItem('fc_cfg')||'{}');
+    cfg.pw=+s.pw||30;cfg.tm=+s.tm||180;cfg.aluTarget=+s.aluTarget||0.21;
+  }catch{}
 }
-
-function saveSetting(k,val) {
-  cfg[k] = parseFloat(val)||cfg[k];
-  localStorage.setItem('fc_cfg', JSON.stringify(cfg));
+function saveSetting(k,val){cfg[k]=parseFloat(val)||cfg[k];localStorage.setItem('fc_cfg',JSON.stringify(cfg))}
+function applySettingsUI(){
+  ['s-pw','ip-pw','alu-pw'].forEach(id=>el(id).value=cfg.pw);
+  ['s-tm','ip-tm','alu-tm'].forEach(id=>el(id).value=cfg.tm);
+  el('s-at').value=cfg.aluTarget;syncAluTarget();
 }
-
-function applySettingsUI() {
-  document.getElementById('s-pw').value  = cfg.pw;
-  document.getElementById('s-tm').value  = cfg.tm;
-  document.getElementById('s-at').value  = cfg.aluTarget;
-  document.getElementById('ip-pw').value = cfg.pw;
-  document.getElementById('ip-tm').value = cfg.tm;
-  document.getElementById('alu-pw').value = cfg.pw;
-  document.getElementById('alu-tm').value = cfg.tm;
-  syncAluTarget();
+function syncAluTarget(){
+  cfg.aluTarget=parseFloat(el('s-at').value)||0.21;
+  el('alu-target').value=cfg.aluTarget;el('s-at').value=cfg.aluTarget;
 }
-
-function syncAluTarget() {
-  cfg.aluTarget = parseFloat(document.getElementById('s-at').value)||0.21;
-  document.getElementById('alu-target').value = cfg.aluTarget;
-  document.getElementById('s-at').value       = cfg.aluTarget;
+function updateDataInfo(){
+  const n=getHistory().length;
+  const e=el('data-info');
+  if(e)e.textContent=n+' coulée'+(n!==1?'s':'')+' enregistrée'+(n!==1?'s':'');
 }
-
-function updateDataInfo() {
-  const n = getHistory().length;
-  const el = document.getElementById('data-info');
-  if (el) el.textContent = n + ' coulée' + (n!==1?'s':'') + ' enregistrée' + (n!==1?'s':'');
-}
-
+ 
 // ─── EXPORT ──────────────────────────────────────────────────────────────────
-function exportJSON() {
-  const d   = getHistory();
-  const json= JSON.stringify(d, null, 2);
-  const url = URL.createObjectURL(new Blob([json],{type:'application/json'}));
-  const a   = document.createElement('a');
-  a.href = url;
-  a.download = 'ferrocalc_' + new Date().toISOString().slice(0,10) + '.json';
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('✓ Export téléchargé');
+function exportJSON(){
+  const url=URL.createObjectURL(new Blob([JSON.stringify(getHistory(),null,2)],{type:'application/json'}));
+  const a=document.createElement('a');a.href=url;
+  a.download='sunzadev_'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(url);toast('✓ Export téléchargé');
 }
-
-function clearAll() {
-  localStorage.removeItem('fc_coulees');
-  closeModal('ov-clr');
-  renderHist();
-  updateDataInfo();
-  toast('✓ Données effacées');
+function clearAll(){
+  _hist=null;localStorage.removeItem('fc_coulees');
+  closeModal('ov-clr');renderHist();updateDataInfo();toast('✓ Données effacées');
 }
-
+function deconnexion(){
+  localStorage.removeItem('unlocked');sessionStorage.removeItem('unlocked');
+  el('lockscreen').style.display='flex';el('pwd-input').value='';el('pwd-err').style.display='none';
+  goTab('c');toast('✓ Déconnecté');
+}
+ 
 // ─── MODAL / TOAST ───────────────────────────────────────────────────────────
-function openModal(id)  { document.getElementById(id).classList.add('on'); }
-function closeModal(id) { document.getElementById(id).classList.remove('on'); }
-
+function openModal(id){el(id).classList.add('on')}
+function closeModal(id){el(id).classList.remove('on')}
+document.querySelectorAll('.ov').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)closeModal(ov.id)}));
+ 
 let toastT;
-function toast(msg, err=false) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast on' + (err?' err':' ok');
-  clearTimeout(toastT);
-  toastT = setTimeout(()=>{ el.classList.remove('on'); }, 2500);
+function toast(msg,err=false){
+  const t=el('toast');t.textContent=msg;t.className='toast on'+(err?' err':' ok');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2500);
 }
-
-// Close modal on overlay click
-document.querySelectorAll('.ov').forEach(ov => ov.addEventListener('click', e => {
-  if (e.target===ov) closeModal(ov.id);
-}));
-
-// ─── START ────────────────────────────────────────────────────────────────────
-function genIcon() {
-  try {
-    const c = document.createElement('canvas');
-    c.width = c.height = 512;
-    const ctx = c.getContext('2d');
-    // Fond arrondi bleu
-    const r = 100;
-    ctx.beginPath();
-    ctx.moveTo(r,0); ctx.lineTo(512-r,0);
-    ctx.arcTo(512,0,512,r,r); ctx.lineTo(512,512-r);
-    ctx.arcTo(512,512,512-r,512,r); ctx.lineTo(r,512);
-    ctx.arcTo(0,512,0,512-r,r); ctx.lineTo(0,r);
-    ctx.arcTo(0,0,r,0,r); ctx.closePath();
-    ctx.fillStyle='#1a1d2e'; ctx.fill();
-    // Lueur
-    const g = ctx.createRadialGradient(256,200,0,256,256,350);
-    g.addColorStop(0,'rgba(124,90,247,.4)'); g.addColorStop(1,'rgba(79,142,247,.1)');
-    ctx.fillStyle=g; ctx.fill();
-    // Emoji
-    ctx.font='280px serif';
-    ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillText('⚗',258,270);
-    const link=document.createElement('link');
-    link.rel='apple-touch-icon'; link.sizes='512x512';
-    link.href=c.toDataURL('image/png');
-    document.head.appendChild(link);
-  } catch(e){}
+ 
+// ─── ICÔNE PWA ───────────────────────────────────────────────────────────────
+function genIcon(){
+  try{
+    const c=document.createElement('canvas');c.width=c.height=512;
+    const ctx=c.getContext('2d'),r=100;
+    ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(512-r,0);ctx.arcTo(512,0,512,r,r);
+    ctx.lineTo(512,512-r);ctx.arcTo(512,512,512-r,512,r);ctx.lineTo(r,512);
+    ctx.arcTo(0,512,0,512-r,r);ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);ctx.closePath();
+    ctx.fillStyle='#1a1d2e';ctx.fill();
+    const g=ctx.createRadialGradient(256,200,0,256,256,350);
+    g.addColorStop(0,'rgba(124,90,247,.4)');g.addColorStop(1,'rgba(79,142,247,.1)');
+    ctx.fillStyle=g;ctx.fill();
+    ctx.font='280px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('⚗',258,270);
+    const lnk=document.createElement('link');lnk.rel='apple-touch-icon';lnk.sizes='512x512';
+    lnk.href=c.toDataURL('image/png');document.head.appendChild(lnk);
+  }catch{}
 }
+ 
 init();
 </script>
-
 </body>
 </html>
