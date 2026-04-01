@@ -24,7 +24,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;display:flex;flex-direction:column;max-width:500px;margin:0 auto;height:100%}
- 
+
 /* LOCKSCREEN */
 #lockscreen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:30px}
 #lockscreen h1{font-size:22px;font-weight:700;letter-spacing:-.5px}
@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16
 #pwd-err{color:var(--red);font-size:13px;display:none}
 .chk-row{display:flex;align-items:center;gap:8px;color:var(--text2);font-size:13px;cursor:pointer}
 .chk-row input{width:16px;height:16px;accent-color:var(--accent)}
- 
+
 /* HEADER */
 .hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 18px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:var(--shadow);position:relative;z-index:10}
 .hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
@@ -43,21 +43,21 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16
 .hdr-title{font-size:17px;font-weight:700;letter-spacing:-.3px}
 .hdr-time{font-size:17px;font-weight:600;font-family:var(--mono);text-align:right}
 .hdr-date{font-size:10px;color:var(--text3);text-align:right;text-transform:capitalize}
- 
+
 /* LAYOUT */
 .content{flex:1;overflow-y:auto;padding:16px 14px 90px;-webkit-overflow-scrolling:touch}
 .tp{display:none}.tp.on{display:block}
- 
+
 /* NAV */
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:50;box-shadow:0 -2px 12px rgba(0,0,0,.07)}
 .bnav-btn{flex:1;padding:10px 2px 12px;background:none;border:none;color:var(--text3);font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-family:var(--font);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s}
 .bnav-btn.on{color:var(--accent)}
 .bnav-ic{font-size:20px;line-height:1}
- 
+
 /* TYPOGRAPHY */
 .stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 hr{border:none;border-top:1px solid var(--border);margin:14px 0}
- 
+
 /* FORM */
 .fg{margin-bottom:10px}
 .fg:last-child{margin-bottom:0}
@@ -67,18 +67,18 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79
 input::placeholder{color:var(--text3)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
- 
+
 /* POCHE BTNS */
 .psel{display:flex;gap:8px}
 .pbtn{flex:1;padding:12px 8px;background:var(--bg3);border:1.5px solid var(--border);color:var(--text2);font-size:14px;font-weight:700;font-family:var(--font);border-radius:8px;cursor:pointer;transition:all .15s}
 .pbtn.on{border-color:var(--accent);color:var(--accent);background:var(--accentbg);box-shadow:0 0 0 3px rgba(79,142,247,.18)}
- 
+
 /* FLEURET */
 .fleuret-label{display:flex;align-items:center;gap:10px;cursor:pointer;padding:11px 13px;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px}
 .fleuret-label input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0}
 .fleuret-txt{font-size:14px;font-weight:600;color:var(--text)}
 .fleuret-badge{font-size:11px;color:var(--accent);font-weight:700}
- 
+
 /* RESULT BOXES — unified .cbox system */
 .cbox{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;position:relative;overflow:hidden}
 .cbox::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);border-radius:10px 0 0 10px}
@@ -96,7 +96,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .rend-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .rend-grid .cbox{margin-bottom:0}
 .rend-grid .cbox-val{font-size:20px}
- 
+
 /* BUTTONS */
 .btn{display:block;width:100%;padding:13px 12px;border:none;border-radius:9px;font-size:13px;font-weight:600;font-family:var(--font);letter-spacing:.3px;cursor:pointer;transition:all .15s;margin-top:8px}
 .btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 2px 12px rgba(79,142,247,.35)}
@@ -104,7 +104,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .btn-s{background:transparent;border:1.5px solid var(--border);color:var(--text2)}
 .btn-s:active{background:var(--bg3)}
 .btn-r{background:transparent;border:1.5px solid var(--red);color:var(--red)}
- 
+
 /* ESTIMATION RESULT */
 .est-res{background:rgba(79,142,247,.08);border:1.5px solid rgba(79,142,247,.25);border-radius:14px;padding:20px 16px 16px;margin-top:14px}
 .est-res-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:10px;text-align:center}
@@ -118,7 +118,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .est-grid .cbox-val{font-size:24px}
 .est-grid .cbox{margin-bottom:0;text-align:center}
 .est-sub{font-size:10px;color:var(--text2);margin-top:3px}
- 
+
 /* INFO TABLE — unified .ir system */
 .ir-wrap{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin:8px 0}
 .ir{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
@@ -126,7 +126,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .ir-k{color:var(--text2)}
 .ir-v{font-weight:700;font-family:var(--mono);color:var(--text);font-size:13px}
 .est-refs{font-size:11px;color:var(--text2);margin-top:12px;padding-top:12px;border-top:1px solid rgba(79,142,247,.15)}
- 
+
 /* HISTORY */
 .hi{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;transition:box-shadow .15s,border-color .15s;box-shadow:var(--shadow)}
 .hi:active{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,.18)}
@@ -140,15 +140,15 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .hi-foot{font-size:11px;color:var(--text2);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .tag-ok{color:var(--green);font-weight:600}
 .tag-pend{color:var(--amber);font-weight:600}
- 
+
 /* SETTINGS */
 .sg{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .sg-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:12px}
- 
+
 /* INFO BOX */
 .info-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:11px;color:var(--text2);line-height:1.8}
 .info-box strong{color:var(--text)}
- 
+
 /* MODAL */
 .ov{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
 .ov.on{display:flex}
@@ -158,20 +158,20 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
 .mbtns{display:flex;gap:8px;margin-top:14px}
 .mbtns .btn{margin:0;flex:1}
- 
+
 /* TOAST */
 .toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .toast.on{opacity:1}
 .toast.ok{background:var(--green)}
 .toast.err{background:var(--red)}
- 
+
 /* EMPTY */
 .empty{text-align:center;padding:60px 20px;color:var(--text3)}
 .empty-ic{font-size:48px;margin-bottom:12px;opacity:.5}
 </style>
 </head>
 <body>
- 
+
 <!-- LOCKSCREEN -->
 <div id="lockscreen">
   <div style="font-size:52px">⚗️</div>
@@ -182,7 +182,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <button id="pwd-btn" onclick="checkPwd()">Entrer</button>
   <div id="pwd-err">Mot de passe incorrect</div>
 </div>
- 
+
 <script>
 function checkPwd(){
   if(document.getElementById('pwd-input').value===atob('Um9zYWxpZTEzMDM=')){
@@ -199,7 +199,7 @@ function checkPwd(){
 if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')==='1')
   document.getElementById('lockscreen').style.display='none';
 </script>
- 
+
 <!-- HEADER -->
 <div class="hdr">
   <div class="hdr-logo">
@@ -211,9 +211,9 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     <div class="hdr-date" id="hdrDate">---</div>
   </div>
 </div>
- 
+
 <div class="content">
- 
+
 <!-- ═══ COULÉE ═══ -->
 <div class="tp on" id="tp-c">
   <div class="stitle">Nouvelle Coulée</div>
@@ -273,7 +273,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
   <button class="btn btn-p" onclick="saveCoulee()">💾 &nbsp;ENREGISTRER LA COULÉE</button>
   <button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser</button>
 </div>
- 
+
 <!-- ═══ ESTIMATION ═══ -->
 <div class="tp" id="tp-a">
   <div class="stitle">Estimation Poche — Pré-coulée</div>
@@ -313,7 +313,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     <strong>Rendement :</strong> sur métal net (brut − ajout + fleuret)
   </div>
 </div>
- 
+
 <!-- ═══ HISTORIQUE ═══ -->
 <div class="tp" id="tp-h">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
@@ -326,7 +326,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
   </div>
   <div id="hist-list"></div>
 </div>
- 
+
 <!-- ═══ PARAMÈTRES ═══ -->
 <div class="tp" id="tp-s">
   <div class="stitle">Paramètres</div>
@@ -348,7 +348,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
   </div>
 </div>
 </div>
- 
+
 <!-- NAV -->
 <nav class="bnav">
   <button class="bnav-btn on" id="nb-c" onclick="goTab('c')"><span class="bnav-ic">🔥</span>Coulée</button>
@@ -356,7 +356,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
   <button class="bnav-btn"    id="nb-h" onclick="goTab('h')"><span class="bnav-ic">📋</span>Historique</button>
   <button class="bnav-btn"    id="nb-s" onclick="goTab('s')"><span class="bnav-ic">⚙️</span>Réglages</button>
 </nav>
- 
+
 <!-- MODALS -->
 <div class="ov" id="ov-det">
   <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
@@ -370,7 +370,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     <div style="margin-top:8px"><button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button></div>
   </div></div>
 </div>
- 
+
 <div class="ov" id="ov-alu">
   <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
     <div class="modal-title">Analyse Laboratoire</div>
@@ -382,7 +382,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     </div>
   </div></div>
 </div>
- 
+
 <div class="ov" id="ov-edit">
   <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
     <div class="modal-title">Modifier la Coulée</div>
@@ -408,7 +408,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     </div>
   </div></div>
 </div>
- 
+
 <div class="ov" id="ov-del">
   <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
     <div class="modal-title">Supprimer cette coulée ?</div>
@@ -419,7 +419,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     </div>
   </div></div>
 </div>
- 
+
 <div class="ov" id="ov-clr">
   <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
     <div class="modal-title">Effacer les données ?</div>
@@ -430,17 +430,17 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     </div>
   </div></div>
 </div>
- 
+
 <div class="toast" id="toast"></div>
- 
+
 <script>
 'use strict';
- 
+
 // ─── STATE & CACHE ────────────────────────────────────────────────────────────
 let curPoche=1, aluPoche=1, selId=null;
 let cfg={pw:30,tm:180,aluTarget:0.21};
 let _hist=null; // cache mémoire
- 
+
 // ─── STORAGE ─────────────────────────────────────────────────────────────────
 function getHistory(){
   if(_hist===null){
@@ -449,33 +449,33 @@ function getHistory(){
   return _hist;
 }
 function saveHistory(d){_hist=d;localStorage.setItem('fc_coulees',JSON.stringify(d))}
- 
+
 // ─── METAL CALC (centralisé) ─────────────────────────────────────────────────
 function metalCalc(pp,pr,aj,fl){
   const brut=pp-pr;
   const net=brut-(aj||0)+(fl?1000:0);
   return{brut,net};
 }
- 
+
 // ─── INIT ────────────────────────────────────────────────────────────────────
 function init(){
   loadCfg(); setNow(); clockTick();
   setInterval(clockTick,10000);
   applySettingsUI(); renderHist(); updateDataInfo(); genIcon();
 }
- 
+
 function clockTick(){
   const n=new Date();
   document.getElementById('hdrTime').textContent=n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('hdrDate').textContent=n.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'2-digit',year:'2-digit'});
 }
- 
+
 function setNow(){
   const n=new Date();
   document.getElementById('inp-date').value=n.toISOString().slice(0,10);
   document.getElementById('inp-heure').value=n.toTimeString().slice(0,5);
 }
- 
+
 // ─── TABS ────────────────────────────────────────────────────────────────────
 function goTab(t){
   ['c','a','h','s'].forEach(x=>{
@@ -485,7 +485,7 @@ function goTab(t){
   if(t==='h')renderHist();
   if(t==='s')updateDataInfo();
 }
- 
+
 // ─── POCHE SELECT ─────────────────────────────────────────────────────────────
 function selPoche(n){
   curPoche=n;
@@ -498,25 +498,58 @@ function selAluPoche(n){
   document.getElementById('apb2').classList.toggle('on',n===2);
   calcAlu();
 }
- 
+
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function v(id){return parseFloat(document.getElementById(id).value)||0}
 function fmt(n){return n.toLocaleString('fr-FR')}
 function el(id){return document.getElementById(id)}
 function avg(arr,fn){return arr.length?arr.reduce((s,c)=>s+fn(c),0)/arr.length:null}
- 
+
+// Couleur rendement : ≤11.300 vert / ≤11.500 orange / >11.500 rouge
+function rendColor(r){
+  if(!r) return 'var(--text)';
+  if(r<=11.300) return 'var(--green)';
+  if(r<=11.500) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+// Couleur Al% : écart vs cible ≤0.05 vert / ≤0.10 orange / >0.10 rouge
+function alColor(actual,target){
+  if(!actual||!target) return 'var(--text)';
+  const d=Math.abs(actual-target);
+  if(d<=0.05) return 'var(--green)';
+  if(d<=0.10) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+// Moyenne pondérée poche_apres (×3, ×2, ×1) avec détection outlier
+// Si une valeur s'écarte de >15% de la moyenne simple → poids divisé par 2
+function wAvgApres(coulees){
+  if(!coulees.length) return null;
+  const vals=coulees.map(c=>c.poche_apres);
+  if(vals.length===1) return vals[0];
+  const sAvg=vals.reduce((s,v)=>s+v,0)/vals.length;
+  const baseW=[3,2,1].slice(0,vals.length);
+  const weights=baseW.map((w,i)=>Math.abs(vals[i]-sAvg)/sAvg>0.15?w*0.5:w);
+  const totalW=weights.reduce((s,w)=>s+w,0);
+  const wAvg=vals.reduce((s,v,i)=>s+v*weights[i],0)/totalW;
+  // Indicateur outlier pour affichage
+  const hasOutlier=weights.some((w,i)=>w!==baseW[i]);
+  return{val:wAvg,hasOutlier,weights};
+}
+
 // ─── COULÉE CALC ─────────────────────────────────────────────────────────────
 function calc(){
   const pp=v('ip-pp'),pr=v('ip-pr'),pv=v('ip-pv'),pw=v('ip-pw'),tm=v('ip-tm');
   const aj=v('ip-aj'),fl=el('ip-fleuret').checked;
   const {brut,net}=metalCalc(pp,pr,aj,fl);
   const crasse=pr-pv;
- 
+
   if(pp>0&&pr>0&&brut>0){
     el('c-metal').textContent=fmt(brut);
     el('c-metal-f').textContent=fmt(pp)+' − '+fmt(pr)+' = '+fmt(brut)+' kg';
   } else {el('c-metal').textContent='—';el('c-metal-f').textContent=''}
- 
+
   if(brut>0){
     const mn=(aj>0||fl)?net:brut;
     el('c-metalnet').textContent=fmt(mn);
@@ -525,36 +558,42 @@ function calc(){
     if(fl)parts.push('+ 1 000 (fleuret)');
     el('c-metalnet-f').textContent=parts.length?fmt(brut)+' '+parts.join(' ')+' = '+fmt(mn)+' kg':'Aucun ajout';
   } else {el('c-metalnet').textContent='—';el('c-metalnet-f').textContent=''}
- 
+
   el('c-crasse').textContent=(pr>0&&pv>0&&crasse>=0)?fmt(crasse):'—';
- 
+
   const mr=(aj>0||fl)&&net>0?net:brut;
   if(mr>0&&pw>0&&tm>0){
     const d=(mr/tm)*60/1000;
+    const r=(pw/d);
     el('c-debit').textContent=d.toFixed(3);
-    el('c-rend').textContent=(pw/d).toFixed(2);
-  } else {el('c-debit').textContent='—';el('c-rend').textContent='—'}
+    el('c-rend').textContent=r.toFixed(2);
+    el('c-rend').style.color=rendColor(r);
+  } else {el('c-debit').textContent='—';el('c-rend').textContent='—';el('c-rend').style.color=''}
 }
- 
+
 // ─── ESTIMATION ──────────────────────────────────────────────────────────────
 function calcAlu(){
   const pocheNew=v('alu-pp');
   const zone=el('alu-res-zone');
   if(!pocheNew){zone.innerHTML='';return}
- 
+
   const target=parseFloat(el('alu-target').value)||cfg.aluTarget;
   const hist=getHistory().filter(c=>c.poche===aluPoche).sort((a,b)=>b.id-a.id);
- 
+
   // ── Métal estimé ───────────────────────────────────────────────────────────
   const wApres=hist.filter(c=>c.poche_apres).slice(0,3);
   const wVide=hist.filter(c=>c.poche_vide!=null&&c.crasse!=null&&c.crasse>=0).slice(0,3);
   let metalEst=null,methode='ratio',avgApres=null,avgVide=null,avgCrasse=null;
- 
+
   if(wApres.length){
-    avgApres=avg(wApres,c=>c.poche_apres);
+    const wa=wAvgApres(wApres);
+    avgApres=wa.val;
     metalEst=Math.max(0,pocheNew-avgApres);
     methode='apres';
+    const outlierTxt=wa.hasOutlier?' <span style="color:var(--amber);font-size:10px">⚠ valeur aberrante détectée</span>':'';
     if(wVide.length){avgVide=avg(wVide,c=>c.poche_vide);avgCrasse=avg(wVide,c=>c.crasse)}
+    // Store outlier info for formula display
+    wApres._outlier=wa.hasOutlier;wApres._weights=wa.weights;
   } else if(wVide.length){
     avgVide=avg(wVide,c=>c.poche_vide);avgCrasse=avg(wVide,c=>c.crasse);
     metalEst=Math.max(0,pocheNew-avgVide-avgCrasse);methode='vide_crasse';
@@ -562,7 +601,7 @@ function calcAlu(){
     const n=Math.min(hist.length,3);
     metalEst=pocheNew*hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0)/n;
   }
- 
+
   // ── Al estimé (sur métal brut) ─────────────────────────────────────────────
   const refs=hist.filter(c=>c.alu_estime&&c.alu_analyse_pct&&c.metal).slice(0,3);
   let aluEst=null,effMoy=null;
@@ -570,7 +609,7 @@ function calcAlu(){
     effMoy=avg(refs,c=>c.alu_estime/(c.alu_analyse_pct*c.metal));
     aluEst=effMoy*target*metalEst;
   }
- 
+
   // ── Métal net + rendement ─────────────────────────────────────────────────
   const ajoutEst=parseFloat(el('alu-aj').value)||0;
   const fl=el('alu-fleuret').checked;
@@ -583,13 +622,13 @@ function calcAlu(){
   const mr=metalNet??metalEst;
   const rendEst=mr&&tmUsed&&pw?pw/((mr/tmUsed)*60/1000):null;
   const rendMoy=avg(hist.filter(c=>c.rendement).slice(0,3),c=>c.rendement);
- 
+
   if(!hist.length){
     zone.innerHTML=`<div class="est-res"><div class="est-res-title">⚗ Estimation — Poche ${aluPoche}</div>
     <div style="color:var(--amber);font-size:13px;text-align:center">⚠ Aucun historique. Enregistrez une première coulée.</div></div>`;
     return;
   }
- 
+
   // ── Formule métal ─────────────────────────────────────────────────────────
   let formuleTxt='';
   const hasCorr=ajoutEst>0||fl;
@@ -599,21 +638,28 @@ function calcAlu(){
     ${fl?`<br><span style="color:var(--green)">+ Fleuret : +1 000 kg</span>`:''}
     <br><strong>= Métal net : ${Math.round(metalNet).toLocaleString('fr-FR')} kg</strong>
   </div>`:'';
- 
-  if(methode==='apres')
-    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(moy. après recouler · ${wApres.length} ref.)</span>
+
+  if(methode==='apres'){
+    const outlierNote=wApres._outlier?` <span style="color:var(--amber);font-size:10px">⚠ valeur aberrante pondérée</span>`:'';
+    const refDetail=wApres.map((c,i)=>{
+      const w=wApres._weights?wApres._weights[i]:([3,2,1][i]);
+      const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
+      return`<span style="color:var(--text3);font-size:10px">${d}: ${fmt(c.poche_apres)} kg ×${w}</span>`;
+    }).join(' · ');
+    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(moy. pond. · ${wApres.length} ref.)${outlierNote}</span><br><span style="font-size:10px;color:var(--text3)">${refDetail}</span>
     ${avgVide?`<br><span style="color:var(--text3);font-size:10px">dont vide moy. ${Math.round(avgVide).toLocaleString('fr-FR')} + crasse moy. ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>`:''}
     ${corrTxt}</div>`;
-  else if(methode==='vide_crasse')
+  } else if(methode==='vide_crasse')
     formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code>${corrTxt}</div>`;
   else
     formuleTxt=`<div class="est-formula" style="color:var(--amber)">⚠ Méthode ratio — renseignez Après Recouler pour plus de précision.${corrTxt}</div>`;
- 
+
   // ── Rendement delta ───────────────────────────────────────────────────────
+  const rCol=rendColor(rendEst);
   const rdelta=rendEst&&rendMoy
     ?`<div class="est-sub" style="color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'}">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`
     :`<div class="est-sub">${pw} MW/h · ${Math.round(tmUsed)} min${tmSaisi?'':' (moy.)'}</div>`;
- 
+
   // ── Références Al ────────────────────────────────────────────────────────
   const badge=refs.length<3
     ?`<span style="color:var(--amber);font-size:10px">⏳ ${refs.length}/3</span>`
@@ -622,7 +668,7 @@ function calcAlu(){
     const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
     return`<div class="ir"><span class="ir-k">${d} · ${fmt(c.metal)} kg</span><span>${c.alu_estime} kg → <span class="tag-ok">${c.alu_analyse_pct}%</span></span></div>`;
   }).join('');
- 
+
   zone.innerHTML=`<div class="est-res">
     <div class="est-res-title">⚗ Estimation — Poche ${aluPoche}</div>
     <div class="est-metal">
@@ -632,7 +678,7 @@ function calcAlu(){
     </div>
     <div class="est-grid">
       <div class="cbox green"><div class="cbox-lbl">Al à ajouter</div><div class="cbox-val" style="font-size:24px">${aluEst?aluEst.toFixed(1):'—'}</div><div class="cbox-unit" style="display:inline">kg</div><div class="est-sub">cible ${target}%</div></div>
-      <div class="cbox amber"><div class="cbox-lbl">Rendement estimé</div><div class="cbox-val" style="font-size:24px">${rendEst?rendEst.toFixed(2):'—'}</div><div class="cbox-unit" style="display:inline">MWh/t</div>${rdelta}</div>
+      <div class="cbox" style="--cbox-color:${rCol}"><div class="cbox-lbl">Rendement estimé</div><div class="cbox-val" style="font-size:24px;color:${rCol}">${rendEst?rendEst.toFixed(2):'—'}</div><div class="cbox-unit" style="display:inline">MWh/t</div>${rdelta}</div>
     </div>
     <div class="ir-wrap">
       ${rendEst&&mr?`<div class="ir"><span class="ir-k">Débit estimé</span><span class="ir-v">${((mr/tmUsed)*60/1000).toFixed(3)} t/h</span></div>
@@ -646,7 +692,7 @@ function calcAlu(){
     :`<div class="est-refs" style="color:var(--amber)">⚠ Aucune analyse Al% — enregistrez des analyses dans l'Historique.</div>`}
   </div>`;
 }
- 
+
 // ─── SAVE COULÉE ─────────────────────────────────────────────────────────────
 function saveCoulee(){
   const pp=v('ip-pp'),pr=v('ip-pr');
@@ -669,7 +715,7 @@ function saveCoulee(){
   });
   saveHistory(d);toast('✓ Coulée enregistrée');resetForm();updateDataInfo();
 }
- 
+
 function resetForm(){
   ['ip-pp','ip-pr','ip-pv','ip-aj','ip-ae','ip-aa'].forEach(id=>el(id).value='');
   el('ip-fleuret').checked=false;
@@ -678,7 +724,7 @@ function resetForm(){
   el('c-metal-f').textContent='';el('c-metalnet-f').textContent='';
   setNow();
 }
- 
+
 // ─── HISTORIQUE ──────────────────────────────────────────────────────────────
 function renderHist(){
   const filt=parseInt(el('filt').value)||0;
@@ -687,12 +733,15 @@ function renderHist(){
   const lst=el('hist-list');
   if(!data.length){lst.innerHTML=`<div class="empty"><div class="empty-ic">📋</div>Aucune coulée enregistrée</div>`;return}
   lst.innerHTML=data.map(c=>{
-    const aluTag=c.alu_analyse_pct?`<span class="tag-ok">✓ ${c.alu_analyse_pct}%</span>`:`<span class="tag-pend">⏳ en attente</span>`;
+    const aluTag=c.alu_analyse_pct
+      ?`<span style="color:${alColor(c.alu_analyse_pct,cfg.aluTarget)};font-weight:600">✓ ${c.alu_analyse_pct}%</span>`
+      :`<span class="tag-pend">⏳ en attente</span>`;
     const aluVal=c.alu_analyse_pct
-      ?`<div class="hi-vn tag-ok">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`
+      ?`<div class="hi-vn" style="color:${alColor(c.alu_analyse_pct,cfg.aluTarget)}">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`
       :c.alu_estime?`<div class="hi-vn tag-pend">${c.alu_estime}kg</div><div class="hi-vl">Al estimé</div>`
       :`<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
     const mAff=c.metal_net??c.metal;
+    const rCol=rendColor(c.rendement);
     return`<div class="hi" onclick="openDet(${c.id})">
       <div class="hi-top"><div class="hi-date">${c.date} ${c.heure}</div><div class="hi-p">P${c.poche}${c.fleuret?' 🗡':''}</div></div>
       <div class="hi-vals">
@@ -700,38 +749,42 @@ function renderHist(){
         <div class="hi-v"><div class="hi-vn">${fmt(mAff)}</div><div class="hi-vl">${c.metal_net!=null?'Métal net':'Métal'} kg</div></div>
         <div class="hi-v">${aluVal}</div>
       </div>
-      <div class="hi-foot"><span>Rend. : <strong style="color:var(--accent)">${c.rendement} MWh/t</strong></span>${aluTag}</div>
+      <div class="hi-foot"><span>Rend. : <strong style="color:${rCol}">${c.rendement} MWh/t</strong></span>${aluTag}</div>
     </div>`;
   }).join('');
 }
- 
+
 // ─── DETAIL ───────────────────────────────────────────────────────────────────
 function openDet(id){
   const c=getHistory().find(x=>x.id===id);
   if(!c)return;
   selId=id;
-  const row=(k,v,cls='')=>`<div class="ir"><span class="ir-k">${k}</span><span class="ir-v ${cls}">${v}</span></div>`;
+  const row=(k,v,col='')=>`<div class="ir"><span class="ir-k">${k}</span><span class="ir-v" style="color:${col||'var(--text)'}">${v}</span></div>`;
   el('mod-det-body').innerHTML=`<div class="ir-wrap">`+[
     row('Date / Heure',`${c.date} ${c.heure}`),
     row('Poche',`Poche ${c.poche}`),
     row('Poche Pleine',`${fmt(c.poche_pleine)} kg`),
     row('Après Recouler',`${fmt(c.poche_apres)} kg`),
-    row('Métal brut',`${fmt(c.metal)} kg`,'tag-ok'),
-    c.ajout?row('Ajout',`${fmt(c.ajout)} kg`,'tag-pend'):'',
-    c.fleuret?row('Fleuret','🗡 +1 000 kg','tag-ok'):'',
-    c.metal_net!=null?row('Métal Net',`${fmt(c.metal_net)} kg`,'tag-ok'):'',
+    row('Métal brut',`${fmt(c.metal)} kg`,'var(--green)'),
+    c.ajout?row('Ajout',`${fmt(c.ajout)} kg`,'var(--amber)'):'',
+    c.fleuret?row('Fleuret','🗡 +1 000 kg','var(--green)'):'',
+    c.metal_net!=null?row('Métal Net',`${fmt(c.metal_net)} kg`,'var(--green)'):'',
     c.poche_vide?row('Poche Vide',`${fmt(c.poche_vide)} kg`):'',
-    c.crasse!=null?row('Crasse',`${fmt(c.crasse)} kg`,'tag-pend'):'',
-    row('Puissance',`${c.puissance} MW/h`),row('Temps',`${c.temps} min`),
-    row('Débit',`${c.debit} t/h`),row('Rendement',`${c.rendement} MWh/t`,'tag-ok'),
+    c.crasse!=null?row('Crasse',`${fmt(c.crasse)} kg`,'var(--amber)'):'',
+    row('Puissance',`${c.puissance} MW/h`),
+    row('Temps',`${c.temps} min`),
+    row('Débit',`${c.debit} t/h`),
+    row('Rendement',`${c.rendement} MWh/t`,rendColor(c.rendement)),
     row('Al Estimé',c.alu_estime?`${c.alu_estime} kg`:'—'),
-    row('Al Analyse %',c.alu_analyse_pct?`${c.alu_analyse_pct}%`:'⏳ En attente',c.alu_analyse_pct?'tag-ok':'tag-pend'),
-    c.alu_reel?row('Al Réel',`${c.alu_reel} kg`,'tag-ok'):''
+    row('Al Analyse %',
+      c.alu_analyse_pct?`${c.alu_analyse_pct}% (cible ${cfg.aluTarget}%)`:'⏳ En attente',
+      c.alu_analyse_pct?alColor(c.alu_analyse_pct,cfg.aluTarget):'var(--amber)'),
+    c.alu_reel?row('Al Réel',`${c.alu_reel} kg`,'var(--green)'):''
   ].join('')+`</div>`;
   el('btn-aa').style.display=c.alu_analyse_pct?'none':'block';
   openModal('ov-det');
 }
- 
+
 function openEditModal(){
   const c=getHistory().find(x=>x.id===selId);if(!c)return;
   closeModal('ov-det');
@@ -741,7 +794,7 @@ function openEditModal(){
   });
   openModal('ov-edit');
 }
- 
+
 function saveEdit(){
   const d=getHistory();const idx=d.findIndex(c=>c.id===selId);if(idx<0)return;
   const c=d[idx];
@@ -761,13 +814,13 @@ function saveEdit(){
     alu_analyse_pct:parseFloat(el('e-aa').value)||c.alu_analyse_pct||null};
   saveHistory(d);toast('✓ Coulée modifiée');closeModal('ov-edit');renderHist();
 }
- 
+
 function confirmDelete(){closeModal('ov-det');openModal('ov-del')}
 function deleteCoulee(){
   saveHistory(getHistory().filter(c=>c.id!==selId));
   closeModal('ov-del');renderHist();updateDataInfo();toast('✓ Coulée supprimée');
 }
- 
+
 function openAluModal(){
   closeModal('ov-det');
   el('m-alu-pct').value='';el('m-alu-reel').value='';openModal('ov-alu');
@@ -783,7 +836,7 @@ function saveAlu(){
     saveHistory(d);toast('✓ Analyse Al enregistrée');closeModal('ov-alu');renderHist();
   }
 }
- 
+
 // ─── SETTINGS ────────────────────────────────────────────────────────────────
 function loadCfg(){
   try{const s=JSON.parse(localStorage.getItem('fc_cfg')||'{}');
@@ -805,7 +858,7 @@ function updateDataInfo(){
   const e=el('data-info');
   if(e)e.textContent=n+' coulée'+(n!==1?'s':'')+' enregistrée'+(n!==1?'s':'');
 }
- 
+
 // ─── EXPORT ──────────────────────────────────────────────────────────────────
 function exportJSON(){
   const url=URL.createObjectURL(new Blob([JSON.stringify(getHistory(),null,2)],{type:'application/json'}));
@@ -822,18 +875,18 @@ function deconnexion(){
   el('lockscreen').style.display='flex';el('pwd-input').value='';el('pwd-err').style.display='none';
   goTab('c');toast('✓ Déconnecté');
 }
- 
+
 // ─── MODAL / TOAST ───────────────────────────────────────────────────────────
 function openModal(id){el(id).classList.add('on')}
 function closeModal(id){el(id).classList.remove('on')}
 document.querySelectorAll('.ov').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)closeModal(ov.id)}));
- 
+
 let toastT;
 function toast(msg,err=false){
   const t=el('toast');t.textContent=msg;t.className='toast on'+(err?' err':' ok');
   clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2500);
 }
- 
+
 // ─── ICÔNE PWA ───────────────────────────────────────────────────────────────
 function genIcon(){
   try{
@@ -851,7 +904,7 @@ function genIcon(){
     lnk.href=c.toDataURL('image/png');document.head.appendChild(lnk);
   }catch{}
 }
- 
+
 init();
 </script>
 </body>
