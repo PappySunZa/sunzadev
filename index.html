@@ -10,13 +10,13 @@
 <meta name="theme-color" content="#1a1d2e">
 <title>SunZaDev</title>
 <style>
-:root {
-  --bg:#1a1d2e; --bg2:#242840; --bg3:#1e2135;
-  --border:#2e3456; --border2:#3a4170;
-  --text:#e8edf7; --text2:#8892b0; --text3:#4a5470;
-  --accent:#4f8ef7; --accent2:#7c5af7; --accentbg:rgba(79,142,247,.13);
-  --green:#10d48e; --greenbg:rgba(16,212,142,.12);
-  --red:#ff6b6b; --amber:#ffb038; --amberbg:rgba(255,176,56,.12);
+:root{
+  --bg:#1a1d2e;--bg2:#242840;--bg3:#1e2135;
+  --border:#2e3456;--border2:#3a4170;
+  --text:#e8edf7;--text2:#8892b0;--text3:#4a5470;
+  --accent:#4f8ef7;--accent2:#7c5af7;--accentbg:rgba(79,142,247,.13);
+  --green:#10d48e;--greenbg:rgba(16,212,142,.12);
+  --red:#ff6b6b;--amber:#ffb038;--amberbg:rgba(255,176,56,.12);
   --shadow:0 2px 8px rgba(0,0,0,.35),0 1px 3px rgba(0,0,0,.25);
   --mono:ui-monospace,'SF Mono','Menlo',monospace;
   --font:ui-rounded,-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
@@ -24,41 +24,29 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;display:flex;flex-direction:column;max-width:500px;margin:0 auto;height:100%}
-
-/* LOCKSCREEN */
 #lockscreen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:30px}
 #lockscreen h1{font-size:22px;font-weight:700;letter-spacing:-.5px}
 #lockscreen p{font-size:13px;color:var(--text2)}
 #pwd-input{width:100%;max-width:280px;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);padding:14px 18px;font-size:16px;border-radius:12px;outline:none;text-align:center;font-family:var(--font)}
-#pwd-btn{width:100%;max-width:280px;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:16px;font-weight:700;font-family:var(--font);cursor:pointer;box-shadow:0 4px 16px rgba(79,142,247,.4)}
+#pwd-btn{width:100%;max-width:280px;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:16px;font-weight:700;font-family:var(--font);cursor:pointer}
 #pwd-err{color:var(--red);font-size:13px;display:none}
 .chk-row{display:flex;align-items:center;gap:8px;color:var(--text2);font-size:13px;cursor:pointer}
 .chk-row input{width:16px;height:16px;accent-color:var(--accent)}
-
-/* HEADER */
 .hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 18px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:var(--shadow);position:relative;z-index:10}
 .hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 .hdr-logo{display:flex;align-items:center;gap:10px}
-.hdr-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 12px rgba(79,142,247,.4)}
+.hdr-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
 .hdr-title{font-size:17px;font-weight:700;letter-spacing:-.3px}
 .hdr-time{font-size:17px;font-weight:600;font-family:var(--mono);text-align:right}
 .hdr-date{font-size:10px;color:var(--text3);text-align:right;text-transform:capitalize}
-
-/* LAYOUT */
 .content{flex:1;overflow-y:auto;padding:16px 14px 90px;-webkit-overflow-scrolling:touch}
 .tp{display:none}.tp.on{display:block}
-
-/* NAV */
 .bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:50;box-shadow:0 -2px 12px rgba(0,0,0,.07)}
-.bnav-btn{flex:1;padding:10px 2px 12px;background:none;border:none;color:var(--text3);font-size:9px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;font-family:var(--font);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s}
+.bnav-btn{flex:1;padding:8px 1px 11px;background:none;border:none;color:var(--text3);font-size:8px;font-weight:600;letter-spacing:.2px;text-transform:uppercase;font-family:var(--font);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s}
 .bnav-btn.on{color:var(--accent)}
-.bnav-ic{font-size:20px;line-height:1}
-
-/* TYPOGRAPHY */
+.bnav-ic{font-size:19px;line-height:1}
 .stitle{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
 hr{border:none;border-top:1px solid var(--border);margin:14px 0}
-
-/* FORM */
 .fg{margin-bottom:10px}
 .fg:last-child{margin-bottom:0}
 .fl{font-size:11px;font-weight:500;color:var(--text2);margin-bottom:5px;display:block}
@@ -67,25 +55,18 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79
 input::placeholder{color:var(--text3)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2364748b'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
-
-/* POCHE BTNS */
 .psel{display:flex;gap:8px}
 .pbtn{flex:1;padding:12px 8px;background:var(--bg3);border:1.5px solid var(--border);color:var(--text2);font-size:14px;font-weight:700;font-family:var(--font);border-radius:8px;cursor:pointer;transition:all .15s}
 .pbtn.on{border-color:var(--accent);color:var(--accent);background:var(--accentbg);box-shadow:0 0 0 3px rgba(79,142,247,.18)}
-
-/* FLEURET */
 .fleuret-label{display:flex;align-items:center;gap:10px;cursor:pointer;padding:11px 13px;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px}
 .fleuret-label input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0}
 .fleuret-txt{font-size:14px;font-weight:600;color:var(--text)}
 .fleuret-badge{font-size:11px;color:var(--accent);font-weight:700}
-
-/* RESULT BOXES — unified .cbox system */
 .cbox{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;position:relative;overflow:hidden}
 .cbox::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent);border-radius:10px 0 0 10px}
 .cbox.green::before{background:var(--green)}
 .cbox.blue::before{background:var(--accent2)}
 .cbox.amber::before{background:var(--amber)}
-.cbox.red::before{background:var(--red)}
 .cbox-lbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);margin-bottom:4px}
 .cbox-val{font-size:26px;font-weight:700;font-family:var(--mono);color:var(--accent)}
 .cbox.green .cbox-val{color:var(--green)}
@@ -96,16 +77,12 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .rend-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
 .rend-grid .cbox{margin-bottom:0}
 .rend-grid .cbox-val{font-size:20px}
-
-/* BUTTONS */
 .btn{display:block;width:100%;padding:13px 12px;border:none;border-radius:9px;font-size:13px;font-weight:600;font-family:var(--font);letter-spacing:.3px;cursor:pointer;transition:all .15s;margin-top:8px}
 .btn-p{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 2px 12px rgba(79,142,247,.35)}
 .btn-p:active{opacity:.85;transform:scale(.99)}
 .btn-s{background:transparent;border:1.5px solid var(--border);color:var(--text2)}
 .btn-s:active{background:var(--bg3)}
 .btn-r{background:transparent;border:1.5px solid var(--red);color:var(--red)}
-
-/* ESTIMATION RESULT */
 .est-res{background:rgba(79,142,247,.08);border:1.5px solid rgba(79,142,247,.25);border-radius:14px;padding:20px 16px 16px;margin-top:14px}
 .est-res-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:10px;text-align:center}
 .est-metal{background:rgba(16,212,142,.08);border:1.5px solid rgba(16,212,142,.2);border-radius:12px;padding:16px;margin:10px 0;text-align:center}
@@ -114,22 +91,17 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .est-formula{font-size:11px;color:var(--text2);margin-top:8px;line-height:1.6}
 .est-formula code{background:rgba(0,0,0,.1);border-radius:4px;padding:0 4px;font-family:var(--mono);font-size:11px}
 .est-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-/* est-box reuses cbox styles — just smaller val */
 .est-grid .cbox-val{font-size:24px}
 .est-grid .cbox{margin-bottom:0;text-align:center}
 .est-sub{font-size:10px;color:var(--text2);margin-top:3px}
-
-/* INFO TABLE — unified .ir system */
 .ir-wrap{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin:8px 0}
 .ir{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
 .ir:last-child{border-bottom:none}
 .ir-k{color:var(--text2)}
 .ir-v{font-weight:700;font-family:var(--mono);color:var(--text);font-size:13px}
 .est-refs{font-size:11px;color:var(--text2);margin-top:12px;padding-top:12px;border-top:1px solid rgba(79,142,247,.15)}
-
-/* HISTORY */
-.hi{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;transition:box-shadow .15s,border-color .15s;box-shadow:var(--shadow)}
-.hi:active{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,.18)}
+.hi{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;box-shadow:var(--shadow)}
+.hi:active{border-color:var(--accent)}
 .hi-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .hi-date{font-size:12px;color:var(--text2);font-weight:500}
 .hi-p{font-size:10px;font-weight:700;background:var(--accentbg);color:var(--accent);padding:3px 10px;border-radius:20px;border:1px solid rgba(79,142,247,.25)}
@@ -140,16 +112,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .hi-foot{font-size:11px;color:var(--text2);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .tag-ok{color:var(--green);font-weight:600}
 .tag-pend{color:var(--amber);font-weight:600}
-
-/* SETTINGS */
 .sg{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
 .sg-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:12px}
-
-/* INFO BOX */
 .info-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:11px;color:var(--text2);line-height:1.8}
 .info-box strong{color:var(--text)}
-
-/* MODAL */
 .ov{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
 .ov.on{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-radius:20px 20px 0 0;padding:6px 0 0;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 -8px 30px rgba(0,0,0,.15)}
@@ -158,21 +124,34 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
 .mbtns{display:flex;gap:8px;margin-top:14px}
 .mbtns .btn{margin:0;flex:1}
-
-/* TOAST */
 .toast{position:fixed;top:75px;left:50%;transform:translateX(-50%);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .toast.on{opacity:1}
 .toast.ok{background:var(--green)}
 .toast.err{background:var(--red)}
-
-/* EMPTY */
 .empty{text-align:center;padding:60px 20px;color:var(--text3)}
 .empty-ic{font-size:48px;margin-bottom:12px;opacity:.5}
+.gen-info{font-size:11px;color:var(--text2);text-align:center;padding:5px;background:var(--bg3);border-radius:7px;margin-top:8px}
+.gen-badge{font-size:10px;padding:2px 7px;border-radius:10px;background:var(--amberbg);color:var(--amber);font-weight:600}
+/* SCAN */
+.sx-heads{display:grid;grid-template-columns:108px repeat(3,1fr);gap:4px;margin-bottom:6px}
+.sx-heads span{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text2);text-align:center}
+.sx-heads span:first-child{text-align:left}
+.sx-row{display:grid;grid-template-columns:108px repeat(3,1fr);gap:4px;margin-bottom:4px;align-items:center}
+.sx-row label{font-size:11px;color:var(--text2);line-height:1.3}
+.sx-row input{padding:8px 4px;font-size:14px;text-align:center;border-radius:6px;min-width:0}
+.sx-row input.ok{border-color:var(--green);background:rgba(16,212,142,.08)}
+.sx-chk{display:grid;grid-template-columns:108px repeat(3,1fr);gap:4px;align-items:center;margin-bottom:4px}
+.sx-chk label{font-size:11px;color:var(--text2)}
+.sx-cc{display:flex;justify-content:center}
+.sx-cc input{width:18px;height:18px;accent-color:var(--accent)}
+.sx-prog{display:flex;gap:3px;margin-bottom:12px}
+.sx-prog span{flex:1;height:3px;border-radius:2px;background:var(--border);transition:background .2s}
+.sx-prog span.done{background:var(--green)}
+.sx-tip{font-size:11px;color:var(--text3);text-align:center;margin-top:10px}
 </style>
 </head>
 <body>
 
-<!-- LOCKSCREEN -->
 <div id="lockscreen">
   <div style="font-size:52px">⚗️</div>
   <h1>SunZaDev</h1>
@@ -182,39 +161,27 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <button id="pwd-btn" onclick="checkPwd()">Entrer</button>
   <div id="pwd-err">Mot de passe incorrect</div>
 </div>
-
 <script>
 function checkPwd(){
   if(document.getElementById('pwd-input').value===atob('Um9zYWxpZTEzMDM=')){
     document.getElementById('lockscreen').style.display='none';
-    document.getElementById('pwd-remember').checked
-      ? localStorage.setItem('unlocked','1')
-      : sessionStorage.setItem('unlocked','1');
-  } else {
-    document.getElementById('pwd-err').style.display='block';
-    document.getElementById('pwd-input').value='';
-    document.getElementById('pwd-input').focus();
-  }
+    document.getElementById('pwd-remember').checked?localStorage.setItem('unlocked','1'):sessionStorage.setItem('unlocked','1');
+  }else{document.getElementById('pwd-err').style.display='block';document.getElementById('pwd-input').value='';document.getElementById('pwd-input').focus();}
 }
-if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')==='1')
-  document.getElementById('lockscreen').style.display='none';
+if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')==='1')document.getElementById('lockscreen').style.display='none';
 </script>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-logo">
     <div class="hdr-icon">⚗️</div>
     <div><div class="hdr-title">SunZaDev</div></div>
   </div>
-  <div>
-    <div class="hdr-time" id="hdrTime">--:--</div>
-    <div class="hdr-date" id="hdrDate">---</div>
-  </div>
+  <div><div class="hdr-time" id="hdrTime">--:--</div><div class="hdr-date" id="hdrDate">---</div></div>
 </div>
 
 <div class="content">
 
-<!-- ═══ COULÉE ═══ -->
+<!-- COULÉE -->
 <div class="tp on" id="tp-c">
   <div class="stitle">Nouvelle Coulée</div>
   <div class="row2">
@@ -225,37 +192,20 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     <label class="fl">Poche</label>
     <div class="psel">
       <button class="pbtn on" id="pb1" onclick="selPoche(1)">POCHE 1</button>
-      <button class="pbtn"    id="pb2" onclick="selPoche(2)">POCHE 2</button>
+      <button class="pbtn" id="pb2" onclick="selPoche(2)">POCHE 2</button>
     </div>
+    <div class="gen-info" id="coulee-gen-info"></div>
   </div>
-  <hr>
-  <div class="stitle" style="margin-top:2px">Pesées</div>
+  <hr><div class="stitle" style="margin-top:2px">Pesées</div>
   <div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="ip-pp" placeholder="ex : 25 000" oninput="calc()"></div>
   <div class="fg"><label class="fl">Poche Après Recouler (kg)</label><input type="number" id="ip-pr" placeholder="ex : 20 000" oninput="calc()"></div>
-  <div class="cbox green">
-    <div class="cbox-lbl">Métal brut (Pleine − Après recouler)</div>
-    <span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span>
-    <div class="cbox-formula" id="c-metal-f"></div>
-  </div>
-  <div class="fg"><label class="fl">Ajout (kg) — optionnel</label><input type="number" id="ip-aj" placeholder="ex : 500" step="1" oninput="calc()"></div>
-  <div class="fg">
-    <label class="fleuret-label">
-      <input type="checkbox" id="ip-fleuret" onchange="calc()">
-      <span class="fleuret-txt">🗡 Fleuret <span class="fleuret-badge">+1 000 kg métal net</span></span>
-    </label>
-  </div>
-  <div class="cbox blue">
-    <div class="cbox-lbl">Métal Net (brut − ajout + fleuret)</div>
-    <span class="cbox-val" id="c-metalnet">—</span><span class="cbox-unit">kg</span>
-    <div class="cbox-formula" id="c-metalnet-f"></div>
-  </div>
+  <div class="cbox green"><div class="cbox-lbl">Métal brut (Pleine − Après recouler)</div><span class="cbox-val" id="c-metal">—</span><span class="cbox-unit">kg</span><div class="cbox-formula" id="c-metal-f"></div></div>
+  <div class="fg"><label class="fl">🪨 Ajout (kg) — optionnel</label><input type="number" id="ip-aj" placeholder="ex : 500" step="1" oninput="calc()"></div>
+  <div class="fg"><label class="fleuret-label"><input type="checkbox" id="ip-fleuret" onchange="calc()"><span class="fleuret-txt">🔥 Fleuret <span class="fleuret-badge">+1 000 kg métal net</span></span></label></div>
+  <div class="cbox blue"><div class="cbox-lbl">Métal Net (brut − ajout + fleuret)</div><span class="cbox-val" id="c-metalnet">—</span><span class="cbox-unit">kg</span><div class="cbox-formula" id="c-metalnet-f"></div></div>
   <div class="fg"><label class="fl">Poche Vide / Après Nettoyage (kg)</label><input type="number" id="ip-pv" placeholder="ex : 18 500" oninput="calc()"></div>
-  <div class="cbox amber">
-    <div class="cbox-lbl">Poids Crasse (Après recouler − Poche vide)</div>
-    <span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span>
-  </div>
-  <hr>
-  <div class="stitle">Four &amp; Rendement</div>
+  <div class="cbox amber"><div class="cbox-lbl">Crasse (Après recouler − Vide)</div><span class="cbox-val" id="c-crasse">—</span><span class="cbox-unit">kg</span></div>
+  <hr><div class="stitle">Four &amp; Rendement</div>
   <div class="row2">
     <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="ip-pw" oninput="calc()"></div>
     <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number" id="ip-tm" oninput="calc()"></div>
@@ -264,8 +214,7 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     <div class="cbox blue"><div class="cbox-lbl">Débit (t/h)</div><span class="cbox-val" id="c-debit">—</span><div class="cbox-formula">Métal net ÷ Temps × 60 ÷ 1000</div></div>
     <div class="cbox"><div class="cbox-lbl">Rendement (MWh/t)</div><span class="cbox-val" id="c-rend">—</span><div class="cbox-formula">Puissance ÷ Débit</div></div>
   </div>
-  <hr>
-  <div class="stitle">Aluminium</div>
+  <hr><div class="stitle">Aluminium</div>
   <div class="row2">
     <div class="fg"><label class="fl">Al Estimé Ajouté (kg)</label><input type="number" id="ip-ae" placeholder="ex : 23" step="0.1"></div>
     <div class="fg"><label class="fl">Analyse Al% Labo</label><input type="number" id="ip-aa" placeholder="ex : 0.21" step="0.001"></div>
@@ -274,18 +223,52 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
   <button class="btn btn-s" onclick="resetForm()">↺ &nbsp;Réinitialiser</button>
 </div>
 
-<!-- ═══ ESTIMATION ═══ -->
+<!-- SCAN -->
+<div class="tp" id="tp-x">
+  <div class="stitle">Scan Rapide — Feuille de quart</div>
+  <div class="info-box" style="margin-bottom:12px">
+    Saisie de haut en bas — <strong>Entrée</strong> passe au champ suivant. Coulées vides ignorées à l'enregistrement.
+  </div>
+  <div class="row2" style="margin-bottom:10px">
+    <div class="fg"><label class="fl">Date de la feuille</label><input type="date" id="sx-date"></div>
+    <div class="fg">
+      <label class="fl">Poche</label>
+      <div class="psel">
+        <button class="pbtn on" id="sxpb1" onclick="selScanPoche(1)">P1</button>
+        <button class="pbtn" id="sxpb2" onclick="selScanPoche(2)">P2</button>
+      </div>
+    </div>
+  </div>
+  <div class="fg"><label class="fl">Puissance Four (MW/h) — commune aux 3 coulées</label><input type="number" id="sx-pw" placeholder="ex : 30"></div>
+  <div class="sx-prog" id="sx-prog">
+    <span id="sxp0"></span><span id="sxp1"></span><span id="sxp2"></span><span id="sxp3"></span><span id="sxp4"></span><span id="sxp5"></span><span id="sxp6"></span><span id="sxp7"></span>
+  </div>
+  <div class="sx-heads"><span></span><span>Coulée 1</span><span>Coulée 2</span><span>Coulée 3</span></div>
+  <div class="sx-row"><label>Heure</label><input type="text" id="sx-h0" placeholder="5H30" oninput="sxMark(this,0,'h')"><input type="text" id="sx-h1" placeholder="13H05" oninput="sxMark(this,1,'h')"><input type="text" id="sx-h2" placeholder="19H05" oninput="sxMark(this,2,'h')"></div>
+  <div class="sx-row"><label>Durée (min)</label><input type="number" id="sx-tm0" placeholder="170" oninput="sxMark(this,0,'tm')"><input type="number" id="sx-tm1" placeholder="180" oninput="sxMark(this,1,'tm')"><input type="number" id="sx-tm2" placeholder="180" oninput="sxMark(this,2,'tm')"></div>
+  <hr>
+  <div class="sx-row"><label>Pleine (kg)</label><input type="number" id="sx-pp0" placeholder="24 710" oninput="sxMark(this,0,'pp')"><input type="number" id="sx-pp1" placeholder="25 080" oninput="sxMark(this,1,'pp')"><input type="number" id="sx-pp2" placeholder="25 620" oninput="sxMark(this,2,'pp')"></div>
+  <div class="sx-row"><label>Vide (kg)</label><input type="number" id="sx-pr0" placeholder="18 080" oninput="sxMark(this,0,'pr')"><input type="number" id="sx-pr1" placeholder="18 240" oninput="sxMark(this,1,'pr')"><input type="number" id="sx-pr2" placeholder="18 360" oninput="sxMark(this,2,'pr')"></div>
+  <div class="sx-row"><label>Après décrassage (kg)</label><input type="number" id="sx-pv0" placeholder="17 240" oninput="sxMark(this,0,'pv')"><input type="number" id="sx-pv1" placeholder="17 480" oninput="sxMark(this,1,'pv')"><input type="number" id="sx-pv2" placeholder="17 600" oninput="sxMark(this,2,'pv')"></div>
+  <hr>
+  <div class="sx-row"><label>🪨 Ajout bec (kg)</label><input type="number" id="sx-aj0" placeholder="—" oninput="sxMark(this,0,'aj')"><input type="number" id="sx-aj1" placeholder="600" oninput="sxMark(this,1,'aj')"><input type="number" id="sx-aj2" placeholder="650" oninput="sxMark(this,2,'aj')"></div>
+  <div class="sx-row"><label>Al ajouté (kg)</label><input type="number" id="sx-ae0" placeholder="18" step="0.1" oninput="sxMark(this,0,'ae')"><input type="number" id="sx-ae1" placeholder="18,5" step="0.1" oninput="sxMark(this,1,'ae')"><input type="number" id="sx-ae2" placeholder="18,5" step="0.1" oninput="sxMark(this,2,'ae')"></div>
+  <div class="sx-row"><label>FX : %Al</label><input type="number" id="sx-fx0" placeholder="0,10" step="0.001" oninput="sxMark(this,0,'fx')"><input type="number" id="sx-fx1" placeholder="0,23" step="0.001" oninput="sxMark(this,1,'fx')"><input type="number" id="sx-fx2" placeholder="—" step="0.001" oninput="sxMark(this,2,'fx')"></div>
+  <hr>
+  <div class="sx-chk"><label>🔥 Fleuret</label><div class="sx-cc"><input type="checkbox" id="sx-fl0"></div><div class="sx-cc"><input type="checkbox" id="sx-fl1"></div><div class="sx-cc"><input type="checkbox" id="sx-fl2"></div></div>
+  <button class="btn btn-p" onclick="saveScan()" style="margin-top:14px">💾 &nbsp;ENREGISTRER LES COULÉES</button>
+  <button class="btn btn-s" onclick="resetScan()">↺ &nbsp;Réinitialiser</button>
+  <div class="sx-tip" id="sx-tip">Entrée ou Tab pour passer au champ suivant</div>
+</div>
+
+<!-- ESTIMATION -->
 <div class="tp" id="tp-a">
   <div class="stitle">Estimation Poche — Pré-coulée</div>
-  <div class="info-box" style="margin-bottom:14px">
-    Entrez le <strong>poids poche pleine sortie de four</strong>. L'app calcule le métal estimé et le rendement attendu.
-  </div>
+  <div class="info-box" style="margin-bottom:14px">Entrez le <strong>poids poche pleine sortie de four</strong>. L'app calcule le métal estimé et le rendement attendu.</div>
   <div class="fg">
     <label class="fl">Poche</label>
-    <div class="psel">
-      <button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button>
-      <button class="pbtn"    id="apb2" onclick="selAluPoche(2)">POCHE 2</button>
-    </div>
+    <div class="psel"><button class="pbtn on" id="apb1" onclick="selAluPoche(1)">POCHE 1</button><button class="pbtn" id="apb2" onclick="selAluPoche(2)">POCHE 2</button></div>
+    <div class="gen-info" id="est-gen-info" style="margin-top:8px"></div>
   </div>
   <div class="row2">
     <div class="fg"><label class="fl">Poids Poche Pleine (kg)</label><input type="number" id="alu-pp" placeholder="ex : 25 560" oninput="calcAlu()"></div>
@@ -293,41 +276,27 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
   </div>
   <div class="row2">
     <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number" id="alu-tm" oninput="calcAlu()"></div>
-    <div class="fg"><label class="fl">Ajout (kg)</label><input type="number" id="alu-aj" placeholder="ex : 500" step="1" oninput="calcAlu()"></div>
+    <div class="fg"><label class="fl">🪨 Ajout (kg)</label><input type="number" id="alu-aj" placeholder="ex : 500" step="1" oninput="calcAlu()"></div>
   </div>
-  <div class="fg">
-    <label class="fleuret-label">
-      <input type="checkbox" id="alu-fleuret" onchange="calcAlu()">
-      <span class="fleuret-txt">🗡 Fleuret <span class="fleuret-badge">+1 000 kg</span></span>
-    </label>
-  </div>
+  <div class="fg"><label class="fleuret-label"><input type="checkbox" id="alu-fleuret" onchange="calcAlu()"><span class="fleuret-txt">🔥 Fleuret <span class="fleuret-badge">+1 000 kg</span></span></label></div>
   <div id="alu-res-zone"></div>
-  <hr>
-  <div class="stitle">Paramètre Cible</div>
+  <hr><div class="stitle">Paramètre Cible</div>
   <div class="fg"><label class="fl">Cible Al% (sur métal brut)</label><input type="number" id="alu-target" step="0.001" placeholder="ex : 0.21" oninput="saveSetting('aluTarget',this.value);calcAlu()"></div>
-  <div class="info-box">
-    <strong>Méthode (priorité) :</strong><br>
-    1. Poche pleine − moy(après recouler)<br>
-    2. Poche pleine − moy(vide) − moy(crasse)<br>
-    3. Ratio métal/poids (fallback)<br><br>
-    <strong>Rendement :</strong> sur métal net (brut − ajout + fleuret)
-  </div>
+  <div class="info-box"><strong>Méthode (priorité) :</strong><br>1. Moy. pond. ×3×2×1 (après recouler)<br>2. Moy. vide + crasse<br>3. Ratio (fallback)<br><br><strong>Génération actuelle uniquement</strong></div>
 </div>
 
-<!-- ═══ HISTORIQUE ═══ -->
+<!-- HISTORIQUE -->
 <div class="tp" id="tp-h">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
     <div class="stitle" style="margin:0;border:none">Historique</div>
     <select id="filt" onchange="renderHist()" style="width:auto;padding:6px 28px 6px 10px;font-size:11px">
-      <option value="0">Toutes</option>
-      <option value="1">Poche 1</option>
-      <option value="2">Poche 2</option>
+      <option value="0">Toutes</option><option value="1">Poche 1</option><option value="2">Poche 2</option>
     </select>
   </div>
   <div id="hist-list"></div>
 </div>
 
-<!-- ═══ PARAMÈTRES ═══ -->
+<!-- PARAMÈTRES -->
 <div class="tp" id="tp-s">
   <div class="stitle">Paramètres</div>
   <div class="sg">
@@ -335,6 +304,15 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
     <div class="fg"><label class="fl">Puissance Four (MW/h)</label><input type="number" id="s-pw" oninput="saveSetting('pw',this.value)"></div>
     <div class="fg"><label class="fl">Temps Coulée (min)</label><input type="number" id="s-tm" oninput="saveSetting('tm',this.value)"></div>
     <div class="fg"><label class="fl">Cible Aluminium (%)</label><input type="number" id="s-at" step="0.001" oninput="saveSetting('aluTarget',this.value);syncAluTarget()"></div>
+  </div>
+  <div class="sg">
+    <div class="sg-title">Changement de poche</div>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">Quand tu prends une nouvelle poche physique, démarre une nouvelle génération. L'historique de l'ancienne est conservé mais ne sera plus utilisé dans les estimations.</p>
+    <div class="row2">
+      <button class="btn btn-s" onclick="openModal('ov-gen1')" style="margin-top:0">🔄 Nouvelle Poche 1</button>
+      <button class="btn btn-s" onclick="openModal('ov-gen2')" style="margin-top:0">🔄 Nouvelle Poche 2</button>
+    </div>
+    <div id="gen-status" style="font-size:11px;color:var(--text2);margin-top:10px;text-align:center"></div>
   </div>
   <div class="sg">
     <div class="sg-title">Données stockées</div>
@@ -349,383 +327,279 @@ if(localStorage.getItem('unlocked')==='1'||sessionStorage.getItem('unlocked')===
 </div>
 </div>
 
-<!-- NAV -->
 <nav class="bnav">
   <button class="bnav-btn on" id="nb-c" onclick="goTab('c')"><span class="bnav-ic">🔥</span>Coulée</button>
-  <button class="bnav-btn"    id="nb-a" onclick="goTab('a')"><span class="bnav-ic">⚗️</span>Estimation</button>
-  <button class="bnav-btn"    id="nb-h" onclick="goTab('h')"><span class="bnav-ic">📋</span>Historique</button>
-  <button class="bnav-btn"    id="nb-s" onclick="goTab('s')"><span class="bnav-ic">⚙️</span>Réglages</button>
+  <button class="bnav-btn" id="nb-x" onclick="goTab('x')"><span class="bnav-ic">📋</span>Scan</button>
+  <button class="bnav-btn" id="nb-a" onclick="goTab('a')"><span class="bnav-ic">⚗️</span>Estim.</button>
+  <button class="bnav-btn" id="nb-h" onclick="goTab('h')"><span class="bnav-ic">📁</span>Hist.</button>
+  <button class="bnav-btn" id="nb-s" onclick="goTab('s')"><span class="bnav-ic">⚙️</span>Régl.</button>
 </nav>
 
 <!-- MODALS -->
-<div class="ov" id="ov-det">
-  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
-    <div class="modal-title">Détail Coulée</div>
-    <div id="mod-det-body"></div>
-    <div class="mbtns">
-      <button class="btn btn-s" onclick="closeModal('ov-det')">Fermer</button>
-      <button class="btn btn-s" onclick="openEditModal()">✏️ Modifier</button>
-      <button class="btn btn-r" onclick="confirmDelete()">🗑</button>
-    </div>
-    <div style="margin-top:8px"><button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button></div>
-  </div></div>
-</div>
+<div class="ov" id="ov-det"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Détail Coulée</div>
+  <div id="mod-det-body"></div>
+  <div class="mbtns">
+    <button class="btn btn-s" onclick="closeModal('ov-det')">Fermer</button>
+    <button class="btn btn-s" onclick="openEditModal()">✏️ Modifier</button>
+    <button class="btn btn-r" onclick="confirmDelete()">🗑</button>
+  </div>
+  <div style="margin-top:8px"><button class="btn btn-p" id="btn-aa" onclick="openAluModal()">+ Analyse Al</button></div>
+  <div style="margin-top:8px"><button class="btn btn-s" id="btn-exclu" onclick="toggleExclu()"></button></div>
+</div></div></div>
 
-<div class="ov" id="ov-alu">
-  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
-    <div class="modal-title">Analyse Laboratoire</div>
-    <div class="fg"><label class="fl">Résultat Al%</label><input type="number" id="m-alu-pct" step="0.001" placeholder="ex : 0.21"></div>
-    <div class="fg"><label class="fl">Al réel ajouté (kg) — optionnel</label><input type="number" id="m-alu-reel" placeholder="ex : 23" step="0.1"></div>
-    <div class="mbtns">
-      <button class="btn btn-s" onclick="closeModal('ov-alu')">Annuler</button>
-      <button class="btn btn-p" onclick="saveAlu()">Enregistrer</button>
-    </div>
-  </div></div>
-</div>
+<div class="ov" id="ov-alu"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Analyse Laboratoire</div>
+  <div class="fg"><label class="fl">Résultat Al%</label><input type="number" id="m-alu-pct" step="0.001" placeholder="ex : 0.21"></div>
+  <div class="fg"><label class="fl">Al réel ajouté (kg) — optionnel</label><input type="number" id="m-alu-reel" placeholder="ex : 23" step="0.1"></div>
+  <div class="mbtns"><button class="btn btn-s" onclick="closeModal('ov-alu')">Annuler</button><button class="btn btn-p" onclick="saveAlu()">Enregistrer</button></div>
+</div></div></div>
 
-<div class="ov" id="ov-edit">
-  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
-    <div class="modal-title">Modifier la Coulée</div>
-    <div class="row2">
-      <div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="e-pp"></div>
-      <div class="fg"><label class="fl">Après Recouler (kg)</label><input type="number" id="e-pr"></div>
-    </div>
-    <div class="row2">
-      <div class="fg"><label class="fl">Poche Vide (kg)</label><input type="number" id="e-pv"></div>
-      <div class="fg"><label class="fl">Ajout (kg)</label><input type="number" id="e-aj"></div>
-    </div>
-    <div class="row2">
-      <div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="e-pw"></div>
-      <div class="fg"><label class="fl">Temps (min)</label><input type="number" id="e-tm"></div>
-    </div>
-    <div class="row2">
-      <div class="fg"><label class="fl">Al Estimé (kg)</label><input type="number" id="e-ae" step="0.1"></div>
-      <div class="fg"><label class="fl">Analyse Al%</label><input type="number" id="e-aa" step="0.001"></div>
-    </div>
-    <div class="mbtns">
-      <button class="btn btn-s" onclick="closeModal('ov-edit');openModal('ov-det')">Annuler</button>
-      <button class="btn btn-p" onclick="saveEdit()">💾 Enregistrer</button>
-    </div>
-  </div></div>
-</div>
+<div class="ov" id="ov-edit"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Modifier la Coulée</div>
+  <div class="row2"><div class="fg"><label class="fl">Poche Pleine (kg)</label><input type="number" id="e-pp"></div><div class="fg"><label class="fl">Après Recouler (kg)</label><input type="number" id="e-pr"></div></div>
+  <div class="row2"><div class="fg"><label class="fl">Poche Vide (kg)</label><input type="number" id="e-pv"></div><div class="fg"><label class="fl">🪨 Ajout (kg)</label><input type="number" id="e-aj"></div></div>
+  <div class="row2"><div class="fg"><label class="fl">Puissance (MW/h)</label><input type="number" id="e-pw"></div><div class="fg"><label class="fl">Temps (min)</label><input type="number" id="e-tm"></div></div>
+  <div class="row2"><div class="fg"><label class="fl">Al Estimé (kg)</label><input type="number" id="e-ae" step="0.1"></div><div class="fg"><label class="fl">Analyse Al%</label><input type="number" id="e-aa" step="0.001"></div></div>
+  <div class="mbtns"><button class="btn btn-s" onclick="closeModal('ov-edit');openModal('ov-det')">Annuler</button><button class="btn btn-p" onclick="saveEdit()">💾 Enregistrer</button></div>
+</div></div></div>
 
-<div class="ov" id="ov-del">
-  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
-    <div class="modal-title">Supprimer cette coulée ?</div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Action irréversible.</p>
-    <div class="mbtns">
-      <button class="btn btn-s" onclick="closeModal('ov-del');openModal('ov-det')">Annuler</button>
-      <button class="btn btn-r" onclick="deleteCoulee()">Supprimer</button>
-    </div>
-  </div></div>
-</div>
+<div class="ov" id="ov-del"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Supprimer cette coulée ?</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Action irréversible.</p>
+  <div class="mbtns"><button class="btn btn-s" onclick="closeModal('ov-del');openModal('ov-det')">Annuler</button><button class="btn btn-r" onclick="deleteCoulee()">Supprimer</button></div>
+</div></div></div>
 
-<div class="ov" id="ov-clr">
-  <div class="modal"><div class="modal-handle"></div><div class="modal-inner">
-    <div class="modal-title">Effacer les données ?</div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Toutes les coulées seront supprimées. Pensez à exporter avant.</p>
-    <div class="mbtns">
-      <button class="btn btn-s" onclick="closeModal('ov-clr')">Annuler</button>
-      <button class="btn btn-r" onclick="clearAll()">Tout effacer</button>
-    </div>
-  </div></div>
-</div>
+<div class="ov" id="ov-clr"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Effacer les données ?</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Toutes les coulées supprimées. Pensez à exporter avant.</p>
+  <div class="mbtns"><button class="btn btn-s" onclick="closeModal('ov-clr')">Annuler</button><button class="btn btn-r" onclick="clearAll()">Tout effacer</button></div>
+</div></div></div>
+
+<div class="ov" id="ov-gen1"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Nouvelle Poche 1 ?</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">L'historique de la Poche 1 actuelle est conservé mais <strong>ignoré des estimations</strong>. La nouvelle poche repart de zéro.</p>
+  <div class="mbtns"><button class="btn btn-s" onclick="closeModal('ov-gen1')">Annuler</button><button class="btn btn-p" onclick="changeGen(1)">✅ Confirmer</button></div>
+</div></div></div>
+
+<div class="ov" id="ov-gen2"><div class="modal"><div class="modal-handle"></div><div class="modal-inner">
+  <div class="modal-title">Nouvelle Poche 2 ?</div>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">L'historique de la Poche 2 actuelle est conservé mais <strong>ignoré des estimations</strong>. La nouvelle poche repart de zéro.</p>
+  <div class="mbtns"><button class="btn btn-s" onclick="closeModal('ov-gen2')">Annuler</button><button class="btn btn-p" onclick="changeGen(2)">✅ Confirmer</button></div>
+</div></div></div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 'use strict';
-
-// ─── STATE & CACHE ────────────────────────────────────────────────────────────
-let curPoche=1, aluPoche=1, selId=null;
+let curPoche=1,aluPoche=1,scanPoche=1,selId=null;
 let cfg={pw:30,tm:180,aluTarget:0.21};
-let _hist=null; // cache mémoire
+let pgens={1:1,2:1};
+let _hist=null;
 
-// ─── STORAGE ─────────────────────────────────────────────────────────────────
-function getHistory(){
-  if(_hist===null){
-    try{_hist=JSON.parse(localStorage.getItem('fc_coulees')||'[]')}catch{_hist=[]}
-  }
-  return _hist;
-}
+function getHistory(){if(_hist===null){try{_hist=JSON.parse(localStorage.getItem('fc_coulees')||'[]')}catch{_hist=[]}}return _hist}
 function saveHistory(d){_hist=d;localStorage.setItem('fc_coulees',JSON.stringify(d))}
-
-// ─── METAL CALC (centralisé) ─────────────────────────────────────────────────
-function metalCalc(pp,pr,aj,fl){
-  const brut=pp-pr;
-  const net=brut-(aj||0)+(fl?1000:0);
-  return{brut,net};
-}
-
-// ─── INIT ────────────────────────────────────────────────────────────────────
-function init(){
-  loadCfg(); setNow(); clockTick();
-  setInterval(clockTick,10000);
-  applySettingsUI(); renderHist(); updateDataInfo(); genIcon();
-}
-
-function clockTick(){
-  const n=new Date();
-  document.getElementById('hdrTime').textContent=n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('hdrDate').textContent=n.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'2-digit',year:'2-digit'});
-}
-
-function setNow(){
-  const n=new Date();
-  document.getElementById('inp-date').value=n.toISOString().slice(0,10);
-  document.getElementById('inp-heure').value=n.toTimeString().slice(0,5);
-}
-
-// ─── TABS ────────────────────────────────────────────────────────────────────
-function goTab(t){
-  ['c','a','h','s'].forEach(x=>{
-    document.getElementById('tp-'+x).classList.toggle('on',x===t);
-    document.getElementById('nb-'+x).classList.toggle('on',x===t);
-  });
-  if(t==='h')renderHist();
-  if(t==='s')updateDataInfo();
-}
-
-// ─── POCHE SELECT ─────────────────────────────────────────────────────────────
-function selPoche(n){
-  curPoche=n;
-  document.getElementById('pb1').classList.toggle('on',n===1);
-  document.getElementById('pb2').classList.toggle('on',n===2);
-}
-function selAluPoche(n){
-  aluPoche=n;
-  document.getElementById('apb1').classList.toggle('on',n===1);
-  document.getElementById('apb2').classList.toggle('on',n===2);
-  calcAlu();
-}
-
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function loadPgens(){try{const p=JSON.parse(localStorage.getItem('fc_pgens')||'{}');pgens[1]=p[1]||1;pgens[2]=p[2]||1;}catch{}}
+function savePgens(){localStorage.setItem('fc_pgens',JSON.stringify(pgens))}
+function metalCalc(pp,pr,aj,fl){const brut=pp-pr;return{brut,net:brut-(aj||0)+(fl?1000:0)}}
 function v(id){return parseFloat(document.getElementById(id).value)||0}
 function fmt(n){return n.toLocaleString('fr-FR')}
 function el(id){return document.getElementById(id)}
 function avg(arr,fn){return arr.length?arr.reduce((s,c)=>s+fn(c),0)/arr.length:null}
 
-// Couleur rendement : ≤11.300 vert / ≤11.500 orange / >11.500 rouge
-function rendColor(r){
-  if(!r) return 'var(--text)';
-  if(r<=11.300) return 'var(--green)';
-  if(r<=11.500) return 'var(--amber)';
-  return 'var(--red)';
+function rendColor(r){if(!r)return'var(--text)';if(r<=11.300)return'var(--green)';if(r<=11.500)return'var(--amber)';return'var(--red)'}
+function alColor(a,t){if(!a||!t)return'var(--text)';const d=Math.abs(a-t);if(d<=0.05)return'var(--green)';if(d<=0.10)return'var(--amber)';return'var(--red)'}
+
+function wAvgApres(cs){
+  if(!cs.length)return null;
+  const vals=cs.map(c=>c.poche_apres);
+  if(vals.length===1)return{val:vals[0],hasOutlier:false,weights:[3]};
+  const sa=vals.reduce((s,v)=>s+v,0)/vals.length;
+  const bw=[3,2,1].slice(0,vals.length);
+  const wts=bw.map((w,i)=>Math.abs(vals[i]-sa)/sa>0.15?w*0.5:w);
+  const tw=wts.reduce((s,w)=>s+w,0);
+  return{val:vals.reduce((s,v,i)=>s+v*wts[i],0)/tw,hasOutlier:wts.some((w,i)=>w!==bw[i]),weights:wts};
 }
 
-// Couleur Al% : écart vs cible ≤0.05 vert / ≤0.10 orange / >0.10 rouge
-function alColor(actual,target){
-  if(!actual||!target) return 'var(--text)';
-  const d=Math.abs(actual-target);
-  if(d<=0.05) return 'var(--green)';
-  if(d<=0.10) return 'var(--amber)';
-  return 'var(--red)';
+function init(){
+  loadCfg();loadPgens();setNow();clockTick();setInterval(clockTick,10000);
+  applySettingsUI();renderHist();updateDataInfo();updateGenStatus();genIcon();
+  initScanAutoTab();
+}
+function clockTick(){
+  const n=new Date();
+  el('hdrTime').textContent=n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  el('hdrDate').textContent=n.toLocaleDateString('fr-FR',{weekday:'short',day:'2-digit',month:'2-digit',year:'2-digit'});
+}
+function setNow(){const n=new Date();el('inp-date').value=n.toISOString().slice(0,10);el('inp-heure').value=n.toTimeString().slice(0,5)}
+
+function goTab(t){
+  ['c','x','a','h','s'].forEach(x=>{el('tp-'+x).classList.toggle('on',x===t);el('nb-'+x).classList.toggle('on',x===t)});
+  if(t==='h')renderHist();
+  if(t==='s'){updateDataInfo();updateGenStatus();}
+  if(t==='x'){el('sx-date').value=new Date().toISOString().slice(0,10);el('sx-pw').value=cfg.pw;}
 }
 
-// Moyenne pondérée poche_apres (×3, ×2, ×1) avec détection outlier
-// Si une valeur s'écarte de >15% de la moyenne simple → poids divisé par 2
-function wAvgApres(coulees){
-  if(!coulees.length) return null;
-  const vals=coulees.map(c=>c.poche_apres);
-  if(vals.length===1) return vals[0];
-  const sAvg=vals.reduce((s,v)=>s+v,0)/vals.length;
-  const baseW=[3,2,1].slice(0,vals.length);
-  const weights=baseW.map((w,i)=>Math.abs(vals[i]-sAvg)/sAvg>0.15?w*0.5:w);
-  const totalW=weights.reduce((s,w)=>s+w,0);
-  const wAvg=vals.reduce((s,v,i)=>s+v*weights[i],0)/totalW;
-  // Indicateur outlier pour affichage
-  const hasOutlier=weights.some((w,i)=>w!==baseW[i]);
-  return{val:wAvg,hasOutlier,weights};
+function selPoche(n){curPoche=n;el('pb1').classList.toggle('on',n===1);el('pb2').classList.toggle('on',n===2);updateGenInfo('coulee-gen-info',n)}
+function selAluPoche(n){aluPoche=n;el('apb1').classList.toggle('on',n===1);el('apb2').classList.toggle('on',n===2);updateGenInfo('est-gen-info',n);calcAlu()}
+function selScanPoche(n){scanPoche=n;el('sxpb1').classList.toggle('on',n===1);el('sxpb2').classList.toggle('on',n===2)}
+
+function updateGenInfo(elId,poche){
+  const g=pgens[poche]||1;
+  const cnt=getHistory().filter(c=>c.poche===poche&&(c.poche_gen||1)===g).length;
+  const e=el(elId);if(e)e.textContent=`Génération ${g} · ${cnt} coulée${cnt!==1?'s':''} en cours`;
+}
+function updateGenStatus(){
+  const s=el('gen-status');
+  if(s)s.textContent=`Poche 1 : génération ${pgens[1]}  ·  Poche 2 : génération ${pgens[2]}`;
+}
+function changeGen(p){
+  pgens[p]=(pgens[p]||1)+1;savePgens();
+  closeModal('ov-gen'+p);_hist=null;
+  renderHist();updateGenStatus();
+  updateGenInfo('coulee-gen-info',curPoche);
+  updateGenInfo('est-gen-info',aluPoche);
+  calcAlu();
+  toast(`✅ Poche ${p} — génération ${pgens[p]} démarrée`);
 }
 
-// ─── COULÉE CALC ─────────────────────────────────────────────────────────────
 function calc(){
   const pp=v('ip-pp'),pr=v('ip-pr'),pv=v('ip-pv'),pw=v('ip-pw'),tm=v('ip-tm');
   const aj=v('ip-aj'),fl=el('ip-fleuret').checked;
-  const {brut,net}=metalCalc(pp,pr,aj,fl);
-  const crasse=pr-pv;
-
-  if(pp>0&&pr>0&&brut>0){
-    el('c-metal').textContent=fmt(brut);
-    el('c-metal-f').textContent=fmt(pp)+' − '+fmt(pr)+' = '+fmt(brut)+' kg';
-  } else {el('c-metal').textContent='—';el('c-metal-f').textContent=''}
-
+  const {brut,net}=metalCalc(pp,pr,aj,fl);const crasse=pr-pv;
+  if(pp>0&&pr>0&&brut>0){el('c-metal').textContent=fmt(brut);el('c-metal-f').textContent=fmt(pp)+' − '+fmt(pr)+' = '+fmt(brut)+' kg';}
+  else{el('c-metal').textContent='—';el('c-metal-f').textContent=''}
   if(brut>0){
-    const mn=(aj>0||fl)?net:brut;
-    el('c-metalnet').textContent=fmt(mn);
-    const parts=[];
-    if(aj>0)parts.push('− '+fmt(aj)+' (ajout)');
-    if(fl)parts.push('+ 1 000 (fleuret)');
-    el('c-metalnet-f').textContent=parts.length?fmt(brut)+' '+parts.join(' ')+' = '+fmt(mn)+' kg':'Aucun ajout';
-  } else {el('c-metalnet').textContent='—';el('c-metalnet-f').textContent=''}
-
+    const mn=(aj>0||fl)?net:brut;el('c-metalnet').textContent=fmt(mn);
+    const p=[];if(aj>0)p.push('− '+fmt(aj)+' (ajout)');if(fl)p.push('+ 1 000 (fleuret)');
+    el('c-metalnet-f').textContent=p.length?fmt(brut)+' '+p.join(' ')+' = '+fmt(mn)+' kg':'Aucun ajout';
+  }else{el('c-metalnet').textContent='—';el('c-metalnet-f').textContent=''}
   el('c-crasse').textContent=(pr>0&&pv>0&&crasse>=0)?fmt(crasse):'—';
-
   const mr=(aj>0||fl)&&net>0?net:brut;
-  if(mr>0&&pw>0&&tm>0){
-    const d=(mr/tm)*60/1000;
-    const r=(pw/d);
-    el('c-debit').textContent=d.toFixed(3);
-    el('c-rend').textContent=r.toFixed(2);
-    el('c-rend').style.color=rendColor(r);
-  } else {el('c-debit').textContent='—';el('c-rend').textContent='—';el('c-rend').style.color=''}
+  if(mr>0&&pw>0&&tm>0){const d=(mr/tm)*60/1000,r=pw/d;el('c-debit').textContent=d.toFixed(3);el('c-rend').textContent=r.toFixed(2);el('c-rend').style.color=rendColor(r);}
+  else{el('c-debit').textContent='—';el('c-rend').textContent='—';el('c-rend').style.color=''}
 }
 
-// ─── ESTIMATION ──────────────────────────────────────────────────────────────
 function calcAlu(){
-  const pocheNew=v('alu-pp');
-  const zone=el('alu-res-zone');
+  const pocheNew=v('alu-pp'),zone=el('alu-res-zone');
   if(!pocheNew){zone.innerHTML='';return}
-
   const target=parseFloat(el('alu-target').value)||cfg.aluTarget;
-  const hist=getHistory().filter(c=>c.poche===aluPoche).sort((a,b)=>b.id-a.id);
-
-  // ── Métal estimé ───────────────────────────────────────────────────────────
-  const wApres=hist.filter(c=>c.poche_apres).slice(0,3);
-  const wVide=hist.filter(c=>c.poche_vide!=null&&c.crasse!=null&&c.crasse>=0).slice(0,3);
-  let metalEst=null,methode='ratio',avgApres=null,avgVide=null,avgCrasse=null;
-
-  if(wApres.length){
-    const wa=wAvgApres(wApres);
-    avgApres=wa.val;
-    metalEst=Math.max(0,pocheNew-avgApres);
-    methode='apres';
-    const outlierTxt=wa.hasOutlier?' <span style="color:var(--amber);font-size:10px">⚠ valeur aberrante détectée</span>':'';
-    if(wVide.length){avgVide=avg(wVide,c=>c.poche_vide);avgCrasse=avg(wVide,c=>c.crasse)}
-    // Store outlier info for formula display
-    wApres._outlier=wa.hasOutlier;wApres._weights=wa.weights;
-  } else if(wVide.length){
-    avgVide=avg(wVide,c=>c.poche_vide);avgCrasse=avg(wVide,c=>c.crasse);
-    metalEst=Math.max(0,pocheNew-avgVide-avgCrasse);methode='vide_crasse';
-  } else if(hist.length){
-    const n=Math.min(hist.length,3);
-    metalEst=pocheNew*hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0)/n;
-  }
-
-  // ── Al estimé (sur métal brut) ─────────────────────────────────────────────
+  const curGen=pgens[aluPoche]||1;
+  const hist=getHistory().filter(c=>c.poche===aluPoche&&(c.poche_gen||1)===curGen&&!c.exclu).sort((a,b)=>b.id-a.id);
+  updateGenInfo('est-gen-info',aluPoche);
+  const wA=hist.filter(c=>c.poche_apres).slice(0,3);
+  const wV=hist.filter(c=>c.poche_vide!=null&&c.crasse!=null&&c.crasse>=0).slice(0,3);
+  let metalEst=null,methode='ratio',avgApres=null,avgVide=null,avgCrasse=null,waRes=null;
+  if(wA.length){waRes=wAvgApres(wA);avgApres=waRes.val;metalEst=Math.max(0,pocheNew-avgApres);methode='apres';if(wV.length){avgVide=avg(wV,c=>c.poche_vide);avgCrasse=avg(wV,c=>c.crasse)}}
+  else if(wV.length){avgVide=avg(wV,c=>c.poche_vide);avgCrasse=avg(wV,c=>c.crasse);metalEst=Math.max(0,pocheNew-avgVide-avgCrasse);methode='vide_crasse';}
+  else if(hist.length){const n=Math.min(hist.length,3);metalEst=pocheNew*hist.slice(0,n).reduce((s,c)=>s+(c.metal/c.poche_pleine),0)/n;}
   const refs=hist.filter(c=>c.alu_estime&&c.alu_analyse_pct&&c.metal).slice(0,3);
   let aluEst=null,effMoy=null;
-  if(refs.length&&metalEst){
-    effMoy=avg(refs,c=>c.alu_estime/(c.alu_analyse_pct*c.metal));
-    aluEst=effMoy*target*metalEst;
-  }
-
-  // ── Métal net + rendement ─────────────────────────────────────────────────
-  const ajoutEst=parseFloat(el('alu-aj').value)||0;
-  const fl=el('alu-fleuret').checked;
+  if(refs.length&&metalEst){effMoy=avg(refs,c=>c.alu_estime/(c.alu_analyse_pct*c.metal));aluEst=effMoy*target*metalEst;}
+  const ajoutEst=parseFloat(el('alu-aj').value)||0,fl=el('alu-fleuret').checked;
   const metalNet=metalEst!=null?Math.max(0,metalEst-ajoutEst+(fl?1000:0)):null;
   const pw=parseFloat(el('alu-pw').value)||cfg.pw;
-  const wTm=hist.filter(c=>c.temps).slice(0,3);
-  const avgTm=avg(wTm,c=>c.temps)||cfg.tm;
-  const tmSaisi=parseFloat(el('alu-tm').value);
-  const tmUsed=tmSaisi||avgTm;
+  const avgTm=avg(hist.filter(c=>c.temps).slice(0,3),c=>c.temps)||cfg.tm;
+  const tmSaisi=parseFloat(el('alu-tm').value),tmUsed=tmSaisi||avgTm;
   const mr=metalNet??metalEst;
   const rendEst=mr&&tmUsed&&pw?pw/((mr/tmUsed)*60/1000):null;
   const rendMoy=avg(hist.filter(c=>c.rendement).slice(0,3),c=>c.rendement);
-
-  if(!hist.length){
-    zone.innerHTML=`<div class="est-res"><div class="est-res-title">⚗ Estimation — Poche ${aluPoche}</div>
-    <div style="color:var(--amber);font-size:13px;text-align:center">⚠ Aucun historique. Enregistrez une première coulée.</div></div>`;
-    return;
-  }
-
-  // ── Formule métal ─────────────────────────────────────────────────────────
-  let formuleTxt='';
-  const hasCorr=ajoutEst>0||fl;
-  const corrTxt=hasCorr?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);font-size:11px">
-    <span style="color:var(--text2)">Métal brut : </span><code>${Math.round(metalEst).toLocaleString('fr-FR')} kg</code>
-    ${ajoutEst>0?`<br><span style="color:var(--amber)">− Ajout : ${Math.round(ajoutEst).toLocaleString('fr-FR')} kg</span>`:''}
-    ${fl?`<br><span style="color:var(--green)">+ Fleuret : +1 000 kg</span>`:''}
-    <br><strong>= Métal net : ${Math.round(metalNet).toLocaleString('fr-FR')} kg</strong>
-  </div>`:'';
-
-  if(methode==='apres'){
-    const outlierNote=wApres._outlier?` <span style="color:var(--amber);font-size:10px">⚠ valeur aberrante pondérée</span>`:'';
-    const refDetail=wApres.map((c,i)=>{
-      const w=wApres._weights?wApres._weights[i]:([3,2,1][i]);
-      const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
-      return`<span style="color:var(--text3);font-size:10px">${d}: ${fmt(c.poche_apres)} kg ×${w}</span>`;
-    }).join(' · ');
-    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code> <span style="color:var(--text3)">(moy. pond. · ${wApres.length} ref.)${outlierNote}</span><br><span style="font-size:10px;color:var(--text3)">${refDetail}</span>
-    ${avgVide?`<br><span style="color:var(--text3);font-size:10px">dont vide moy. ${Math.round(avgVide).toLocaleString('fr-FR')} + crasse moy. ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>`:''}
-    ${corrTxt}</div>`;
-  } else if(methode==='vide_crasse')
-    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code>${corrTxt}</div>`;
-  else
-    formuleTxt=`<div class="est-formula" style="color:var(--amber)">⚠ Méthode ratio — renseignez Après Recouler pour plus de précision.${corrTxt}</div>`;
-
-  // ── Rendement delta ───────────────────────────────────────────────────────
+  if(!hist.length){zone.innerHTML=`<div class="est-res"><div class="est-res-title">⚗ Poche ${aluPoche} · Gen ${curGen}</div><div style="color:var(--amber);font-size:13px;text-align:center">⚠ Aucun historique pour cette génération.<br>Commencez par saisir des coulées via l'onglet Scan ou Coulée.</div></div>`;return;}
   const rCol=rendColor(rendEst);
-  const rdelta=rendEst&&rendMoy
-    ?`<div class="est-sub" style="color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'}">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`
-    :`<div class="est-sub">${pw} MW/h · ${Math.round(tmUsed)} min${tmSaisi?'':' (moy.)'}</div>`;
-
-  // ── Références Al ────────────────────────────────────────────────────────
-  const badge=refs.length<3
-    ?`<span style="color:var(--amber);font-size:10px">⏳ ${refs.length}/3</span>`
-    :`<span style="color:var(--green);font-size:10px">✓ 3 coulées</span>`;
-  const lignes=refs.map(c=>{
-    const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});
-    return`<div class="ir"><span class="ir-k">${d} · ${fmt(c.metal)} kg</span><span>${c.alu_estime} kg → <span class="tag-ok">${c.alu_analyse_pct}%</span></span></div>`;
-  }).join('');
-
+  const rdelta=rendEst&&rendMoy?`<div class="est-sub" style="color:${rendEst<=rendMoy?'var(--green)':'var(--amber)'}">${rendEst<=rendMoy?'▼ sous':'▲ sur'} moy. ${rendMoy.toFixed(2)}</div>`:`<div class="est-sub">${pw} MW/h · ${Math.round(tmUsed)} min${tmSaisi?'':' (moy.)'}</div>`;
+  const hasCorr=ajoutEst>0||fl;
+  const corrTxt=hasCorr?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08);font-size:11px">Brut : <code>${Math.round(metalEst).toLocaleString('fr-FR')} kg</code>${ajoutEst>0?`<br><span style="color:var(--amber)">− Ajout : ${Math.round(ajoutEst).toLocaleString('fr-FR')} kg</span>`:''}${fl?`<br><span style="color:var(--green)">+ Fleuret : +1 000 kg</span>`:''}<br><strong>= Net : ${Math.round(metalNet).toLocaleString('fr-FR')} kg</strong></div>`:'';
+  let formuleTxt='';
+  if(methode==='apres'){
+    const outNote=waRes&&waRes.hasOutlier?' <span style="color:var(--amber);font-size:10px">⚠ outlier pondéré</span>':'';
+    const refD=wA.map((c,i)=>{const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});return`<span style="color:var(--text3);font-size:10px">${d}: ${fmt(c.poche_apres)} ×${waRes?waRes.weights[i].toFixed(1):([3,2,1][i])}</span>`;}).join(' · ');
+    formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgApres).toLocaleString('fr-FR')}</code>${outNote}<br><span>${refD}</span>${avgVide?`<br><span style="color:var(--text3);font-size:10px">vide: ${Math.round(avgVide).toLocaleString('fr-FR')} + crasse: ${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span>`:''}${corrTxt}</div>`;
+  }else if(methode==='vide_crasse'){formuleTxt=`<div class="est-formula"><code>${Math.round(pocheNew).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgVide).toLocaleString('fr-FR')}</code> − <code>${Math.round(avgCrasse).toLocaleString('fr-FR')}</code>${corrTxt}</div>`;}
+  else{formuleTxt=`<div class="est-formula" style="color:var(--amber)">⚠ Méthode ratio${corrTxt}</div>`;}
+  const badge=refs.length<3?`<span style="color:var(--amber);font-size:10px">⏳ ${refs.length}/3</span>`:`<span style="color:var(--green);font-size:10px">✓ 3 coulées</span>`;
+  const lignes=refs.map(c=>{const d=new Date(c.id).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'});return`<div class="ir"><span class="ir-k">${d} · ${fmt(c.metal)} kg</span><span>${c.alu_estime} kg → <span class="tag-ok">${c.alu_analyse_pct}%</span></span></div>`;}).join('');
   zone.innerHTML=`<div class="est-res">
-    <div class="est-res-title">⚗ Estimation — Poche ${aluPoche}</div>
-    <div class="est-metal">
-      <div class="cbox-lbl">Métal net estimé</div>
-      <div class="est-metal-val">${metalNet!=null?Math.round(metalNet).toLocaleString('fr-FR'):Math.round(metalEst).toLocaleString('fr-FR')} <span class="est-unit">kg</span></div>
-      ${formuleTxt}
-    </div>
+    <div class="est-res-title">⚗ Poche ${aluPoche} · Génération ${curGen}</div>
+    <div class="est-metal"><div class="cbox-lbl">Métal net estimé</div><div class="est-metal-val">${Math.round(metalNet??metalEst).toLocaleString('fr-FR')} <span class="est-unit">kg</span></div>${formuleTxt}</div>
     <div class="est-grid">
       <div class="cbox green"><div class="cbox-lbl">Al à ajouter</div><div class="cbox-val" style="font-size:24px">${aluEst?aluEst.toFixed(1):'—'}</div><div class="cbox-unit" style="display:inline">kg</div><div class="est-sub">cible ${target}%</div></div>
-      <div class="cbox" style="--cbox-color:${rCol}"><div class="cbox-lbl">Rendement estimé</div><div class="cbox-val" style="font-size:24px;color:${rCol}">${rendEst?rendEst.toFixed(2):'—'}</div><div class="cbox-unit" style="display:inline">MWh/t</div>${rdelta}</div>
+      <div class="cbox"><div class="cbox-lbl">Rendement estimé</div><div class="cbox-val" style="font-size:24px;color:${rCol}">${rendEst?rendEst.toFixed(2):'—'}</div><div class="cbox-unit" style="display:inline">MWh/t</div>${rdelta}</div>
     </div>
     <div class="ir-wrap">
-      ${rendEst&&mr?`<div class="ir"><span class="ir-k">Débit estimé</span><span class="ir-v">${((mr/tmUsed)*60/1000).toFixed(3)} t/h</span></div>
-      <div class="ir"><span class="ir-k">Temps utilisé</span><span class="ir-v">${Math.round(tmUsed)} min <span style="font-size:10px;color:var(--text3)">${tmSaisi?'(saisi)':'(moy.)'}</span></span></div>`:''}
-      ${rendMoy?`<div class="ir"><span class="ir-k">Rendement four moy.</span><span class="ir-v">${rendMoy.toFixed(2)} MWh/t</span></div>`:''}
-      ${avgVide!=null?`<div class="ir"><span class="ir-k">Poids vide moyen</span><span class="ir-v">${Math.round(avgVide).toLocaleString('fr-FR')} kg</span></div>
-      <div class="ir"><span class="ir-k">Crasse moyenne</span><span class="ir-v">${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span></div>`:''}
-      <div class="ir"><span class="ir-k">Références disponibles</span><span class="ir-v">${hist.length} coulée${hist.length>1?'s':''}</span></div>
+      ${rendEst&&mr?`<div class="ir"><span class="ir-k">Débit estimé</span><span class="ir-v">${((mr/tmUsed)*60/1000).toFixed(3)} t/h</span></div><div class="ir"><span class="ir-k">Temps utilisé</span><span class="ir-v">${Math.round(tmUsed)} min <span style="font-size:10px;color:var(--text3)">${tmSaisi?'(saisi)':'(moy.)'}</span></span></div>`:''}
+      ${rendMoy?`<div class="ir"><span class="ir-k">Rendement moy.</span><span class="ir-v">${rendMoy.toFixed(2)} MWh/t</span></div>`:''}
+      ${avgVide!=null?`<div class="ir"><span class="ir-k">Poids vide moy.</span><span class="ir-v">${Math.round(avgVide).toLocaleString('fr-FR')} kg</span></div><div class="ir"><span class="ir-k">Crasse moy.</span><span class="ir-v">${Math.round(avgCrasse).toLocaleString('fr-FR')} kg</span></div>`:''}
+      <div class="ir"><span class="ir-k">Références gen ${curGen}</span><span class="ir-v">${hist.length} coulée${hist.length>1?'s':''}</span></div>
     </div>
-    ${refs.length?`<div class="est-refs"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size:11px">Références Al</strong>${badge}</div>${lignes}</div>`
-    :`<div class="est-refs" style="color:var(--amber)">⚠ Aucune analyse Al% — enregistrez des analyses dans l'Historique.</div>`}
+    ${refs.length?`<div class="est-refs"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size:11px">Références Al</strong>${badge}</div>${lignes}</div>`:`<div class="est-refs" style="color:var(--amber)">⚠ Aucune analyse Al% enregistrée.</div>`}
   </div>`;
 }
 
-// ─── SAVE COULÉE ─────────────────────────────────────────────────────────────
 function saveCoulee(){
-  const pp=v('ip-pp'),pr=v('ip-pr');
-  if(!pp||!pr){toast('⚠ Poids poche pleine et après recouler requis',true);return}
+  const pp=v('ip-pp'),pr=v('ip-pr');if(!pp||!pr){toast('⚠ Poids poche pleine et après recouler requis',true);return}
   const pv=v('ip-pv'),pw=v('ip-pw')||cfg.pw,tm=v('ip-tm')||cfg.tm;
   const aj=v('ip-aj'),fl=el('ip-fleuret').checked;
-  const {brut,net}=metalCalc(pp,pr,aj,fl);
-  const crasse=pr-pv;
-  const debit=(net/tm)*60/1000;
+  const {brut,net}=metalCalc(pp,pr,aj,fl);const crasse=pr-pv;const debit=net>0?(net/tm)*60/1000:0;const rend=debit>0?pw/debit:0;
   const d=getHistory();
-  d.push({
-    id:Date.now(),
-    date:el('inp-date').value,heure:el('inp-heure').value,
-    poche:curPoche,poche_pleine:pp,poche_apres:pr,poche_vide:pv||null,
-    puissance:pw,temps:tm,metal:brut,ajout:aj||null,fleuret:fl||null,
-    metal_net:(aj||fl)?net:null,
-    crasse:(pv&&crasse>=0)?crasse:null,
-    debit:+debit.toFixed(4),rendement:+(pw/debit).toFixed(5),
-    alu_estime:v('ip-ae')||null,alu_analyse_pct:v('ip-aa')||null,alu_reel:null
-  });
-  saveHistory(d);toast('✓ Coulée enregistrée');resetForm();updateDataInfo();
+  d.push({id:Date.now(),date:el('inp-date').value,heure:el('inp-heure').value,poche:curPoche,poche_gen:pgens[curPoche]||1,poche_pleine:pp,poche_apres:pr,poche_vide:pv||null,puissance:pw,temps:tm,metal:brut,ajout:aj||null,fleuret:fl||null,metal_net:(aj||fl)?net:null,crasse:(pv&&crasse>=0)?crasse:null,debit:+debit.toFixed(4),rendement:+rend.toFixed(5),alu_estime:v('ip-ae')||null,alu_analyse_pct:v('ip-aa')||null,alu_reel:null});
+  saveHistory(d);toast('✓ Coulée enregistrée');resetForm();updateDataInfo();updateGenInfo('coulee-gen-info',curPoche);
 }
-
 function resetForm(){
   ['ip-pp','ip-pr','ip-pv','ip-aj','ip-ae','ip-aa'].forEach(id=>el(id).value='');
-  el('ip-fleuret').checked=false;
-  el('ip-pw').value=cfg.pw;el('ip-tm').value=cfg.tm;
+  el('ip-fleuret').checked=false;el('ip-pw').value=cfg.pw;el('ip-tm').value=cfg.tm;
   ['c-metal','c-metalnet','c-crasse','c-debit','c-rend'].forEach(id=>el(id).textContent='—');
-  el('c-metal-f').textContent='';el('c-metalnet-f').textContent='';
-  setNow();
+  el('c-metal-f').textContent='';el('c-metalnet-f').textContent='';setNow();
 }
 
-// ─── HISTORIQUE ──────────────────────────────────────────────────────────────
+// SCAN
+const sxGroups=['h','tm','pp','pr','pv','aj','ae','fx'];
+function initScanAutoTab(){
+  const inputs=[...document.querySelectorAll('#tp-x input[type=number],#tp-x input[type=text]')];
+  inputs.forEach((inp,i)=>inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();inputs[i+1]?.focus();}}));
+}
+function sxMark(inp,col,field){
+  inp.classList.toggle('ok',!!inp.value);
+  sxGroups.forEach((f,i)=>{const done=[0,1,2].some(c=>{const e=el('sx-'+f+c);return e&&e.value});el('sxp'+i)?.classList.toggle('done',done);});
+}
+function saveScan(){
+  const dateVal=el('sx-date').value||new Date().toISOString().slice(0,10);
+  const pw=parseFloat(el('sx-pw').value)||cfg.pw;
+  const d=getHistory();let count=0;
+  [0,1,2].forEach(col=>{
+    const pp=parseFloat(el('sx-pp'+col)?.value)||0;
+    const pr=parseFloat(el('sx-pr'+col)?.value)||0;
+    if(!pp||!pr)return; // Pleine ET Vide requis
+    const pv=parseFloat(el('sx-pv'+col)?.value)||0;
+    const tm=parseFloat(el('sx-tm'+col)?.value)||cfg.tm;
+    const aj=parseFloat(el('sx-aj'+col)?.value)||0;
+    const fl=el('sx-fl'+col)?.checked||false;
+    const ae=parseFloat(el('sx-ae'+col)?.value)||null;
+    const fx=parseFloat(el('sx-fx'+col)?.value)||null;
+    const heure=el('sx-h'+col)?.value?.trim()||'--:--';
+    const {brut,net}=metalCalc(pp,pr,aj,fl);
+    if(brut<=0)return; // Sécurité : métal doit être positif
+    const crasse=(pr&&pv&&pr>pv)?pr-pv:null;
+    const debit=(net/tm)*60/1000;
+    const rend=debit>0?pw/debit:0;
+    d.push({id:Date.now()+col*10,date:dateVal,heure,poche:scanPoche,poche_gen:pgens[scanPoche]||1,
+      poche_pleine:pp,poche_apres:pr,poche_vide:pv||null,puissance:pw,temps:tm,
+      metal:brut,ajout:aj||null,fleuret:fl||null,metal_net:(aj||fl)?net:null,crasse,
+      debit:+debit.toFixed(4),rendement:+rend.toFixed(5),
+      alu_estime:ae,alu_analyse_pct:fx,alu_reel:null,scan:true});
+    count++;
+  });
+  if(!count){toast('⚠ Remplis Pleine + Vide pour au moins une coulée',true);return}
+  saveHistory(d);toast(`✓ ${count} coulée${count>1?'s':''} enregistrée${count>1?'s':''}`);
+  resetScan();updateDataInfo();updateGenInfo('coulee-gen-info',curPoche);updateGenInfo('est-gen-info',aluPoche);
+}
+function resetScan(){
+  document.querySelectorAll('#tp-x input[type=number],#tp-x input[type=text]').forEach(i=>{i.value='';i.classList.remove('ok')});
+  document.querySelectorAll('#tp-x input[type=checkbox]').forEach(c=>c.checked=false);
+  document.querySelectorAll('.sx-prog span').forEach(s=>s.classList.remove('done'));
+  el('sx-pw').value=cfg.pw;el('sx-date').value=new Date().toISOString().slice(0,10);
+  el('sx-tip').textContent='Réinitialisé';setTimeout(()=>el('sx-tip').textContent='Entrée ou Tab pour passer au champ suivant',1500);
+}
+
 function renderHist(){
   const filt=parseInt(el('filt').value)||0;
   let data=getHistory().sort((a,b)=>b.id-a.id);
@@ -733,17 +607,17 @@ function renderHist(){
   const lst=el('hist-list');
   if(!data.length){lst.innerHTML=`<div class="empty"><div class="empty-ic">📋</div>Aucune coulée enregistrée</div>`;return}
   lst.innerHTML=data.map(c=>{
-    const aluTag=c.alu_analyse_pct
-      ?`<span style="color:${alColor(c.alu_analyse_pct,cfg.aluTarget)};font-weight:600">✓ ${c.alu_analyse_pct}%</span>`
-      :`<span class="tag-pend">⏳ en attente</span>`;
-    const aluVal=c.alu_analyse_pct
-      ?`<div class="hi-vn" style="color:${alColor(c.alu_analyse_pct,cfg.aluTarget)}">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`
-      :c.alu_estime?`<div class="hi-vn tag-pend">${c.alu_estime}kg</div><div class="hi-vl">Al estimé</div>`
-      :`<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
-    const mAff=c.metal_net??c.metal;
-    const rCol=rendColor(c.rendement);
-    return`<div class="hi" onclick="openDet(${c.id})">
-      <div class="hi-top"><div class="hi-date">${c.date} ${c.heure}</div><div class="hi-p">P${c.poche}${c.fleuret?' 🗡':''}</div></div>
+    const curGen=pgens[c.poche]||1,isOld=(c.poche_gen||1)<curGen;
+    const aluTag=c.alu_analyse_pct?`<span style="color:${alColor(c.alu_analyse_pct,cfg.aluTarget)};font-weight:600">✓ ${c.alu_analyse_pct}%</span>`:`<span class="tag-pend">⏳ en attente</span>`;
+    const aluVal=c.alu_analyse_pct?`<div class="hi-vn" style="color:${alColor(c.alu_analyse_pct,cfg.aluTarget)}">${c.alu_analyse_pct}%</div><div class="hi-vl">Al analysé</div>`:c.alu_estime?`<div class="hi-vn tag-pend">${c.alu_estime}kg</div><div class="hi-vl">Al estimé</div>`:`<div class="hi-vn" style="color:var(--text2)">—</div><div class="hi-vl">Aluminium</div>`;
+    const mAff=c.metal_net??c.metal,rCol=rendColor(c.rendement);
+    const flags=[];
+    if(c.exclu)flags.push(`<span style="color:var(--amber);font-size:10px;font-weight:600">⚠️ Exclue</span>`);
+    if(isOld)flags.push(`<span class="gen-badge">Ancienne poche · Gen ${c.poche_gen||1}</span>`);
+    if(c.scan)flags.push(`<span style="font-size:10px;color:var(--text3)">📋</span>`);
+    return`<div class="hi" onclick="openDet(${c.id})" style="${c.exclu?'opacity:.55':''}">
+      <div class="hi-top"><div class="hi-date">${c.date} ${c.heure}</div><div class="hi-p">P${c.poche}${c.fleuret?' 🔥':''}${isOld?` G${c.poche_gen||1}`:''}</div></div>
+      ${flags.length?`<div style="margin-bottom:6px;display:flex;gap:6px;flex-wrap:wrap">${flags.join('')}</div>`:''}
       <div class="hi-vals">
         <div class="hi-v"><div class="hi-vn">${fmt(c.poche_pleine)}</div><div class="hi-vl">Pleine kg</div></div>
         <div class="hi-v"><div class="hi-vn">${fmt(mAff)}</div><div class="hi-vl">${c.metal_net!=null?'Métal net':'Métal'} kg</div></div>
@@ -754,157 +628,79 @@ function renderHist(){
   }).join('');
 }
 
-// ─── DETAIL ───────────────────────────────────────────────────────────────────
 function openDet(id){
-  const c=getHistory().find(x=>x.id===id);
-  if(!c)return;
-  selId=id;
+  const c=getHistory().find(x=>x.id===id);if(!c)return;selId=id;
+  const curGen=pgens[c.poche]||1,isOld=(c.poche_gen||1)<curGen;
   const row=(k,v,col='')=>`<div class="ir"><span class="ir-k">${k}</span><span class="ir-v" style="color:${col||'var(--text)'}">${v}</span></div>`;
   el('mod-det-body').innerHTML=`<div class="ir-wrap">`+[
     row('Date / Heure',`${c.date} ${c.heure}`),
-    row('Poche',`Poche ${c.poche}`),
+    row('Poche',`Poche ${c.poche} · Génération ${c.poche_gen||1}`),
+    isOld?row('Statut gen',`Ancienne poche (gen actuelle : ${curGen})`,'var(--amber)'):'',
+    c.scan?row('Source','📋 Saisie scan','var(--text2)'):'',
     row('Poche Pleine',`${fmt(c.poche_pleine)} kg`),
-    row('Après Recouler',`${fmt(c.poche_apres)} kg`),
+    c.poche_apres?row('Après Recouler',`${fmt(c.poche_apres)} kg`):'',
     row('Métal brut',`${fmt(c.metal)} kg`,'var(--green)'),
-    c.ajout?row('Ajout',`${fmt(c.ajout)} kg`,'var(--amber)'):'',
-    c.fleuret?row('Fleuret','🗡 +1 000 kg','var(--green)'):'',
+    c.ajout?row('🪨 Ajout',`${fmt(c.ajout)} kg`,'var(--amber)'):'',
+    c.fleuret?row('🔥 Fleuret','+1 000 kg','var(--green)'):'',
     c.metal_net!=null?row('Métal Net',`${fmt(c.metal_net)} kg`,'var(--green)'):'',
     c.poche_vide?row('Poche Vide',`${fmt(c.poche_vide)} kg`):'',
     c.crasse!=null?row('Crasse',`${fmt(c.crasse)} kg`,'var(--amber)'):'',
-    row('Puissance',`${c.puissance} MW/h`),
-    row('Temps',`${c.temps} min`),
+    row('Puissance',`${c.puissance} MW/h`),row('Temps',`${c.temps} min`),
     row('Débit',`${c.debit} t/h`),
     row('Rendement',`${c.rendement} MWh/t`,rendColor(c.rendement)),
     row('Al Estimé',c.alu_estime?`${c.alu_estime} kg`:'—'),
-    row('Al Analyse %',
-      c.alu_analyse_pct?`${c.alu_analyse_pct}% (cible ${cfg.aluTarget}%)`:'⏳ En attente',
-      c.alu_analyse_pct?alColor(c.alu_analyse_pct,cfg.aluTarget):'var(--amber)'),
-    c.alu_reel?row('Al Réel',`${c.alu_reel} kg`,'var(--green)'):''
+    row('Al Analyse %',c.alu_analyse_pct?`${c.alu_analyse_pct}% (cible ${cfg.aluTarget}%)`:'⏳ En attente',c.alu_analyse_pct?alColor(c.alu_analyse_pct,cfg.aluTarget):'var(--amber)'),
+    c.alu_reel?row('Al Réel',`${c.alu_reel} kg`,'var(--green)'):'',
+    c.exclu?row('Statut calcul','⚠️ Exclue des calculs','var(--amber)'):''
   ].join('')+`</div>`;
   el('btn-aa').style.display=c.alu_analyse_pct?'none':'block';
+  const bx=el('btn-exclu');bx.textContent=c.exclu?'✅ Réintégrer dans les calculs':'⚠️ Exclure des calculs';bx.className=c.exclu?'btn btn-s':'btn btn-r';
   openModal('ov-det');
 }
 
 function openEditModal(){
-  const c=getHistory().find(x=>x.id===selId);if(!c)return;
-  closeModal('ov-det');
-  ['pp','pr','pv','aj','pw','tm','ae','aa'].forEach(k=>{
-    const map={pp:'poche_pleine',pr:'poche_apres',pv:'poche_vide',aj:'ajout',pw:'puissance',tm:'temps',ae:'alu_estime',aa:'alu_analyse_pct'};
-    el('e-'+k).value=c[map[k]]||'';
-  });
-  openModal('ov-edit');
+  const c=getHistory().find(x=>x.id===selId);if(!c)return;closeModal('ov-det');
+  const map={pp:'poche_pleine',pr:'poche_apres',pv:'poche_vide',aj:'ajout',pw:'puissance',tm:'temps',ae:'alu_estime',aa:'alu_analyse_pct'};
+  ['pp','pr','pv','aj','pw','tm','ae','aa'].forEach(k=>el('e-'+k).value=c[map[k]]||'');openModal('ov-edit');
 }
-
 function saveEdit(){
-  const d=getHistory();const idx=d.findIndex(c=>c.id===selId);if(idx<0)return;
+  const d=getHistory(),idx=d.findIndex(c=>c.id===selId);if(idx<0)return;
   const c=d[idx];
-  const pp=parseFloat(el('e-pp').value)||c.poche_pleine;
-  const pr=parseFloat(el('e-pr').value)||c.poche_apres;
-  const pv=parseFloat(el('e-pv').value)||null;
-  const pw=parseFloat(el('e-pw').value)||c.puissance;
-  const tm=parseFloat(el('e-tm').value)||c.temps;
-  const aj=parseFloat(el('e-aj').value)||0;
-  const {brut,net}=metalCalc(pp,pr,aj,c.fleuret);
-  const crasse=pv&&(pr-pv)>=0?pr-pv:null;
-  const debit=(net/tm)*60/1000;
-  d[idx]={...c,poche_pleine:pp,poche_apres:pr,poche_vide:pv,puissance:pw,temps:tm,
-    metal:brut,ajout:aj||null,metal_net:(aj||c.fleuret)?net:null,crasse,
-    debit:+debit.toFixed(4),rendement:+(pw/debit).toFixed(5),
-    alu_estime:parseFloat(el('e-ae').value)||c.alu_estime||null,
-    alu_analyse_pct:parseFloat(el('e-aa').value)||c.alu_analyse_pct||null};
+  const pp=parseFloat(el('e-pp').value)||c.poche_pleine,pr=parseFloat(el('e-pr').value)||c.poche_apres;
+  const pv=parseFloat(el('e-pv').value)||null,pw=parseFloat(el('e-pw').value)||c.puissance,tm=parseFloat(el('e-tm').value)||c.temps,aj=parseFloat(el('e-aj').value)||0;
+  const {brut,net}=metalCalc(pp,pr,aj,c.fleuret);const crasse=pv&&(pr-pv)>=0?pr-pv:null;const debit=(net/tm)*60/1000;
+  d[idx]={...c,poche_pleine:pp,poche_apres:pr,poche_vide:pv,puissance:pw,temps:tm,metal:brut,ajout:aj||null,metal_net:(aj||c.fleuret)?net:null,crasse,debit:+debit.toFixed(4),rendement:+(pw/debit).toFixed(5),alu_estime:parseFloat(el('e-ae').value)||c.alu_estime||null,alu_analyse_pct:parseFloat(el('e-aa').value)||c.alu_analyse_pct||null};
   saveHistory(d);toast('✓ Coulée modifiée');closeModal('ov-edit');renderHist();
 }
-
 function confirmDelete(){closeModal('ov-det');openModal('ov-del')}
-function deleteCoulee(){
-  saveHistory(getHistory().filter(c=>c.id!==selId));
-  closeModal('ov-del');renderHist();updateDataInfo();toast('✓ Coulée supprimée');
-}
-
-function openAluModal(){
-  closeModal('ov-det');
-  el('m-alu-pct').value='';el('m-alu-reel').value='';openModal('ov-alu');
-}
+function deleteCoulee(){saveHistory(getHistory().filter(c=>c.id!==selId));closeModal('ov-del');renderHist();updateDataInfo();toast('✓ Coulée supprimée')}
+function toggleExclu(){const d=getHistory(),idx=d.findIndex(c=>c.id===selId);if(idx<0)return;d[idx].exclu=!d[idx].exclu;saveHistory(d);toast(d[idx].exclu?'⚠️ Exclue des calculs':'✅ Réintégrée');renderHist();openDet(selId);}
+function openAluModal(){closeModal('ov-det');el('m-alu-pct').value='';el('m-alu-reel').value='';openModal('ov-alu')}
 function saveAlu(){
-  const pct=parseFloat(el('m-alu-pct').value);
-  if(!pct){toast('⚠ Entrez la valeur Al%',true);return}
+  const pct=parseFloat(el('m-alu-pct').value);if(!pct){toast('⚠ Entrez la valeur Al%',true);return}
   const d=getHistory(),idx=d.findIndex(c=>c.id===selId);
-  if(idx>=0){
-    d[idx].alu_analyse_pct=pct;
-    const reel=parseFloat(el('m-alu-reel').value);
-    if(reel)d[idx].alu_reel=reel;
-    saveHistory(d);toast('✓ Analyse Al enregistrée');closeModal('ov-alu');renderHist();
-  }
+  if(idx>=0){d[idx].alu_analyse_pct=pct;const r=parseFloat(el('m-alu-reel').value);if(r)d[idx].alu_reel=r;saveHistory(d);toast('✓ Analyse Al enregistrée');closeModal('ov-alu');renderHist();}
 }
 
-// ─── SETTINGS ────────────────────────────────────────────────────────────────
-function loadCfg(){
-  try{const s=JSON.parse(localStorage.getItem('fc_cfg')||'{}');
-    cfg.pw=+s.pw||30;cfg.tm=+s.tm||180;cfg.aluTarget=+s.aluTarget||0.21;
-  }catch{}
-}
+function loadCfg(){try{const s=JSON.parse(localStorage.getItem('fc_cfg')||'{}');cfg.pw=+s.pw||30;cfg.tm=+s.tm||180;cfg.aluTarget=+s.aluTarget||0.21;}catch{}}
 function saveSetting(k,val){cfg[k]=parseFloat(val)||cfg[k];localStorage.setItem('fc_cfg',JSON.stringify(cfg))}
 function applySettingsUI(){
-  ['s-pw','ip-pw','alu-pw'].forEach(id=>el(id).value=cfg.pw);
-  ['s-tm','ip-tm','alu-tm'].forEach(id=>el(id).value=cfg.tm);
+  ['s-pw','ip-pw','alu-pw','sx-pw'].forEach(id=>{const e=el(id);if(e)e.value=cfg.pw});
+  ['s-tm','ip-tm','alu-tm'].forEach(id=>{const e=el(id);if(e)e.value=cfg.tm});
   el('s-at').value=cfg.aluTarget;syncAluTarget();
+  updateGenInfo('coulee-gen-info',curPoche);updateGenInfo('est-gen-info',aluPoche);
 }
-function syncAluTarget(){
-  cfg.aluTarget=parseFloat(el('s-at').value)||0.21;
-  el('alu-target').value=cfg.aluTarget;el('s-at').value=cfg.aluTarget;
-}
-function updateDataInfo(){
-  const n=getHistory().length;
-  const e=el('data-info');
-  if(e)e.textContent=n+' coulée'+(n!==1?'s':'')+' enregistrée'+(n!==1?'s':'');
-}
-
-// ─── EXPORT ──────────────────────────────────────────────────────────────────
-function exportJSON(){
-  const url=URL.createObjectURL(new Blob([JSON.stringify(getHistory(),null,2)],{type:'application/json'}));
-  const a=document.createElement('a');a.href=url;
-  a.download='sunzadev_'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();URL.revokeObjectURL(url);toast('✓ Export téléchargé');
-}
-function clearAll(){
-  _hist=null;localStorage.removeItem('fc_coulees');
-  closeModal('ov-clr');renderHist();updateDataInfo();toast('✓ Données effacées');
-}
-function deconnexion(){
-  localStorage.removeItem('unlocked');sessionStorage.removeItem('unlocked');
-  el('lockscreen').style.display='flex';el('pwd-input').value='';el('pwd-err').style.display='none';
-  goTab('c');toast('✓ Déconnecté');
-}
-
-// ─── MODAL / TOAST ───────────────────────────────────────────────────────────
+function syncAluTarget(){cfg.aluTarget=parseFloat(el('s-at').value)||0.21;el('alu-target').value=cfg.aluTarget;el('s-at').value=cfg.aluTarget;}
+function updateDataInfo(){const n=getHistory().length;const e=el('data-info');if(e)e.textContent=n+' coulée'+(n!==1?'s':'')+' enregistrée'+(n!==1?'s':'')}
+function exportJSON(){const url=URL.createObjectURL(new Blob([JSON.stringify(getHistory(),null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='sunzadev_'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);toast('✓ Export téléchargé')}
+function clearAll(){_hist=null;localStorage.removeItem('fc_coulees');closeModal('ov-clr');renderHist();updateDataInfo();toast('✓ Données effacées')}
+function deconnexion(){localStorage.removeItem('unlocked');sessionStorage.removeItem('unlocked');el('lockscreen').style.display='flex';el('pwd-input').value='';el('pwd-err').style.display='none';goTab('c');toast('✓ Déconnecté')}
 function openModal(id){el(id).classList.add('on')}
 function closeModal(id){el(id).classList.remove('on')}
 document.querySelectorAll('.ov').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)closeModal(ov.id)}));
-
 let toastT;
-function toast(msg,err=false){
-  const t=el('toast');t.textContent=msg;t.className='toast on'+(err?' err':' ok');
-  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2500);
-}
-
-// ─── ICÔNE PWA ───────────────────────────────────────────────────────────────
-function genIcon(){
-  try{
-    const c=document.createElement('canvas');c.width=c.height=512;
-    const ctx=c.getContext('2d'),r=100;
-    ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(512-r,0);ctx.arcTo(512,0,512,r,r);
-    ctx.lineTo(512,512-r);ctx.arcTo(512,512,512-r,512,r);ctx.lineTo(r,512);
-    ctx.arcTo(0,512,0,512-r,r);ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);ctx.closePath();
-    ctx.fillStyle='#1a1d2e';ctx.fill();
-    const g=ctx.createRadialGradient(256,200,0,256,256,350);
-    g.addColorStop(0,'rgba(124,90,247,.4)');g.addColorStop(1,'rgba(79,142,247,.1)');
-    ctx.fillStyle=g;ctx.fill();
-    ctx.font='280px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('⚗',258,270);
-    const lnk=document.createElement('link');lnk.rel='apple-touch-icon';lnk.sizes='512x512';
-    lnk.href=c.toDataURL('image/png');document.head.appendChild(lnk);
-  }catch{}
-}
-
+function toast(msg,err=false){const t=el('toast');t.textContent=msg;t.className='toast on'+(err?' err':' ok');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),2500)}
+function genIcon(){try{const c=document.createElement('canvas');c.width=c.height=512;const ctx=c.getContext('2d'),r=100;ctx.beginPath();ctx.moveTo(r,0);ctx.lineTo(512-r,0);ctx.arcTo(512,0,512,r,r);ctx.lineTo(512,512-r);ctx.arcTo(512,512,512-r,512,r);ctx.lineTo(r,512);ctx.arcTo(0,512,0,512-r,r);ctx.lineTo(0,r);ctx.arcTo(0,0,r,0,r);ctx.closePath();ctx.fillStyle='#1a1d2e';ctx.fill();const g=ctx.createRadialGradient(256,200,0,256,256,350);g.addColorStop(0,'rgba(124,90,247,.4)');g.addColorStop(1,'rgba(79,142,247,.1)');ctx.fillStyle=g;ctx.fill();ctx.font='280px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('⚗',258,270);const lnk=document.createElement('link');lnk.rel='apple-touch-icon';lnk.sizes='512x512';lnk.href=c.toDataURL('image/png');document.head.appendChild(lnk);}catch{}}
 init();
 </script>
 </body>
